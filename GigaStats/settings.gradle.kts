@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Giga-Stats"
 include(":app")
+include(":Giga_Stats")
