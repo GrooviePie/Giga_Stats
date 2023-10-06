@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,13 +33,15 @@ public class MainActivity extends AppCompatActivity {
         // Set the "Start" button as selected
         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
 
-        // Zeige standardmäßig das StatisticsFragment an
+
+
+        // Zeige standardmäßig das RunningWorkoutFragment an
         showRunningWorkout();
 
         // Konfiguriere die Bottom Navigation View
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        // Verwende setOnItemSelectedListener anstelle von setOnNavigationItemSelectedListener
+        // Verwende setOnItemSelectedListener für Klickabfrage
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
@@ -62,7 +66,16 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        Log.d("CHAD", "onCreateOptionsMenu(): Optionsmenü wird erzeugt");
+   //Mit hilfe des MenuInflatersDieMenu-Ressource(Optionsmenu) bauen
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_exercises_top_option,menu);
+        return true;
+    }
+
     private void showFragment(Fragment fragment) {
+
         // Beginne eine Transaktion, um das Fragment hinzuzufügen
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.FrameLayout, fragment); // "FrameLayout" ist die ID des Containers, in dem das Fragment angezeigt werden soll
@@ -71,26 +84,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showStatisticsFragment() {
+        Log.d("CHAD", "showStatisticsFragment(): StatisticsFragment wird erzeugt");
         StatisticsFragment statisticsFragment = new StatisticsFragment();
         showFragment(statisticsFragment);
     }
 
     private void showRunningWorkout(){
+        Log.d("CHAD", "showRunningWorkout(): RunningWorkoutFragment wird erzeugt");
         RunningWorkoutFragment runningWorkoutFragment = new RunningWorkoutFragment();
         showFragment(runningWorkoutFragment);
     }
 
     private void showTimerFragment() {
+        Log.d("CHAD", "showTimerFragment(): TimerFragment wird erzeugt");
         TimerFragment timerFragment = new TimerFragment();
         showFragment(timerFragment);
     }
 
     private void showExercisesFragment() {
+        Log.d("CHAD", "showExercisesFragment(): ExercisesFragment wird erzeugt");
         ExercisesFragment exercisesFragment = new ExercisesFragment();
         showFragment(exercisesFragment);
     }
 
     private void showWorkoutsFragment() {
+        Log.d("CHAD", "showWorkoutsFragment(): WorkoutsFragment wird erzeugt");
         WorkoutsFragment workoutsFragment = new WorkoutsFragment();
         showFragment(workoutsFragment);
     }

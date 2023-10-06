@@ -2715,9 +2715,11 @@ drawable design_ic_visibility
 drawable design_ic_visibility_off
 drawable design_password_eye
 drawable design_snackbar_background
+drawable ic_add_24
 drawable ic_arrow_back_black_24
 drawable ic_clear_black_24
 drawable ic_clock_black_24dp
+drawable ic_edit_24
 drawable ic_keyboard_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
@@ -2808,6 +2810,7 @@ id BOTTOM_END
 id BOTTOM_START
 id CTRL
 id EXERCISES_BUTTONMENU_BUTTON
+id FRAMELAYOUT_EXERCISES
 id FUNCTION
 id FrameLayout
 id META
@@ -2987,6 +2990,7 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
+id exercises_toolbar
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3128,6 +3132,8 @@ id notification_main_column_container
 id off
 id on
 id onInterceptTouchReturnSwipe
+id optionmenu_exercises_add
+id optionmenu_exercises_edit
 id outline
 id outward
 id overshoot
@@ -3158,6 +3164,7 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
+id running_workout_toolbar
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3228,6 +3235,7 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
+id statistics_toolbar
 id stop
 id stretch
 id submenuarrow
@@ -3257,7 +3265,7 @@ id textTop
 id textView
 id textView2
 id textView3
-id textView4
+id textView6
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3268,6 +3276,7 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
+id timer_toolbar
 id title
 id titleDividerNoCustom
 id title_template
@@ -3301,6 +3310,7 @@ id west
 id withText
 id with_icon
 id withinBounds
+id workouts_toolbar
 id wrap
 id wrap_content
 id wrap_content_constrained
@@ -3495,7 +3505,8 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
-menu bottom_nav_menu
+menu menu_bottom_nav
+menu menu_exercises_top_option
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
@@ -3535,6 +3546,8 @@ string bottomsheet_action_expand
 string bottomsheet_action_expand_halfway
 string bottomsheet_drag_handle_clicked
 string bottomsheet_drag_handle_content_description
+string bung_hinzuf_gen
+string bung_l_schen
 string character_counter_content_description
 string character_counter_overflowed_content_description
 string character_counter_pattern
