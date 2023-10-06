@@ -16,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fragmentManager;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
         // Erstelle eine Instanz des FragmentManagers
         fragmentManager = getSupportFragmentManager();
 
+        // Initialize the Bottom Navigation View
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        // Set the "Start" button as selected
+        bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
+
         // Zeige standardmäßig das StatisticsFragment an
-         showStatisticsFragment();
+        showRunningWorkout();
 
         // Konfiguriere die Bottom Navigation View
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -48,6 +54,10 @@ public class MainActivity extends AppCompatActivity {
                 showWorkoutsFragment();
                 return true;
             }
+            else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
+                showRunningWorkout();
+                return true;
+            }
             return false;
         });
     }
@@ -63,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
     private void showStatisticsFragment() {
         StatisticsFragment statisticsFragment = new StatisticsFragment();
         showFragment(statisticsFragment);
+    }
+
+    private void showRunningWorkout(){
+        RunningWorkoutFragment runningWorkoutFragment = new RunningWorkoutFragment();
+        showFragment(runningWorkoutFragment);
     }
 
     private void showTimerFragment() {
