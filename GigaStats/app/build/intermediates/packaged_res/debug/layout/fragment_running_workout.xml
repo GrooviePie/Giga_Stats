@@ -22,5 +22,5 @@
         android:layout_width="match_parent"
         android:layout_height="59dp"
         android:text="Hier kann man direkt ein Workout starten (Startbildschirm)"
-        android:textColor="#D30707" />
+        android:textColor="#F8F6F6" />
 </LinearLayout>

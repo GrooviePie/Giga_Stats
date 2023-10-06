@@ -5,7 +5,7 @@
         android:id="@+id/STATS_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Statistik"
+        android:title="Statistiken"
         android:icon="@drawable/bottommenu_icon_bar_chart_24"/>
     <item
         android:id="@+id/TIMER_BUTTONMENU_BUTTON"
@@ -30,6 +30,6 @@
         android:id="@+id/WORKOUT_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Workout"
+        android:title="Workouts"
         android:icon="@drawable/bottommenu_icon_workout_24"/>
 </menu>

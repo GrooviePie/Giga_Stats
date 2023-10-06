@@ -1,4 +1,4 @@
-#Fri Oct 06 22:55:39 CEST 2023
+#Fri Oct 06 23:05:36 CEST 2023
 base.0=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
