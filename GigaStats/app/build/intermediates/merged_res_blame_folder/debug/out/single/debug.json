@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_workout_24.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_workout_24.xml"
+    },
+    {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
     },
@@ -8,24 +12,24 @@
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\mipmap-hdpi\\ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_bottommenu_icon_exercise_24.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/bottommenu_icon_exercise_24.xml"
-    },
-    {
-        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\xml_backup_rules.xml.flat",
-        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\xml\\backup_rules.xml"
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_bar_chart_24.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_bar_chart_24.xml"
     },
     {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\layout_fragment_timer.xml.flat",
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\layout\\fragment_timer.xml"
     },
     {
-        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_start_24.xml.flat",
-        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_start_24.xml"
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\xml\\backup_rules.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_bottommenu_icon_bar_chart_24.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/bottommenu_icon_bar_chart_24.xml"
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_time_24.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_time_24.xml"
+    },
+    {
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_start_24.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_start_24.xml"
     },
     {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_launcher_background.xml.flat",
@@ -68,6 +72,10 @@
         "source": "com.example.giga_stats.app-main-30:/menu/bottom_nav_menu.xml"
     },
     {
+        "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_bottommenu_icon_exercise_24.xml.flat",
+        "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_exercise_24.xml"
+    },
+    {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
@@ -96,10 +104,6 @@
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\buttommenu_icon_bar_chart_24.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_bottommenu_icon_time_24.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/bottommenu_icon_time_24.xml"
-    },
-    {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\xml_data_extraction_rules.xml.flat",
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\xml\\data_extraction_rules.xml"
     },
@@ -126,9 +130,5 @@
     {
         "merged": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\layout_fragment_exercises.xml.flat",
         "source": "C:\\Users\\KoSi-Lab\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\layout\\fragment_exercises.xml"
-    },
-    {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_bottommenu_icon_workout_24.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/bottommenu_icon_workout_24.xml"
     }
 ]

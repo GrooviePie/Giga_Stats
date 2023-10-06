@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
                 showExercisesFragment();
                 return true;
-            } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
-                showWorkoutsFragment();
+             } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
+                    showWorkoutsFragment();
                 return true;
             }
             else if (itemId == R.id.START_BUTTONMENU_BUTTON) {

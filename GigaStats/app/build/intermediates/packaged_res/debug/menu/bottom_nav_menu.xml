@@ -17,7 +17,7 @@
         android:id="@+id/START_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Start Workout"
+        android:title="Workout beginnen"
         android:icon="@drawable/bottommenu_icon_start_24"/>
     <item
         android:id="@+id/EXERCISES_BUTTONMENU_BUTTON"
