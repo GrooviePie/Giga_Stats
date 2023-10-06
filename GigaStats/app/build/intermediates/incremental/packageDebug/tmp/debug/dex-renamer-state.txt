@@ -1,7 +1,7 @@
-#Thu Oct 05 20:46:48 CEST 2023
-base.0=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.2=C\:\\Users\\giber\\Documents\\Github\\Giga Stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
+#Fri Oct 06 12:51:37 CEST 2023
+base.0=C\:\\Users\\KoSi-Lab\\Documents\\Joshua\\AndroidStudio\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.1=C\:\\Users\\KoSi-Lab\\Documents\\Joshua\\AndroidStudio\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.2=C\:\\Users\\KoSi-Lab\\Documents\\Joshua\\AndroidStudio\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
 path.0=classes.dex
 path.1=0/classes.dex
 path.2=10/classes.dex
