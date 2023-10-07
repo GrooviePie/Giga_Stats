@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#2196F3"
-        app:title="Workout beginnen"
+        app:title="Timer"
         app:titleTextColor="@android:color/white"
         app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
         app:theme="@style/Theme.AppCompat.Light.NoActionBar" />
