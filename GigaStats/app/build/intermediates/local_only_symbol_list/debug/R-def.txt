@@ -2,6 +2,7 @@ R_DEF: Internal format may change without notice
 local
 color black
 color white
+drawable baseline_accessibility_new_24
 drawable bottommenu_icon_bar_chart_24
 drawable bottommenu_icon_exercise_24
 drawable bottommenu_icon_start_24
@@ -19,7 +20,11 @@ id STATS_BUTTONMENU_BUTTON
 id TIMER_BUTTONMENU_BUTTON
 id WORKOUT_BUTTONMENU_BUTTON
 id bottomNavigationView
+id category
 id exercises_toolbar
+id img
+id listView
+id name
 id optionmenu_exercises_add
 id optionmenu_exercises_edit
 id running_workout_toolbar
@@ -27,10 +32,10 @@ id statistics_toolbar
 id textView
 id textView2
 id textView3
-id textView6
 id timer_toolbar
 id workouts_toolbar
 layout activity_main
+layout exercises_list_layout
 layout fragment_exercises
 layout fragment_running_workout
 layout fragment_statistics

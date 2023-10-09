@@ -2697,6 +2697,7 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable baseline_accessibility_new_24
 drawable bottommenu_icon_bar_chart_24
 drawable bottommenu_icon_exercise_24
 drawable bottommenu_icon_start_24
@@ -2916,6 +2917,7 @@ id cache_measures
 id callMeasure
 id cancel_button
 id carryVelocity
+id category
 id center
 id centerCrop
 id centerInside
@@ -3031,6 +3033,7 @@ id ifRoom
 id ignore
 id ignoreRequest
 id image
+id img
 id immediateStop
 id included
 id indeterminate
@@ -3050,6 +3053,7 @@ id line1
 id line3
 id linear
 id listMode
+id listView
 id list_item
 id m3_side_sheet
 id marquee
@@ -3111,6 +3115,7 @@ id mtrl_picker_text_input_range_start
 id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
+id name
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3265,7 +3270,6 @@ id textTop
 id textView
 id textView2
 id textView3
-id textView6
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
@@ -3439,6 +3443,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout exercises_list_layout
 layout fragment_exercises
 layout fragment_running_workout
 layout fragment_statistics
