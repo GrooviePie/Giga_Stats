@@ -5,7 +5,7 @@
     android:id="@+id/FRAMELAYOUT_EXERCISES"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
+    android:background="#96be"
     android:orientation="vertical"
     tools:context=".ExercisesFragment">
 
@@ -18,11 +18,12 @@
         app:title="Übungen"
         app:titleTextColor="@android:color/white" />
 
-    <TextView
-        android:id="@+id/textView6"
+    <ListView
+        android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hier kommen Übungen rein"
-        android:textColor="#0ADF12" />
+        >
+
+    </ListView>
 
 </LinearLayout>
