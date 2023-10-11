@@ -1,5 +1,6 @@
 package com.example.giga_stats;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
@@ -10,8 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 public class ExercisesFragment extends Fragment {
 
@@ -24,6 +25,8 @@ public class ExercisesFragment extends Fragment {
     // Define constant variables for resource IDs
     private static final int OPTION_MENU_EXERCISES_ADD_ID = R.id.optionmenu_exercises_add;
     private static final int OPTION_MENU_EXERCISES_EDIT_ID = R.id.optionmenu_exercises_edit;
+    private ListView listView;
+    private DBManager db;
 
     public ExercisesFragment() {
         // Required empty public constructor
@@ -54,7 +57,10 @@ public class ExercisesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "onCreateView() in ExerciseFragment.java aufgerufen"); // Hinzugefügte Log-Ausgabe
-        return inflater.inflate(R.layout.fragment_exercises, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        auslesen();
+        return rootView;
     }
 
     @Override
@@ -81,5 +87,15 @@ public class ExercisesFragment extends Fragment {
         } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void auslesen() {
+        db = new DBManager(getContext());
+        Cursor cursor = db.selectAllExercises();
+        String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY};
+        int[] to = new int[]{R.id.img, R.id.name, R.id.category};
+
+        ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
+        listView.setAdapter(adapter);
     }
 }
