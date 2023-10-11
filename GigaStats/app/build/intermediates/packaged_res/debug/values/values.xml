@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Giga-Stats</string>
+    <string name="bung_hinzuf_gen">Übung hinzufügen</string>
+    <string name="bung_l_schen">Übung löschen</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
         
