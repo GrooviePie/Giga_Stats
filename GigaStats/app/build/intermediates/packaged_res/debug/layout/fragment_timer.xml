@@ -8,16 +8,6 @@
     android:orientation="vertical"
     tools:context=".TimerFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/timer_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2196F3"
-        app:title="Timer"
-        app:titleTextColor="@android:color/white"
-        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-        app:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"

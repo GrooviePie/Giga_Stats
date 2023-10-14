@@ -4,14 +4,17 @@ package com.example.giga_stats;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,13 +24,18 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        // Erstelle eine Instanz des FragmentManagers
+        // Initialisieren Sie die Toolbar und setzen Sie sie als Aktionsleiste
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        // Erstellen Sie eine Instanz des FragmentManagers
         fragmentManager = getSupportFragmentManager();
 
         // Initialize the Bottom Navigation View
@@ -35,15 +43,13 @@ public class MainActivity extends AppCompatActivity {
         // Set the "Start" button as selected
         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
 
-
-
-        // Zeige standardmäßig das RunningWorkoutFragment an
+        // Zeigen Sie standardmäßig das RunningWorkoutFragment an
         showRunningWorkout();
 
-        // Konfiguriere die Bottom Navigation View
+        // Konfigurieren Sie die Bottom Navigation View
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        // Verwende setOnItemSelectedListener für Klickabfrage
+        // Verwenden Sie setOnItemSelectedListener für die Klickabfrage
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
@@ -56,11 +62,10 @@ public class MainActivity extends AppCompatActivity {
             } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
                 showExercisesFragment();
                 return true;
-             } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
-                    showWorkoutsFragment();
+            } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
+                showWorkoutsFragment();
                 return true;
-            }
-            else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
+            } else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
                 showRunningWorkout();
                 return true;
             }
@@ -68,16 +73,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
-        Log.d("CHAD", "onCreateOptionsMenu(): Optionsmenü wird erzeugt");
-   //Mit hilfe des MenuInflatersDieMenu-Ressource(Optionsmenu) bauen
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_exercises_top_option,menu);
-        return true;
-    }
+
 
     private void showFragment(Fragment fragment) {
-
         // Beginne eine Transaktion, um das Fragment hinzuzufügen
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.FrameLayout, fragment); // "FrameLayout" ist die ID des Containers, in dem das Fragment angezeigt werden soll

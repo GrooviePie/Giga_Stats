@@ -2731,6 +2731,7 @@ drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_question_mark_24_white
 drawable ic_search_black_24
 drawable m3_appbar_background
 drawable m3_avd_hide_password
@@ -2992,7 +2993,6 @@ id end
 id endToStart
 id enterAlways
 id enterAlwaysCollapsed
-id exercises_toolbar
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -3137,8 +3137,13 @@ id notification_main_column_container
 id off
 id on
 id onInterceptTouchReturnSwipe
-id optionmenu_exercises_add
-id optionmenu_exercises_edit
+id option_menu_exercises_add
+id option_menu_exercises_edit
+id option_menu_tutorial_exercises
+id option_menu_tutorial_runningworkouts
+id option_menu_tutorial_statistics
+id option_menu_tutorial_timer
+id option_menu_tutorial_workouts
 id outline
 id outward
 id overshoot
@@ -3169,7 +3174,6 @@ id right_icon
 id right_side
 id rounded
 id row_index_key
-id running_workout_toolbar
 id save_non_transition_alpha
 id save_overlay_view
 id sawtooth
@@ -3240,7 +3244,6 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
-id statistics_toolbar
 id stop
 id stretch
 id submenuarrow
@@ -3280,11 +3283,11 @@ id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
 id time
-id timer_toolbar
 id title
 id titleDividerNoCustom
 id title_template
 id toggle
+id toolbar
 id top
 id topPanel
 id touch_outside
@@ -3314,7 +3317,6 @@ id west
 id withText
 id with_icon
 id withinBounds
-id workouts_toolbar
 id wrap
 id wrap_content
 id wrap_content_constrained
@@ -3511,7 +3513,11 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu menu_bottom_nav
-menu menu_exercises_top_option
+menu menu_option_exercises
+menu menu_option_runningworkouts
+menu menu_option_statistics
+menu menu_option_timer
+menu menu_option_workouts
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description

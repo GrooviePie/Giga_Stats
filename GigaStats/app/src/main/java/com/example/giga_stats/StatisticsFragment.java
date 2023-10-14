@@ -2,9 +2,14 @@ package com.example.giga_stats;
 
 import android.os.Bundle;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,9 +54,38 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+        Log.d("CHAD", "onCreate() in StatisticsFragment.java aufgerufen");
+        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.d("CHAD", "onCreateOptionsMenu() in StatisticsFragment.java aufgerufen CHA-LA HEAD-CHA-LA");
+        inflater.inflate(R.menu.menu_option_statistics, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        Log.d("CHAD", "onOptionsItemSelected() in StatisticsFragment.java aufgerufen");
+        if (itemId == R.id.option_menu_tutorial_statistics) {
+            //TODO
+            // Tutorial für StatisticsFragment erstellen
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            // Konfigurieren Sie die Toolbar nach Bedarf
+            toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setNavigationIcon(R.drawable.bottommenu_icon_bar_chart_24); // Setzen Sie ein Navigations-Icon, wenn benötigt
+
         }
     }
 
