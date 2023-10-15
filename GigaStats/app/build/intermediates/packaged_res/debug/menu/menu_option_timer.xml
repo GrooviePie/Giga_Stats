@@ -5,8 +5,31 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/option_menu_play_timer"
+        android:icon="@drawable/ic_toolbar_play_24_white"
+        android:title="Play"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/option_menu_pause_timer"
+        android:icon="@drawable/ic_toolbar_pause_24_white"
+        android:title="Pause"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/option_menu_stop_timer"
+        android:icon="@drawable/ic_toolbar_stop_24_white"
+        android:title="Stop"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/option_menu_restart_timer"
+        android:icon="@drawable/ic_toolbar_restart_24_white"
+        android:title="Restart"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/option_menu_tutorial_timer"
-        android:icon="@drawable/ic_question_mark_24_white"
+        android:icon="@drawable/ic_toolbar_questionmark_24_white"
         android:title="Tutorial"
-        app:showAsAction="always" />/>
+        app:showAsAction="always" />
+    />
+
 </menu>

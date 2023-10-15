@@ -4,19 +4,14 @@
     tools:context=".MainActivity">
 
     <item
-        android:id="@+id/option_menu_exercises_add"
-        android:icon="@drawable/ic_add_24"
+        android:id="@+id/option_menu_add_exercises"
+        android:icon="@drawable/ic_toolbar_add_24_white"
         android:title="@string/bung_hinzuf_gen"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/option_menu_exercises_edit"
-        android:icon="@drawable/ic_edit_24"
-        android:title="Editieren"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/option_menu_tutorial_exercises"
-        android:icon="@drawable/ic_question_mark_24_white"
+        android:icon="@drawable/ic_toolbar_questionmark_24_white"
         android:title="Tutorial"
         app:showAsAction="always" />/>
 

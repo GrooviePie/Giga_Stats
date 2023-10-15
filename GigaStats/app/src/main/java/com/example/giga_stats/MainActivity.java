@@ -21,6 +21,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
+    //TODO: Hardcoded Texte bearbeiten
+
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
 

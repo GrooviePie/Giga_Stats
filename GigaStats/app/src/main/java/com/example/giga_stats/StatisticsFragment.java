@@ -1,5 +1,6 @@
 package com.example.giga_stats;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.appcompat.widget.Toolbar;
@@ -13,42 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link StatisticsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class StatisticsFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    //TODO: Hardcoded Texte bearbeiten
 
     public StatisticsFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment StatisticsFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static StatisticsFragment newInstance(String param1, String param2) {
-        StatisticsFragment fragment = new StatisticsFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
     }
 
     @Override
@@ -70,8 +41,7 @@ public class StatisticsFragment extends Fragment {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in StatisticsFragment.java aufgerufen");
         if (itemId == R.id.option_menu_tutorial_statistics) {
-            //TODO
-            // Tutorial für StatisticsFragment erstellen
+            //TODO: Tutorial für StatisticsFragment erstellen
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -84,7 +54,7 @@ public class StatisticsFragment extends Fragment {
         if (toolbar != null) {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setNavigationIcon(R.drawable.bottommenu_icon_bar_chart_24); // Setzen Sie ein Navigations-Icon, wenn benötigt
+            toolbar.setTitleTextColor(Color.WHITE);
 
         }
     }

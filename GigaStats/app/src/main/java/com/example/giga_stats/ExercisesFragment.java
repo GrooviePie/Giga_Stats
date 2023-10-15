@@ -5,6 +5,7 @@ import android.database.Cursor;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,14 +20,15 @@ import android.widget.ListView;
 
 public class ExercisesFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //TODO: LongClickEventHandler erstellen für
+    // - Bearbeiten einer Übung
+    // - Löschen einer Übung
 
-    private String mParam1;
-    private String mParam2;
+    //TODO: Fenster für Hinzufügen einer Übung
 
-    // Define constant variables for resource IDs
+    //TODO: Fenster für Bearbeiten einer Übung
 
+    //TODO: Hardcoded Texte bearbeiten
 
     private ListView listView;
     private DBManager db;
@@ -35,14 +37,6 @@ public class ExercisesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ExercisesFragment newInstance(String param1, String param2) {
-        ExercisesFragment fragment = new ExercisesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,21 +56,31 @@ public class ExercisesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in ExerciseFragment.java aufgerufen");
-        if (itemId == R.id.option_menu_exercises_add) {
+        if (itemId == R.id.option_menu_add_exercises) {
             //TODO
             // Aktion für "Hinzufügen" in der Toolbar innerhalb des Fragments ExerciseFragment
-            // Implementieren Sie Ihre Aktion hier
+
             return true;
-        } else if (itemId == R.id.option_menu_exercises_edit) {
+        } else if (itemId == R.id.option_menu_tutorial_exercises) {
             //TODO
-            // Aktion für "Editieren" in der Toolbar innerhalb des Fragments ExerciseFragment
-            // Implementieren Sie Ihre Aktion hier
+            // Aktion für "Tutorial" in der Toolbar innerhalb des Fragments ExerciseFragment
+
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            // Konfigurieren Sie die Toolbar nach Bedarf
+            toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitleTextColor(Color.WHITE);
+        }
+    }
 
 
     @Override
@@ -88,26 +92,6 @@ public class ExercisesFragment extends Fragment {
 
         return rootView;
     }
-
-
-
-
-
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            // Konfigurieren Sie die Toolbar nach Bedarf
-            toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setNavigationIcon(R.drawable.bottommenu_icon_exercise_24); // Setzen Sie ein Navigations-Icon, wenn benötigt
-
-        }
-    }
-
-
-
 
     private void auslesen() {
         db = new DBManager(getContext());

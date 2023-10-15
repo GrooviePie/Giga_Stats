@@ -4,8 +4,14 @@
     tools:context=".MainActivity">
 
     <item
+        android:id="@+id/option_menu_add_runningworkouts"
+        android:icon="@drawable/ic_toolbar_add_24_white"
+        android:title="Hinzufügen"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/option_menu_tutorial_runningworkouts"
-        android:icon="@drawable/ic_question_mark_24_white"
+        android:icon="@drawable/ic_toolbar_questionmark_24_white"
         android:title="Tutorial"
         app:showAsAction="always" />/>
 </menu>
