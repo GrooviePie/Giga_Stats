@@ -1,4 +1,4 @@
-#Mon Oct 09 17:07:02 CEST 2023
+#Sun Oct 15 21:53:45 CEST 2023
 base.0=C\:\\Users\\jensm\\OneDrive\\Dokumente\\Hochschule\\5.Semester\\EAE\\GigaStats\\Boss_stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\jensm\\OneDrive\\Dokumente\\Hochschule\\5.Semester\\EAE\\GigaStats\\Boss_stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\jensm\\OneDrive\\Dokumente\\Hochschule\\5.Semester\\EAE\\GigaStats\\Boss_stats\\Giga_Stats\\GigaStats\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex

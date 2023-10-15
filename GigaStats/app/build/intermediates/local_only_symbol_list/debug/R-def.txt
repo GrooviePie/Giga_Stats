@@ -27,12 +27,16 @@ id listView
 id name
 id optionmenu_exercises_add
 id optionmenu_exercises_edit
+id rep
+id repText
 id running_workout_toolbar
 id statistics_toolbar
 id textView
 id textView2
 id textView3
 id timer_toolbar
+id weight
+id weightText
 id workouts_toolbar
 layout activity_main
 layout exercises_list_layout

@@ -44,6 +44,14 @@ public class ExercisesAdapter extends CursorAdapter {
         String txt2 = cursor.getString(cursor.getColumnIndexOrThrow(from[2]));
         TextView textView2 = (TextView) view.findViewById(to[2]);
         textView2.setText(txt2);
+
+        String txt3 = cursor.getString(cursor.getColumnIndexOrThrow(from[3]));
+        TextView textView3 = (TextView) view.findViewById(to[3]);
+        textView3.setText(txt3);
+
+        String txt4 = cursor.getString(cursor.getColumnIndexOrThrow(from[4]));
+        TextView textView4 = (TextView) view.findViewById(to[4]);
+        textView4.setText(txt4);
     }
 }
 
