@@ -74,6 +74,8 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
+array ContextMenuExercises
+array context_menu_items
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -2818,6 +2820,8 @@ id EXERCISES_BUTTONMENU_BUTTON
 id FRAMELAYOUT_EXERCISES
 id FUNCTION
 id FrameLayout
+id MENU_CONTEXT_DELETE_EXERCISES
+id MENU_CONTEXT_EDIT_EXERCISES
 id META
 id NO_DEBUG
 id SHIFT
@@ -3521,6 +3525,7 @@ layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
 menu menu_bottom_nav
+menu menu_context_exercises
 menu menu_option_exercises
 menu menu_option_runningworkouts
 menu menu_option_statistics

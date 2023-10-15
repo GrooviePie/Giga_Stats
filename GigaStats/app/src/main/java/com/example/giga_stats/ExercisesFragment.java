@@ -1,28 +1,24 @@
 package com.example.giga_stats;
 
 import android.database.Cursor;
-
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
-
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ExercisesFragment extends Fragment {
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
-    //TODO: LongClickEventHandler erstellen für
-    // - Bearbeiten einer Übung
-    // - Löschen einer Übung
+public class ExercisesFragment extends Fragment {
 
     //TODO: Fenster für Hinzufügen einer Übung
 
@@ -31,20 +27,65 @@ public class ExercisesFragment extends Fragment {
     //TODO: Hardcoded Texte bearbeiten
 
     private ListView listView;
+
+    private String[] context_menu_item;
     private DBManager db;
+    int index;
 
     public ExercisesFragment() {
         // Required empty public constructor
     }
 
-
+    ////________________LEBENSZYKLUS_____________________
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("CHAD", "onCreate() in ExerciseFragment.java aufgerufen");
-        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
+        Log.d("CHAD", "LIFE EXERCISE - onCreate() in ExerciseFragment.java aufgerufen");
+
+        context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
+
+        try {
+            ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
+            listView.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
+        }
+
+        setHasOptionsMenu(true);//Optionsmenü erstellen
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.d("CHAD", "LIFE EXERCISE - onCreateView() in ExerciseFragment.java aufgerufen");
+        View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
+        listView = (ListView) rootView.findViewById(R.id.listView);
+        context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
+
+        try {
+            auslesen();
+        } catch (Exception e) {
+            Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
+        }
+        registerForContextMenu(listView);
+
+        return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("CHAD", "LIFE EXERCISES: onResume(): Das Fragment tritt in den Vordergrund");
+        // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("CHAD", "LIFE EXERCISES: onPause(): Das Fragment wechselt in den Hintergrund");
+        // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
+    }
+
+    //________________OPTIONSMENÜ_____________________
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.d("CHAD", "onCreateOptionsMenu() in ExerciseFragment.java aufgerufen JUUUUUUUUUUUUUUUHUUUUUUUUUUUU");
@@ -57,13 +98,13 @@ public class ExercisesFragment extends Fragment {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in ExerciseFragment.java aufgerufen");
         if (itemId == R.id.option_menu_add_exercises) {
-            //TODO
-            // Aktion für "Hinzufügen" in der Toolbar innerhalb des Fragments ExerciseFragment
+            Log.d("CHAD", "ADD Optionsmenü in ExercisesFragment gedrückt ");
+            //TODO:  Aktion für "Hinzufügen" in the Toolbar innerhalb des Fragments ExerciseFragment
 
             return true;
         } else if (itemId == R.id.option_menu_tutorial_exercises) {
-            //TODO
-            // Aktion für "Tutorial" in der Toolbar innerhalb des Fragments ExerciseFragment
+            Log.d("CHAD", "TUTORIAL Optionsmenü in ExercisesFragment gedrückt ");
+            //TODO:  Aktion für "Tutorial" in the Toolbar innerhalb des Fragments ExerciseFragment
 
             return true;
         } else {
@@ -81,26 +122,62 @@ public class ExercisesFragment extends Fragment {
             toolbar.setTitleTextColor(Color.WHITE);
         }
     }
-
+    //________________KONTEXTMENÜ_____________________
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.d("CHAD", "onCreateView() in ExerciseFragment.java aufgerufen"); // Hinzugefügte Log-Ausgabe
-        View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listView);
-        auslesen();
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        Log.d("CHAD", "onCreateContextMenu() in ExercisesFragmente aufgerufen :)");
 
-        return rootView;
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context_exercises, menu);
+
+        index = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
+        MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_EXERCISES);
+        MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_EXERCISES);
+
+        edit_context.setTitle("Übung bearbeiten");
+        delete_context.setTitle("Übung löschen");
     }
 
-    private void auslesen() {
-        db = new DBManager(getContext());
-        Cursor cursor = db.selectAllExercises();
-        String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY};
-        int[] to = new int[]{R.id.img, R.id.name, R.id.category};
+    private MenuInflater getMenuInflater() {
+        if (getActivity() != null) {
+            return getActivity().getMenuInflater();
+        }
+        // Hier könnten Sie auch eine alternative Implementierung hinzufügen, wenn getActivity() null ist.
+        return null;
+    }
 
-        ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
-        listView.setAdapter(adapter);
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
+            // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
+            // TODO: Implementieren Sie die Bearbeiten-Logik
+            return true;
+        } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
+            // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments ExerciseFragment
+            // TODO: Implementieren Sie die Löschen-Logik
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
+    }
+
+    //________________METHODEN_____________________
+
+    private void auslesen() {
+        try {
+            db = new DBManager(getContext());
+            Cursor cursor = db.selectAllExercises();
+            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY};
+            int[] to = new int[]{R.id.img, R.id.name, R.id.category};
+
+            ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
+            listView.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
+        }
     }
 
 

@@ -114,36 +114,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-        Log.d("CHAD", "onStart(): Die Activity wird bald komplett sichtbar");
+        Log.d("CHAD", "LIFE MAIN: onStart(): Die Activity wird bald komplett sichtbar");
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-        Log.d("CHAD", "onResume(): Die Activity ist komplett sichtbar und aktiv");
+        Log.d("CHAD", "LIFE MAIN: onResume(): Die Activity ist komplett sichtbar und aktiv");
     }
 
     @Override
     protected void onPause(){
         super.onPause();
-        Log.d("CHAD", "onPause(): Eine andere Activity ist jetzt im Fokus");
+        Log.d("CHAD", "LIFE MAIN: onPause(): Eine andere Activity ist jetzt im Fokus");
     }
 
     @Override
     protected void onStop(){
         super.onStop();
-        Log.d("CHAD", "onStop(): Activity ist vollständig nicht mehr sichtbar");
+        Log.d("CHAD", "LIFE MAIN: onStop(): Activity ist vollständig nicht mehr sichtbar");
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        Log.d("CHAD", "onRestart(): Die Activity wird erneut gestartet");
+        Log.d("CHAD", "LIFE MAIN: onRestart(): Die Activity wird erneut gestartet");
     }
 
     @Override
     protected void onDestroy(){
         super.onDestroy();
-        Log.d("CHAD", "onDestroy(): Letzter Aufruf der Activity vor der Zerstörung ");
+        Log.d("CHAD", "LIFE MAIN: onDestroy(): Letzter Aufruf der Activity vor der Zerstörung ");
     }
 }

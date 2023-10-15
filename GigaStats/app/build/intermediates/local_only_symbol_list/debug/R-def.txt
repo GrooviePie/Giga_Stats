@@ -1,5 +1,7 @@
 R_DEF: Internal format may change without notice
 local
+array ContextMenuExercises
+array context_menu_items
 color black
 color white
 drawable baseline_accessibility_new_24
@@ -19,6 +21,8 @@ drawable ic_toolbar_stop_24_white
 id EXERCISES_BUTTONMENU_BUTTON
 id FRAMELAYOUT_EXERCISES
 id FrameLayout
+id MENU_CONTEXT_DELETE_EXERCISES
+id MENU_CONTEXT_EDIT_EXERCISES
 id START_BUTTONMENU_BUTTON
 id STATS_BUTTONMENU_BUTTON
 id TIMER_BUTTONMENU_BUTTON
@@ -52,6 +56,7 @@ layout fragment_statistics
 layout fragment_timer
 layout fragment_workouts
 menu menu_bottom_nav
+menu menu_context_exercises
 menu menu_option_exercises
 menu menu_option_runningworkouts
 menu menu_option_statistics
