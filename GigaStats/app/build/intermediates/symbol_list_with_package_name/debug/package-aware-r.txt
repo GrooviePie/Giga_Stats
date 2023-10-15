@@ -3179,6 +3179,8 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id rep
+id repText
 id reverseSawtooth
 id right
 id rightToLeft
@@ -3325,6 +3327,8 @@ id view_tree_saved_state_registry_owner
 id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
+id weight
+id weightText
 id west
 id withText
 id with_icon
