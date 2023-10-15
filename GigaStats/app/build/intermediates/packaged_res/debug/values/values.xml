@@ -12,5 +12,8 @@
         
     </style>
     <style name="Theme.GigaStats" parent="Base.Theme.GigaStats"/>
-    <style name="WhiteTextAppearance">#FFFFFF</style>
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">20sp</item> 
+        <item name="android:textColor">#FFFFFF</item> 
+    </style>
 </resources>

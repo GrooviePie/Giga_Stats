@@ -66,6 +66,6 @@ string hello_blank_fragment
 string workout_hinzufuegen
 style Base.Theme.GigaStats
 style Theme.GigaStats
-style WhiteTextAppearance
+style ToolbarTitleTextAppearance
 xml backup_rules
 xml data_extraction_rules

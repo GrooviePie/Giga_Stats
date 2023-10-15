@@ -4,8 +4,8 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\mipmap-anydpi-v26\\ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_timer_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_timer_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-28:/layout_activity_main.xml.flat",
+        "source": "com.example.giga_stats.app-main-30:/layout/activity_main.xml"
     },
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\layout_activity_main.xml.flat",
@@ -36,12 +36,12 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\layout\\fragment_exercises.xml"
     },
     {
-        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_pause_24_white.xml.flat",
-        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_toolbar_pause_24_white.xml"
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_bottommenu_workouts_24_black.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_bottommenu_workouts_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_bottom_nav.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_bottom_nav.xml"
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_pause_24_white.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_toolbar_pause_24_white.xml"
     },
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\mipmap-mdpi_ic_launcher.webp.flat",
@@ -76,6 +76,10 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_edit_24.xml"
     },
     {
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_bottommenu_statistics_24_black.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_bottommenu_statistics_24_black.xml"
+    },
+    {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\layout_exercises_list_layout.xml.flat",
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\layout\\exercises_list_layout.xml"
     },
@@ -88,8 +92,8 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\menu\\menu_option_statistics.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_statistics_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_statistics_24_black.xml"
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_bottommenu_timer_24_black.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_bottommenu_timer_24_black.xml"
     },
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_delete_24_white.xml.flat",
@@ -108,10 +112,6 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_question_mark_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_workouts_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_workouts_24_black.xml"
-    },
-    {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_questionmark_24_white.xml.flat",
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_toolbar_questionmark_24_white.xml"
     },
@@ -122,10 +122,6 @@
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\menu_menu_option_timer.xml.flat",
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\menu\\menu_option_timer.xml"
-    },
-    {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_exercises_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_exercises_24_black.xml"
     },
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
@@ -188,6 +184,10 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_toolbar_edit_24.xml"
     },
     {
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_bottommenu_exercises_24_black.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_bottommenu_exercises_24_black.xml"
+    },
+    {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_edit_24_white.xml.flat",
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_toolbar_edit_24_white.xml"
     },
@@ -200,12 +200,12 @@
         "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\bottommenu_icon_workout_24.xml"
     },
     {
-        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_add_24.xml.flat",
-        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_add_24.xml"
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_bottommenu_runningworkouts_24_black.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_bottommenu_runningworkouts_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_runningworkouts_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_runningworkouts_24_black.xml"
+        "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_add_24.xml.flat",
+        "source": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-main-30:\\drawable\\ic_add_24.xml"
     },
     {
         "merged": "C:\\Users\\giber\\.gradle\\daemon\\8.0\\com.example.giga_stats.app-merged_res-28:\\drawable_ic_toolbar_add_24.xml.flat",
