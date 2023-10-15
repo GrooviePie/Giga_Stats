@@ -1,30 +1,35 @@
 package com.example.giga_stats;
 
 import android.database.Cursor;
-import android.os.Bundle;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 public class ExercisesFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //TODO: LongClickEventHandler erstellen für
+    // - Bearbeiten einer Übung
+    // - Löschen einer Übung
 
-    private String mParam1;
-    private String mParam2;
+    //TODO: Fenster für Hinzufügen einer Übung
 
-    // Define constant variables for resource IDs
-    private static final int OPTION_MENU_EXERCISES_ADD_ID = R.id.optionmenu_exercises_add;
-    private static final int OPTION_MENU_EXERCISES_EDIT_ID = R.id.optionmenu_exercises_edit;
+    //TODO: Fenster für Bearbeiten einer Übung
+
+    //TODO: Hardcoded Texte bearbeiten
+
     private ListView listView;
     private DBManager db;
 
@@ -32,27 +37,51 @@ public class ExercisesFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static ExercisesFragment newInstance(String param1, String param2) {
-        ExercisesFragment fragment = new ExercisesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("CHAD", "onCreate() in ExerciseFragment.java aufgerufen"); // Hinzugefügte Log-Ausgabe
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-        // Enable options menu
-        setHasOptionsMenu(true);
+        Log.d("CHAD", "onCreate() in ExerciseFragment.java aufgerufen");
+        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.d("CHAD", "onCreateOptionsMenu() in ExerciseFragment.java aufgerufen JUUUUUUUUUUUUUUUHUUUUUUUUUUUU");
+        inflater.inflate(R.menu.menu_option_exercises, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        Log.d("CHAD", "onOptionsItemSelected() in ExerciseFragment.java aufgerufen");
+        if (itemId == R.id.option_menu_add_exercises) {
+            //TODO
+            // Aktion für "Hinzufügen" in der Toolbar innerhalb des Fragments ExerciseFragment
+
+            return true;
+        } else if (itemId == R.id.option_menu_tutorial_exercises) {
+            //TODO
+            // Aktion für "Tutorial" in der Toolbar innerhalb des Fragments ExerciseFragment
+
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            // Konfigurieren Sie die Toolbar nach Bedarf
+            toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitleTextColor(Color.WHITE);
+        }
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,33 +89,8 @@ public class ExercisesFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
         listView = (ListView) rootView.findViewById(R.id.listView);
         auslesen();
+
         return rootView;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-        inflater.inflate(R.menu.menu_exercises_top_option, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-        Log.d("CHAD", "onCreateOptionsMenu() in ExerciseFragment.java aufgerufen"); // Hinzugefügte Log-Ausgabe
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        Log.d("CHAD", "onOptionsItemSelected() in ExerciseFragment.java aufgerufen");
-        if (itemId == OPTION_MENU_EXERCISES_ADD_ID) {
-
-            // Action for "Hinzufügen"
-            // Implementieren Sie Ihre Aktion hier
-            return true;
-        } else if (itemId == OPTION_MENU_EXERCISES_EDIT_ID) {
-            // Action for "Editieren"
-            // Implementieren Sie Ihre Aktion hier
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     private void auslesen() {
@@ -98,4 +102,6 @@ public class ExercisesFragment extends Fragment {
         ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
         listView.setAdapter(adapter);
     }
+
+
 }

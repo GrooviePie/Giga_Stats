@@ -8,16 +8,6 @@
     android:orientation="vertical"
     tools:context=".WorkoutsFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/workouts_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2196F3"
-        app:title="Workouts"
-        app:titleTextColor="@android:color/white"
-        app:popupTheme="@style/Theme.AppCompat.Light.NoActionBar"
-        app:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
