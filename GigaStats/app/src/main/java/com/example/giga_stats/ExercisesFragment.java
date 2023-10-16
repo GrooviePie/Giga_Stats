@@ -44,21 +44,25 @@ public class ExercisesFragment extends Fragment {
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
+        // Initialisieren Sie die ListView, bevor Sie den Adapter setzen
+        listView = new ListView(getContext());
+
         try {
-            ArrayAdapter<String> adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
             listView.setAdapter(adapter);
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
         }
 
-        setHasOptionsMenu(true);//Optionsmenü erstellen
+        setHasOptionsMenu(true); // Optionsmenü erstellen
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE EXERCISE - onCreateView() in ExerciseFragment.java aufgerufen");
         View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
-        listView = (ListView) rootView.findViewById(R.id.listView);
+        listView = rootView.findViewById(R.id.listView);
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
@@ -66,6 +70,8 @@ public class ExercisesFragment extends Fragment {
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
+
+        // Registrieren Sie den ListView für LongClick-Ereignisse
         registerForContextMenu(listView);
 
         return rootView;
@@ -130,14 +136,16 @@ public class ExercisesFragment extends Fragment {
         Log.d("CHAD", "onCreateContextMenu() in ExercisesFragmente aufgerufen :)");
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_context_exercises, menu);
+        if (inflater != null) {
+            inflater.inflate(R.menu.menu_context_exercises, menu);
 
-        index = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-        MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_EXERCISES);
-        MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_EXERCISES);
+            index = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
+            MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_EXERCISES);
+            MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_EXERCISES);
 
-        edit_context.setTitle("Übung bearbeiten");
-        delete_context.setTitle("Übung löschen");
+            edit_context.setTitle("Übung bearbeiten");
+            delete_context.setTitle("Übung löschen");
+        }
     }
 
     private MenuInflater getMenuInflater() {
@@ -153,10 +161,12 @@ public class ExercisesFragment extends Fragment {
         int itemId = item.getItemId();
         if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
             // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
+            Log.d("CHAD","onContextItemSelected -> Übung bearbeiten gedrückt in ExercisesFragment XOXO");
             // TODO: Implementieren Sie die Bearbeiten-Logik
             return true;
         } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
             // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments ExerciseFragment
+            Log.d("CHAD","onContextItemSelected -> Übung löschen gedrückt in ExercisesFragment OXOX");
             // TODO: Implementieren Sie die Löschen-Logik
             return true;
         } else {
@@ -179,6 +189,4 @@ public class ExercisesFragment extends Fragment {
             Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
         }
     }
-
-
 }

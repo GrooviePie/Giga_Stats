@@ -44,10 +44,14 @@ id option_menu_tutorial_runningworkouts
 id option_menu_tutorial_statistics
 id option_menu_tutorial_timer
 id option_menu_tutorial_workouts
+id rep
+id repText
 id textView
 id textView2
 id textView3
 id toolbar
+id weight
+id weightText
 layout activity_main
 layout exercises_list_layout
 layout fragment_exercises
