@@ -16,6 +16,10 @@
         "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_statistics_24_black.xml"
     },
     {
+        "merged": "com.example.giga_stats.app-merged_res-28:/layout_workouts_list_layout.xml.flat",
+        "source": "com.example.giga_stats.app-main-30:/layout/workouts_list_layout.xml"
+    },
+    {
         "merged": "com.example.giga_stats.app-merged_res-28:/layout_activity_main.xml.flat",
         "source": "com.example.giga_stats.app-main-30:/layout/activity_main.xml"
     },
@@ -100,12 +104,12 @@
         "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_restart_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_play_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_play_24_white.xml"
-    },
-    {
         "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_launcher_foreground.xml.flat",
         "source": "com.example.giga_stats.app-main-30:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_play_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_play_24_white.xml"
     },
     {
         "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_bottom_nav.xml.flat",
@@ -138,6 +142,10 @@
     {
         "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_context_exercises.xml.flat",
         "source": "com.example.giga_stats.app-main-30:/menu/menu_context_exercises.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_list_backgorund.xml.flat",
+        "source": "com.example.giga_stats.app-main-30:/drawable/list_backgorund.xml"
     },
     {
         "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xxxhdpi_ic_launcher.webp.flat",

@@ -2738,6 +2738,7 @@ drawable ic_toolbar_play_24_white
 drawable ic_toolbar_questionmark_24_white
 drawable ic_toolbar_restart_24_white
 drawable ic_toolbar_stop_24_white
+drawable list_backgorund
 drawable m3_appbar_background
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
@@ -3528,6 +3529,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout support_simple_spinner_dropdown_item
+layout workouts_list_layout
 menu menu_bottom_nav
 menu menu_context_exercises
 menu menu_option_exercises

@@ -180,8 +180,8 @@ public class ExercisesFragment extends Fragment {
         try {
             db = new DBManager(getContext());
             Cursor cursor = db.selectAllExercises();
-            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY};
-            int[] to = new int[]{R.id.img, R.id.name, R.id.category};
+            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
+            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
 
             ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
             listView.setAdapter(adapter);

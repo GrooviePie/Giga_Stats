@@ -18,6 +18,7 @@ drawable ic_toolbar_play_24_white
 drawable ic_toolbar_questionmark_24_white
 drawable ic_toolbar_restart_24_white
 drawable ic_toolbar_stop_24_white
+drawable list_backgorund
 id EXERCISES_BUTTONMENU_BUTTON
 id FRAMELAYOUT_EXERCISES
 id FrameLayout
@@ -59,6 +60,7 @@ layout fragment_running_workout
 layout fragment_statistics
 layout fragment_timer
 layout fragment_workouts
+layout workouts_list_layout
 menu menu_bottom_nav
 menu menu_context_exercises
 menu menu_option_exercises

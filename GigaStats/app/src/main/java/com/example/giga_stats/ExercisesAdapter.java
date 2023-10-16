@@ -54,6 +54,7 @@ public class ExercisesAdapter extends CursorAdapter {
             String txt4 = cursor.getString(cursor.getColumnIndexOrThrow(from[4]));
             TextView textView4 = (TextView) view.findViewById(to[4]);
             textView4.setText(txt4);
+
         } catch (ArrayIndexOutOfBoundsException e) {
             // Hier können Sie die Fehlerbehandlung für den ArrayIndexOutOfBoundsException durchführen,
             // wenn 'from' nicht ausreichend viele Elemente enthält.
