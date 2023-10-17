@@ -2,7 +2,11 @@ R_DEF: Internal format may change without notice
 local
 array ContextMenuExercises
 array context_menu_items
+color actionAndMenuBar
 color black
+color lavender
+color listBackground
+color textHighlightColor
 color white
 drawable baseline_accessibility_new_24
 drawable ic_bottommenu_exercises_24_black
@@ -19,6 +23,7 @@ drawable ic_toolbar_questionmark_24_white
 drawable ic_toolbar_restart_24_white
 drawable ic_toolbar_stop_24_white
 drawable list_backgorund
+drawable weight_lifting
 id EXERCISES_BUTTONMENU_BUTTON
 id FRAMELAYOUT_EXERCISES
 id FrameLayout
@@ -30,9 +35,14 @@ id TIMER_BUTTONMENU_BUTTON
 id WORKOUT_BUTTONMENU_BUTTON
 id bottomNavigationView
 id category
+id categoryExercise
 id img
+id linearLayoutExercise
+id linearLayoutExercise2
+id listImageExercise
 id listView
 id name
+id nameExercise
 id option_menu_add_exercises
 id option_menu_add_runningworkouts
 id option_menu_add_workouts
@@ -46,14 +56,17 @@ id option_menu_tutorial_statistics
 id option_menu_tutorial_timer
 id option_menu_tutorial_workouts
 id rep
+id repExercise
 id repText
 id textView
 id textView2
 id textView3
 id toolbar
 id weight
+id weightExercise
 id weightText
 layout activity_main
+layout exercise_list_item
 layout exercises_list_layout
 layout fragment_exercises
 layout fragment_running_workout
@@ -78,5 +91,6 @@ string workout_hinzufuegen
 style Base.Theme.GigaStats
 style Theme.GigaStats
 style ToolbarTitleTextAppearance
+style roundedImageViewRounded
 xml backup_rules
 xml data_extraction_rules

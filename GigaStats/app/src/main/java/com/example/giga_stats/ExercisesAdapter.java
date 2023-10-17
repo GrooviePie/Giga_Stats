@@ -34,25 +34,25 @@ public class ExercisesAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         try {
-            String imageName = cursor.getString(cursor.getColumnIndexOrThrow(from[0]));
-            int imgResource = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
-            ImageView img = (ImageView) view.findViewById(to[0]);
-            img.setImageResource(imgResource);
+//            String imageName = cursor.getString(cursor.getColumnIndexOrThrow(from[0]));
+//            int imgResource = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+//            ImageView img = (ImageView) view.findViewById(to[0]);
+//            img.setImageResource(imgResource);
 
-            String txt1 = cursor.getString(cursor.getColumnIndexOrThrow(from[1]));
-            TextView textView1 = (TextView) view.findViewById(to[1]);
+            String txt1 = cursor.getString(cursor.getColumnIndexOrThrow(from[0]));
+            TextView textView1 = (TextView) view.findViewById(to[0]);
             textView1.setText(txt1);
 
-            String txt2 = cursor.getString(cursor.getColumnIndexOrThrow(from[2]));
-            TextView textView2 = (TextView) view.findViewById(to[2]);
+            String txt2 = cursor.getString(cursor.getColumnIndexOrThrow(from[1]));
+            TextView textView2 = (TextView) view.findViewById(to[1]);
             textView2.setText(txt2);
 
-            String txt3 = cursor.getString(cursor.getColumnIndexOrThrow(from[3]));
-            TextView textView3 = (TextView) view.findViewById(to[3]);
+            String txt3 = cursor.getString(cursor.getColumnIndexOrThrow(from[2]));
+            TextView textView3 = (TextView) view.findViewById(to[2]);
             textView3.setText(txt3);
 
-            String txt4 = cursor.getString(cursor.getColumnIndexOrThrow(from[4]));
-            TextView textView4 = (TextView) view.findViewById(to[4]);
+            String txt4 = cursor.getString(cursor.getColumnIndexOrThrow(from[3]));
+            TextView textView4 = (TextView) view.findViewById(to[3]);
             textView4.setText(txt4);
 
         } catch (ArrayIndexOutOfBoundsException e) {

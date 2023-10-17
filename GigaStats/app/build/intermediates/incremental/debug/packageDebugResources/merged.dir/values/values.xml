@@ -9,7 +9,11 @@
         <item>Item 2</item>
         
     </string-array>
+    <color name="actionAndMenuBar">#4B4A4A</color>
     <color name="black">#FF000000</color>
+    <color name="lavender">#8692F7</color>
+    <color name="listBackground">#edede9</color>
+    <color name="textHighlightColor">#eb5e28</color>
     <color name="white">#FFFFFFFF</color>
     <string name="app_name">Giga-Stats</string>
     <string name="bung_hinzuf_gen">Übung hinzufügen</string>
@@ -18,11 +22,15 @@
     <string name="workout_hinzufuegen">Workout hinzufügen</string>
     <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
         
-        
+        <item name="colorPrimary">@color/white</item>
     </style>
     <style name="Theme.GigaStats" parent="Base.Theme.GigaStats"/>
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textSize">20sp</item> 
         <item name="android:textColor">#FFFFFF</item> 
+    </style>
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 </resources>

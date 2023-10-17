@@ -1300,6 +1300,7 @@ color abc_tint_spinner
 color abc_tint_switch_track
 color accent_material_dark
 color accent_material_light
+color actionAndMenuBar
 color androidx_core_ripple_material_light
 color androidx_core_secondary_text_default_material_light
 color background_floating_material_dark
@@ -1367,6 +1368,8 @@ color foreground_material_dark
 color foreground_material_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color lavender
+color listBackground
 color m3_appbar_overlay_color
 color m3_assist_chip_icon_tint_color
 color m3_assist_chip_stroke_color
@@ -1909,6 +1912,7 @@ color switch_thumb_material_dark
 color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
+color textHighlightColor
 color tooltip_background_dark
 color tooltip_background_light
 color white
@@ -2813,6 +2817,7 @@ drawable notify_panel_notification_icon_bg
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
+drawable weight_lifting
 id ALT
 id BOTTOM_END
 id BOTTOM_START
@@ -2927,6 +2932,7 @@ id callMeasure
 id cancel_button
 id carryVelocity
 id category
+id categoryExercise
 id center
 id centerCrop
 id centerInside
@@ -3060,6 +3066,9 @@ id legacy
 id line1
 id line3
 id linear
+id linearLayoutExercise
+id linearLayoutExercise2
+id listImageExercise
 id listMode
 id listView
 id list_item
@@ -3124,6 +3133,7 @@ id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
 id name
+id nameExercise
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3181,6 +3191,7 @@ id radio
 id ratio
 id rectangles
 id rep
+id repExercise
 id repText
 id reverseSawtooth
 id right
@@ -3329,6 +3340,7 @@ id view_tree_view_model_store_owner
 id visible
 id visible_removing_fragment_view_tag
 id weight
+id weightExercise
 id weightText
 id west
 id withText
@@ -3462,6 +3474,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout exercise_list_item
 layout exercises_list_layout
 layout fragment_exercises
 layout fragment_running_workout
@@ -4795,6 +4808,7 @@ style Widget_MaterialComponents_Toolbar_PrimarySurface
 style Widget_MaterialComponents_Toolbar_Surface
 style Widget_MaterialComponents_Tooltip
 style Widget_Support_CoordinatorLayout
+style roundedImageViewRounded
 styleable ActionBar background backgroundSplit backgroundStacked contentInsetEnd contentInsetEndWithActions contentInsetLeft contentInsetRight contentInsetStart contentInsetStartWithNavigation customNavigationLayout displayOptions divider elevation height hideOnContentScroll homeAsUpIndicator homeLayout icon indeterminateProgressStyle itemPadding logo navigationMode popupTheme progressBarPadding progressBarStyle subtitle subtitleTextStyle title titleTextStyle
 styleable ActionBarLayout android_layout_gravity
 styleable ActionMenuItemView android_minWidth

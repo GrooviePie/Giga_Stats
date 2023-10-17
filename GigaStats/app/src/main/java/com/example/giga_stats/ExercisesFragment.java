@@ -1,6 +1,6 @@
 package com.example.giga_stats;
 
-import android.database.Cursor;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +17,13 @@ import android.widget.ListView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
+
+import com.example.giga_stats.DB.ENTITY.Exercise;
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
+import com.example.giga_stats.adapter.ExerciseRoomAdapter;
+
+import java.util.List;
 
 public class ExercisesFragment extends Fragment {
 
@@ -29,8 +36,10 @@ public class ExercisesFragment extends Fragment {
     private ListView listView;
 
     private String[] context_menu_item;
-    private DBManager db;
     int index;
+    private Context context;
+    //private DBManager db;
+    private AppDatabase appDatabase;
 
     public ExercisesFragment() {
         // Required empty public constructor
@@ -41,14 +50,18 @@ public class ExercisesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CHAD", "LIFE EXERCISE - onCreate() in ExerciseFragment.java aufgerufen");
+        //db = new DBManager(getContext());
+        context = getContext();
+
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         // Initialisieren Sie die ListView, bevor Sie den Adapter setzen
-        listView = new ListView(getContext());
+        listView = new ListView(context);
 
         try {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, context_menu_item);
             listView.setAdapter(adapter);
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
@@ -56,8 +69,6 @@ public class ExercisesFragment extends Fragment {
 
         setHasOptionsMenu(true); // Optionsmenü erstellen
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE EXERCISE - onCreateView() in ExerciseFragment.java aufgerufen");
@@ -66,7 +77,8 @@ public class ExercisesFragment extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
-            auslesen();
+            //exercisesAuslesen();
+            exerciseAuslesenRoom();
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
@@ -162,12 +174,18 @@ public class ExercisesFragment extends Fragment {
         if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
             // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
             Log.d("CHAD","onContextItemSelected -> Übung bearbeiten gedrückt in ExercisesFragment XOXO");
-            // TODO: Implementieren Sie die Bearbeiten-Logik
+            /*
+            TODO: Parameter aus der App auslesen
+            updateExercise(id, name, category, rep, weight);
+            */
             return true;
         } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
             // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments ExerciseFragment
             Log.d("CHAD","onContextItemSelected -> Übung löschen gedrückt in ExercisesFragment OXOX");
-            // TODO: Implementieren Sie die Löschen-Logik
+            /*
+            TODO: Exercise ID auslesen
+            deleteExercise();
+            */
             return true;
         } else {
             return super.onContextItemSelected(item);
@@ -176,17 +194,54 @@ public class ExercisesFragment extends Fragment {
 
     //________________METHODEN_____________________
 
-    private void auslesen() {
-        try {
-            db = new DBManager(getContext());
-            Cursor cursor = db.selectAllExercises();
-            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
-            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
+//    private void exercisesAuslesen() {
+//        try {
+//            Cursor cursor = db.selectAllExercises();
+//            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
+//            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
+//
+//            ExercisesAdapter adapter = new ExercisesAdapter(context, R.layout.exercises_list_layout, cursor, from, to, 0);
+//            listView.setAdapter(adapter);
+//        } catch (Exception e) {
+//            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
+//        }
+//    }
 
-            ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
-            listView.setAdapter(adapter);
-        } catch (Exception e) {
-            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
-        }
+//    private void addExercise(String name, String category, int rep, int weight) {
+//        db.insertExercise(name, category, rep, weight);
+//        exercisesAuslesen();
+//    }
+
+//    private void deleteExercise(int id) {
+//        db.deleteExercise(id);
+//        exercisesAuslesen();
+//    }
+
+//    private void updateExercise(int id, String name, String category, int rep, int weight) {
+//        db.updateExercise(id, name, category, rep, weight);
+//    }
+
+    private void exerciseAuslesenRoom() {
+        Thread backgroundThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("CHAD","First Runnable");
+                try {
+                    final List<Exercise> exercises = appDatabase.exerciseDao().getAllExercises();
+                    Log.d("CHAD", "Exercises: " + exercises.toString());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("CHAD","Second Runnable");
+                            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+                            listView.setAdapter(adapter);
+                        }
+                    });
+                } catch (Exception e){
+                    Log.e("CHAD", "Fehler bei dem Datanbankzugriff: " + e);
+                }
+            }
+        });
+        backgroundThread.start();
     }
 }
