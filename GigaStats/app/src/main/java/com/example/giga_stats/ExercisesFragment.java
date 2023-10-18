@@ -232,14 +232,20 @@ public class ExercisesFragment extends Fragment {
                         int rep = Integer.parseInt(repStr);
                         int weight = Integer.parseInt(weightStr);
 
-                        //TODO: Kommentar aufheben um das Einfügen in die DB zu ermöglichen
-                        db.insertExercise(name, category, rep, weight);
 
-                        // Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
-                        Cursor updatedCursor = db.selectAllExercises();
-                        ExercisesAdapter adapter = (ExercisesAdapter) listView.getAdapter();
-                        adapter.changeCursor(updatedCursor);
-                        adapter.notifyDataSetChanged();
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight));
+                                Log.e("CHAD", "Name: "+name+ " Category: "+category+ " rep: "+rep+ " weight: "+ weight);
+                            }
+                        });
+                        thread.start();
+
+                        //TODO
+                        /* Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
+                         */
+                        exerciseAuslesenRoom();
 
                         // Schließen Sie den Dialog
                         dialog.dismiss();
