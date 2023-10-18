@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="lavender">#8692F7</color>
+    <color name="listBackground">#edede9</color>
+    <color name="actionAndMenuBar">#2D88EB</color>
+    <color name="textHighlightColor">#888AEB</color>
 </resources>

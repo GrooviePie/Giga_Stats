@@ -121,7 +121,7 @@ public class DBManager extends SQLiteOpenHelper {
     }
 
     //=====================================================EXERCISES QUERIES=========================================================================
-    public void insertExercise(String name, String category, String rep, String weight) {
+    public void insertExercise(String name, String category, int rep, int weight) {
 
         ContentValues newRow = new ContentValues();
         newRow.put(SPALTE_EXERCISES_NAME, name);
@@ -160,7 +160,7 @@ public class DBManager extends SQLiteOpenHelper {
         return cursor;
     }
 
-    public void updateExercise(int id, String name, String category, String rep, String weight) {
+    public void updateExercise(int id, String name, String category, int rep, int weight) {
         deleteExercise(id);
         insertExercise(name, category, rep, weight);
     }

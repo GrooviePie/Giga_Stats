@@ -1,178 +1,186 @@
 [
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xhdpi_ic_launcher.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xhdpi/ic_launcher.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-hdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-mdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-mdpi/ic_launcher_round.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_questionmark_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_questionmark_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/xml_backup_rules.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/xml/backup_rules.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_bottommenu_timer_24_black.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_bottommenu_timer_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_statistics_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_statistics_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_exercise_list_item.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/exercise_list_item.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_workouts_list_layout.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/workouts_list_layout.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_bottommenu_exercises_24_black.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_bottommenu_exercises_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_activity_main.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/activity_main.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_bottommenu_statistics_24_black.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_bottommenu_statistics_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_option_exercises.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_option_exercises.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_fragment_timer.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/fragment_timer.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-mdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_timer_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_timer_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_play_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_play_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_option_statistics.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_option_statistics.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_baseline_accessibility_new_24.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/baseline_accessibility_new_24.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_workouts_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_workouts_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_stop_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_stop_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-hdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-hdpi/ic_launcher_round.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_fragment_statistics.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_statistics.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_questionmark_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_questionmark_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-mdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_option_workouts.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_option_workouts.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_fragment_statistics.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/fragment_statistics.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_add_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_add_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_exercises_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_exercises_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_list_backgorund.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/list_backgorund.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_activity_main.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_launcher_background.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-mdpi_ic_launcher.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-mdpi/ic_launcher.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_option_runningworkouts.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_option_runningworkouts.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_fragment_running_workout.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_running_workout.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_fragment_exercises.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/fragment_exercises.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xxxhdpi/ic_launcher_round.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_option_timer.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_option_timer.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_pause_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_pause_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_pause_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_pause_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/xml_data_extraction_rules.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/xml/data_extraction_rules.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_bottommenu_workouts_24_black.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_bottommenu_workouts_24_black.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_option_workouts.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_option_workouts.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_exercises_list_layout.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/exercises_list_layout.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_restart_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_restart_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/xml_backup_rules.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_launcher_foreground.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_workouts_list_layout.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/workouts_list_layout.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_play_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_play_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_context_exercises.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_context_exercises.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_bottom_nav.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_bottom_nav.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_stop_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_stop_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_fragment_timer.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_timer.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_launcher_background.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_launcher_background.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_option_runningworkouts.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_option_runningworkouts.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_baseline_accessibility_new_24.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/baseline_accessibility_new_24.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_fragment_running_workout.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/fragment_running_workout.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-hdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xhdpi_ic_launcher_round.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xhdpi/ic_launcher_round.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_weight_lifting.png.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/weight_lifting.png"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_fragment_workouts.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/fragment_workouts.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_fragment_workouts.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_workouts.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_context_exercises.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_context_exercises.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_toolbar_restart_24_white.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_toolbar_restart_24_white.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_list_backgorund.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/list_backgorund.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/layout_fragment_exercises.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_exercises.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xxxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xxxhdpi/ic_launcher.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_bottommenu_runningworkouts_24_black.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_bottommenu_runningworkouts_24_black.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-xxhdpi_ic_launcher.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-xxhdpi/ic_launcher.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_option_exercises.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_option_exercises.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/layout_exercises_list_layout.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/layout/exercises_list_layout.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_bottom_nav.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_bottom_nav.xml"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/mipmap-hdpi_ic_launcher.webp.flat",
-        "source": "com.example.giga_stats.app-main-30:/mipmap-hdpi/ic_launcher.webp"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xxxhdpi/ic_launcher.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/drawable_ic_toolbar_add_24_white.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/drawable/ic_toolbar_add_24_white.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xxxhdpi/ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.giga_stats.app-merged_res-28:/menu_menu_option_timer.xml.flat",
-        "source": "com.example.giga_stats.app-main-30:/menu/menu_option_timer.xml"
+        "merged": "com.example.giga_stats.app-merged_res-31:/menu_menu_option_statistics.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/menu/menu_option_statistics.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-merged_res-31:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.example.giga_stats.app-main-33:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.example.giga_stats.app-merged_res-31:/drawable_ic_bottommenu_runningworkouts_24_black.xml.flat",
+        "source": "com.example.giga_stats.app-main-33:/drawable/ic_bottommenu_runningworkouts_24_black.xml"
     }
 ]

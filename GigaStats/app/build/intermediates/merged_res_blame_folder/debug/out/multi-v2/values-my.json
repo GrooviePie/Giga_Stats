@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.giga_stats.app-mergeDebugResources-26:/values-my/values-my.xml",
+            "outputFile": "com.example.giga_stats.app-mergeDebugResources-29:/values-my/values-my.xml",
             "map": [
                 {
                     "source": "C:\\Users\\giber\\.gradle\\caches\\transforms-3\\b5364afbc06c95c72352e38d6ea75d02\\transformed\\appcompat-1.6.1\\res\\values-my\\values-my.xml",
