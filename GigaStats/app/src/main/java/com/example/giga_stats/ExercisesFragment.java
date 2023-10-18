@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
@@ -214,26 +215,47 @@ public class ExercisesFragment extends Fragment {
                 String weightStr = inputExerciseWeight.getText().toString();
 
                 if (!name.isEmpty() && !category.isEmpty() && !repStr.isEmpty() && !weightStr.isEmpty()) {
-                    int rep = Integer.parseInt(repStr);
-                    int weight = Integer.parseInt(weightStr);
+                    try {
+                        int rep = Integer.parseInt(repStr);
+                        int weight = Integer.parseInt(weightStr);
 
-                    //TODO: Kommentar aufheben um das einfügen in DB ermöglichen
-                    //db.insertExercise(name, category, repStr, weightStr);
+                        //TODO: Kommentar aufheben um das Einfügen in die DB zu ermöglichen
+                        db.insertExercise(name, category, rep, weight);
 
-                    // Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
-                    Cursor updatedCursor = db.selectAllExercises();
-                    ExercisesAdapter adapter = (ExercisesAdapter) listView.getAdapter();
-                    adapter.changeCursor(updatedCursor);
-                    adapter.notifyDataSetChanged();
+                        // Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
+                        Cursor updatedCursor = db.selectAllExercises();
+                        ExercisesAdapter adapter = (ExercisesAdapter) listView.getAdapter();
+                        adapter.changeCursor(updatedCursor);
+                        adapter.notifyDataSetChanged();
 
-                    // Schließen Sie den Dialog
-                    dialog.dismiss();
+                        // Schließen Sie den Dialog
+                        dialog.dismiss();
+                    } catch (NumberFormatException e) {
+                        // Handle the case where repStr or weightStr cannot be parsed as integers
+                        // Show an error message or take appropriate action
+                        // For example, display a toast message:
+                        Toast.makeText(requireContext(), "Wiederholungen und Gewicht müssen ganze Zahlen sein.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     // Behandeln Sie den Fall, in dem die Eingaben leer sind oder nicht gültig sind
                     // Zeigen Sie eine Nachricht an oder ergreifen Sie andere Maßnahmen
+                    // For example, display a toast message:
+                    Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+
+        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Schließen Sie den Dialog
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+
 
         builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
             @Override

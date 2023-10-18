@@ -1,0 +1,38 @@
+[
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/activity_main.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/fragment_timer.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_timer.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/exercise_list_item.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/exercise_list_item.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/fragment_running_workout.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_running_workout.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/exercises_list_layout.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/exercises_list_layout.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/fragment_exercises.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_exercises.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/fragment_workouts.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_workouts.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/workouts_list_layout.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/workouts_list_layout.xml"
+    },
+    {
+        "merged": "com.example.giga_stats.app-mergeDebugResources-30:/layout/fragment_statistics.xml",
+        "source": "com.example.giga_stats.app-main-33:/layout/fragment_statistics.xml"
+    }
+]
