@@ -1,5 +1,6 @@
 package com.example.giga_stats;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -23,6 +24,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.room.Room;
+
+import com.example.giga_stats.DB.ENTITY.Exercise;
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
+import com.example.giga_stats.adapter.ExerciseRoomAdapter;
+
+import java.util.List;
 
 public class ExercisesFragment extends Fragment {
 
@@ -36,6 +44,8 @@ public class ExercisesFragment extends Fragment {
     private String[] context_menu_item;
     private DBManager db;
     int index;
+    private Context context;
+    private AppDatabase appDatabase;
 
     public ExercisesFragment() {
         // Required empty public constructor
@@ -46,6 +56,9 @@ public class ExercisesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CHAD", "LIFE EXERCISE - onCreate() in ExerciseFragment.java aufgerufen");
+
+        context = getContext();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
@@ -71,7 +84,7 @@ public class ExercisesFragment extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
-            auslesen();
+            exerciseAuslesenRoom();
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
@@ -257,17 +270,6 @@ public class ExercisesFragment extends Fragment {
     }
 
 
-        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen Sie den Dialog
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
-    }
-
 
 
 
@@ -423,6 +425,30 @@ public class ExercisesFragment extends Fragment {
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
         }
+    }
+
+    private void exerciseAuslesenRoom() {
+        Thread backgroundThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("CHAD","First Runnable");
+                try {
+                    final List<Exercise> exercises = appDatabase.exerciseDao().getAllExercises();
+                    Log.d("CHAD", "Exercises: " + exercises.toString());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.d("CHAD","Second Runnable");
+                            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+                            listView.setAdapter(adapter);
+                        }
+                    });
+                } catch (Exception e){
+                    Log.e("CHAD", "Fehler bei dem Datanbankzugriff: " + e);
+                }
+            }
+        });
+        backgroundThread.start();
     }
 
     private MenuInflater getMenuInflater() {
