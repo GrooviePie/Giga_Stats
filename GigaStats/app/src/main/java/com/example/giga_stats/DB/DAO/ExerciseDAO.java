@@ -19,14 +19,14 @@ public interface ExerciseDAO {
     @Insert
     void insertExercise(Exercise exercise);
 
-    @Insert
-    void insertCrossRef(WorkoutExerciseSetCrossRef crossRef);
-
     @Update
     void updateExercise(Exercise exercise);
 
     @Delete
     void deleteExercise(Exercise exercise);
+
+    @Insert
+    void insertCrossRef(WorkoutExerciseSetCrossRef crossRef);
 
     @Query("SELECT * FROM exercises")
     List<Exercise> getAllExercises();
