@@ -15,17 +15,44 @@
         app:titleTextAppearance="@style/ToolbarTitleTextAppearance"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <!-- FrameLayout im Vordergrund -->
     <FrameLayout
-        android:id="@+id/FrameLayout"
+        android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="#000000"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"> <!-- Die Toolbar sollte die obere Ansicht sein -->
-
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.0">
     </FrameLayout>
+
+
+    <!-- ViewPager2 -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+    </androidx.viewpager2.widget.ViewPager2>
+
+
+    <!-- TabLayout unterhalb des ViewPager2 -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </com.google.android.material.tabs.TabLayout>
+
 
     <!-- Navigationsleiste mit Symbolen -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -33,8 +60,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/actionAndMenuBar"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/menu_bottom_nav" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
