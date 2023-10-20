@@ -1,7 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
@@ -34,7 +32,7 @@ import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.ExerciseRoomAdapter;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
 
 public class ExercisesFragment extends Fragment {
 
@@ -88,7 +86,7 @@ public class ExercisesFragment extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
-            exercisesAuslesenRoom();
+            updateExerciseList();
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
@@ -173,10 +171,13 @@ public class ExercisesFragment extends Fragment {
     public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         Log.d("CHAD", "Item Id: " + itemId);
-        TextView exerciseIdView = ((TextView) getView().findViewById(R.id.idExercise));
-        String exercise_id_str = exerciseIdView.getText().toString();
-        int exercise_id = Integer.parseInt(exercise_id_str);
-        Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
+        int exercise_id = 0;
+
+        if (index >= 0) {
+            Exercise selectedExercise = (Exercise) listView.getItemAtPosition(index);
+            exercise_id = selectedExercise.getExercise_id();
+            Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
+        }
 
         if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
             // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
@@ -199,7 +200,6 @@ public class ExercisesFragment extends Fragment {
 
     //=====================================================DIALOGE==========================================================================
 
-    //TODO -> Anpassen nach Jens DB Erweiterung
     private void openAddExerciseDialog() {
         Log.d("CHAD", "openAddExerciseDialog() in ExercisesFragment aufgerufen");
 
@@ -228,65 +228,39 @@ public class ExercisesFragment extends Fragment {
         layout.addView(inputExerciseWeight);
         builder.setView(layout);
 
-        builder.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //TODO: Datentypen anpassen damit richtig in der DB gespeichert
-                String name = inputExerciseName.getText().toString();
-                String category = inputExerciseCategory.getText().toString();
-                String repStr = inputExerciseRep.getText().toString();
-                String weightStr = inputExerciseWeight.getText().toString();
+        builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
+            String name = inputExerciseName.getText().toString();
+            String category = inputExerciseCategory.getText().toString();
+            String repStr = inputExerciseRep.getText().toString();
+            String weightStr = inputExerciseWeight.getText().toString();
 
-                if (!name.isEmpty() && !category.isEmpty() && !repStr.isEmpty() && !weightStr.isEmpty()) {
-                    try {
-                        int rep = Integer.parseInt(repStr);
-                        int weight = Integer.parseInt(weightStr);
+            if (!name.isEmpty() && !category.isEmpty() && !repStr.isEmpty() && !weightStr.isEmpty()) {
+                try {
+                    int rep = Integer.parseInt(repStr);
+                    int weight = Integer.parseInt(weightStr);
 
+                    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                        appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight));
+                        Log.e("CHAD", "Name: " + name + " Category: " + category + " rep: " + rep + " weight: " + weight);
+                    });
 
-                        Thread thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight));
-                                Log.e("CHAD", "Name: " + name + " Category: " + category + " rep: " + rep + " weight: " + weight);
-                            }
-                        });
-                        thread.start();
-
-                        //TODO
-                        /* Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
-                         */
-
-                        // Schließen Sie den Dialog
+                    future.thenRun(() -> {
                         dialog.dismiss();
-                    } catch (NumberFormatException e) {
-                        // Handle the case where repStr or weightStr cannot be parsed as integers
-                        // Show an error message or take appropriate action
-                        // For example, display a toast message:
-                        Toast.makeText(requireContext(), "Wiederholungen und Gewicht müssen ganze Zahlen sein.", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    // Behandeln Sie den Fall, in dem die Eingaben leer sind oder nicht gültig sind
-                    // Zeigen Sie eine Nachricht an oder ergreifen Sie andere Maßnahmen
-                    // For example, display a toast message:
-                    Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus.", Toast.LENGTH_SHORT).show();
+                        updateExerciseList();
+                    });
+                } catch (NumberFormatException e) {
+                    Toast.makeText(requireContext(), "Wiederholungen und Gewicht müssen ganze Zahlen sein.", Toast.LENGTH_SHORT).show();
                 }
-                exercisesAuslesenRoom();
+            } else {
+                Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus.", Toast.LENGTH_SHORT).show();
             }
         });
 
-        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen Sie den Dialog
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
     }
 
-
-    //TODO: Anpassen, genau wie oben :)
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Übung bearbeiten");
@@ -313,38 +287,51 @@ public class ExercisesFragment extends Fragment {
         layout.addView(inputExerciseWeight);
         builder.setView(layout);
 
-        builder.setPositiveButton("Speichern", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String newName = inputExerciseName.getText().toString();
-                String newCategory = inputExerciseCategory.getText().toString();
-                String newRepStr = inputExerciseRep.getText().toString();
-                String newWeightStr = inputExerciseWeight.getText().toString();
+        builder.setPositiveButton("Speichern", (dialog, which) -> {
+            String newName = inputExerciseName.getText().toString();
+            String newCategory = inputExerciseCategory.getText().toString();
+            String newRepStr = inputExerciseRep.getText().toString();
+            String newWeightStr = inputExerciseWeight.getText().toString();
 
-                if (!newName.isEmpty() && !newCategory.isEmpty() && !newRepStr.isEmpty() && !newWeightStr.isEmpty()) {
-                    int newRep = Integer.parseInt(newRepStr);
-                    int newWeight = Integer.parseInt(newWeightStr);
 
-                    //TODO: Kommentar anpassen
-                    //int exerciseId = 1; // Hier sollte die tatsächliche Übungs-ID stehen
-                    //db.updateExercise(exerciseId, newName, newCategory, newRepStr, newWeightStr);
+            if (!newName.isEmpty() && !newCategory.isEmpty() && !newRepStr.isEmpty() && !newWeightStr.isEmpty()) {
+                int newRep = Integer.parseInt(newRepStr);
+                int newWeight = Integer.parseInt(newWeightStr);
 
-                    // Aktualisieren Sie die Ansicht oder den Adapter, um die Änderungen widerzuspiegeln
+                Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight);
+                updatedExercise.setExercise_id(exercise_id);
 
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                    appDatabase.exerciseDao().updateExercise(updatedExercise);
+                });
+
+                future.thenRun(() -> {
                     dialog.dismiss();
-                } else {
-                    // Behandeln Sie den Fall, in dem die Eingaben leer sind oder nicht gültig sind
-                    // Zeigen Sie eine Nachricht an oder ergreifen Sie andere Maßnahmen
-                }
+                    updateExerciseList();
+                });
             }
         });
 
-        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
+        builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
+    }
+
+    private void openDeleteExerciseDialog(int exercise_id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Übung löschen");
+        builder.setMessage("Möchten Sie diese Übung endgültig löschen?");
+
+        builder.setPositiveButton("Ja", (dialog, which) -> {
+            dialog.dismiss();
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().deleteExerciseById(exercise_id));
+
+            future.thenRun(() -> {
+                updateExerciseList();
+            });
         });
+
+        builder.setNegativeButton("Nein", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
     }
@@ -368,121 +355,23 @@ public class ExercisesFragment extends Fragment {
         layout.addView(textView);
         builder.setView(layout);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen Sie den Dialog
-                dialog.dismiss();
-            }
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
         });
 
         builder.create().show();
     }
-
-
-    private void openDeleteExerciseDialog(int exercise_id) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Übung löschen");
-        builder.setMessage("Möchten Sie diese Übung endgültig löschen?");
-
-        builder.setPositiveButton("Ja", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //TODO: Logik für Löschen implementieren
-                // Fügen Sie hier die Logik zum Löschen der Übung ein
-                // Sie müssen die zu löschende Übung aus der Datenbank anhand der Auswahl des Benutzers ermitteln
-                // Beachten Sie, dass Sie die Übungsdaten in der Methode auslesen müssen
-                // und sicherstellen, dass Sie die richtige Übung löschen.
-
-                // Beispiel:
-                // int exerciseId = 1; // Hier sollte die tatsächliche Übungs-ID stehen
-                // db.deleteExercise(exerciseId);
-                Thread thread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        appDatabase.exerciseDao().deleteExerciseById(exercise_id);
-                    }
-                });
-                thread.start();
-                try {
-                    thread.join();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                // Aktualisieren Sie die Ansicht oder den Adapter, um die Änderungen widerzuspiegeln
-
-                dialog.dismiss();
-                exercisesAuslesenRoom();
-            }
-        });
-
-        builder.setNegativeButton("Nein", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
-    }
-
 
     //=====================================================HILFSMETHODEN==========================================================================
 
-//    private void auslesen() {
-//        try {
-//            db = new DBManager(getContext());
-//            Cursor cursor = db.selectAllExercises();
-//            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
-//            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
-//
-//            ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
-//            listView.setAdapter(adapter);
-//        } catch (Exception e) {
-//            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
-//        }
-//    }
-
-//    private void exercisesAuslesenRoom() throws InterruptedException {
-//        Thread backgroundThread = new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d("CHAD","First Runnable");
-//                try {
-//                    final LiveData<List<Exercise>> exercises = appDatabase.exerciseDao().getAllExercises();
-//                    Log.d("CHAD", "Exercises: " + exercises.toString());
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Log.d("CHAD","Second Runnable");
-//                            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
-//                            listView.setAdapter(adapter);
-//                        }
-//                    });
-//                } catch (Exception e){
-//                    Log.e("CHAD", "Fehler bei dem Datanbankzugriff: " + e);
-//                }
-//            }
-//        });
-//        backgroundThread.start();
-//        try {
-//            backgroundThread.join();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-    private void exercisesAuslesenRoom() {
+    private void updateExerciseList() {
         LiveData<List<Exercise>> exercisesLiveData = appDatabase.exerciseDao().getAllExercises();
 
-        exercisesLiveData.observe(requireActivity(), new Observer<List<Exercise>>() {
-            @Override
-            public void onChanged(List<Exercise> exercises) {
+        exercisesLiveData.observe(requireActivity(), exercises -> {
 
-                ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
-                listView.setAdapter(adapter);
+            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+            listView.setAdapter(adapter);
 
-            }
         });
     }
 
@@ -490,7 +379,6 @@ public class ExercisesFragment extends Fragment {
         if (getActivity() != null) {
             return getActivity().getMenuInflater();
         }
-        // Hier könnten Sie auch eine alternative Implementierung hinzufügen, wenn getActivity() null ist.
         return null;
     }
 }

@@ -39,6 +39,6 @@ public interface ExerciseDAO {
 //    List<WorkoutExercises> getWorkoutExercises();
 
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
-    List<Exercise> getExerciseById(int id);
+    Exercise getExerciseById(int id);
 
 }
