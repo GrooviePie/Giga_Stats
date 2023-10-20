@@ -1,4 +1,4 @@
-package com.example.giga_stats;
+package com.example.giga_stats.activityNfragments;
 
 
 
@@ -9,10 +9,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.giga_stats.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 

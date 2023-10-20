@@ -25,11 +25,14 @@ public interface ExerciseDAO {
     @Update
     void updateExercise(Exercise exercise);
 
+    @Query("DELETE FROM exercises WHERE exercise_id = :exerciseId")
+    void deleteExerciseById(int exerciseId);
+
     @Delete
     void deleteExercise(Exercise exercise);
 
     @Query("SELECT * FROM exercises")
-    List<Exercise> getAllExercises();
+    LiveData<List<Exercise>> getAllExercises();
 
 //    @Transaction
 //    @Query("SELECT * FROM exercises")

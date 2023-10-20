@@ -51,7 +51,9 @@ public class ExerciseRoomAdapter extends BaseAdapter {
             TextView categoryTextView = convertView.findViewById(R.id.categoryExercise);
             TextView repTextView = convertView.findViewById(R.id.repExercise);
             TextView weightTextView = convertView.findViewById(R.id.weightExercise);
+            TextView idTextView = convertView.findViewById(R.id.idExercise);
 
+            idTextView.setText(String.valueOf(exercise.getExercise_id()));
             nameTextView.setText(exercise.getName());
             categoryTextView.setText(exercise.getCategory());
             repTextView.setText("x" + String.valueOf(exercise.getRep()));

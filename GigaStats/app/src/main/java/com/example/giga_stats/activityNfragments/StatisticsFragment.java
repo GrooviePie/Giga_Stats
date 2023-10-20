@@ -1,4 +1,4 @@
-package com.example.giga_stats;
+package com.example.giga_stats.activityNfragments;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -18,59 +18,63 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class RunningWorkoutFragment extends Fragment {
+import com.example.giga_stats.R;
 
-    //TODO: LongClickEventHandler für und "Löschen eines Workoutsmuster aus der Ansicht" einbauen
+public class StatisticsFragment extends Fragment {
 
     //TODO: Hardcoded Texte bearbeiten
 
-    public RunningWorkoutFragment() {
+    public StatisticsFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("CHAD", "onCreate() in RunningWorkoutsFragment.java aufgerufen");
+        Log.d("CHAD", "onCreate() in StatisticsFragment.java aufgerufen");
         setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("CHAD", "onCreateOptionsMenu() in RunningWorkoutsFragment.java aufgerufen UTZUTZUTZUTZ");
-        inflater.inflate(R.menu.menu_option_runningworkouts, menu);
+        Log.d("CHAD", "onCreateOptionsMenu() in StatisticsFragment.java aufgerufen CHA-LA HEAD-CHA-LA");
+        inflater.inflate(R.menu.menu_option_statistics, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        Log.d("CHAD", "onOptionsItemSelected() in RunnningWorkoutsFragment.java aufgerufen");
-
-        if (itemId == R.id.option_menu_add_runningworkouts) {
-            // TODO: Aktion für "Hinzufügen" ausführen
-            return true;
-        } else if (itemId == R.id.option_menu_tutorial_runningworkouts ) {
-            // TODO: Tutorial für RunningWorkoutsFragment erstellen
+        Log.d("CHAD", "onOptionsItemSelected() in StatisticsFragment.java aufgerufen");
+        if (itemId == R.id.option_menu_tutorial_statistics) {
             openTutorialDialog();
             return true;
-        } else return super.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
-    @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
-
-            toolbar.setTitle("Workout beginnen"); // Setzen Sie den Titel für die Toolbar
+            // Konfigurieren Sie die Toolbar nach Bedarf
+            toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
             toolbar.setTitleTextColor(Color.WHITE);
+
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_statistics, container, false);
     }
 
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
-        //TODO: Tutorial schreiben für Fragment "Workout beginnen"
+        //TODO: Tutorial schreiben für Fragment "Statistics"
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -96,6 +100,5 @@ public class RunningWorkoutFragment extends Fragment {
 
         builder.create().show();
     }
-
 
 }

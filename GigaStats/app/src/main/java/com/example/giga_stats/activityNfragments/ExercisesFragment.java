@@ -1,8 +1,7 @@
-package com.example.giga_stats;
+package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,13 +23,18 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
+import com.example.giga_stats.oldies.DBManager;
+import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.ExerciseRoomAdapter;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ExercisesFragment extends Fragment {
 
@@ -62,7 +66,7 @@ public class ExercisesFragment extends Fragment {
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
-        // Initialisieren Sie die ListView, bevor Sie den Adapter setzen
+        // Initialisieren Sie die, bevor Sie den Adapter setzen
         listView = new ListView(getContext());
 
         try {
@@ -84,7 +88,7 @@ public class ExercisesFragment extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
-            exerciseAuslesenRoom();
+            exercisesAuslesenRoom();
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
@@ -168,18 +172,24 @@ public class ExercisesFragment extends Fragment {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+        Log.d("CHAD", "Item Id: " + itemId);
+        TextView exerciseIdView = ((TextView) getView().findViewById(R.id.idExercise));
+        String exercise_id_str = exerciseIdView.getText().toString();
+        int exercise_id = Integer.parseInt(exercise_id_str);
+        Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
+
         if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
             // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
-            Log.d("CHAD","onContextItemSelected -> Übung bearbeiten gedrückt in ExercisesFragment XOXO");
+            Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt in ExercisesFragment XOXO");
 
-            openEditExerciseDialog();
+            openEditExerciseDialog(exercise_id);
 
             return true;
         } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
             // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments ExerciseFragment
-            Log.d("CHAD","onContextItemSelected -> Übung löschen gedrückt in ExercisesFragment OXOX");
+            Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt in ExercisesFragment OXOX");
 
-            openDeleteExerciseDialog();
+            openDeleteExerciseDialog(exercise_id);
 
             return true;
         } else {
@@ -237,7 +247,7 @@ public class ExercisesFragment extends Fragment {
                             @Override
                             public void run() {
                                 appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight));
-                                Log.e("CHAD", "Name: "+name+ " Category: "+category+ " rep: "+rep+ " weight: "+ weight);
+                                Log.e("CHAD", "Name: " + name + " Category: " + category + " rep: " + rep + " weight: " + weight);
                             }
                         });
                         thread.start();
@@ -245,7 +255,6 @@ public class ExercisesFragment extends Fragment {
                         //TODO
                         /* Aktualisieren Sie den Cursor, um die Daten aus der Datenbank abzurufen
                          */
-                        exerciseAuslesenRoom();
 
                         // Schließen Sie den Dialog
                         dialog.dismiss();
@@ -261,6 +270,7 @@ public class ExercisesFragment extends Fragment {
                     // For example, display a toast message:
                     Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus.", Toast.LENGTH_SHORT).show();
                 }
+                exercisesAuslesenRoom();
             }
         });
 
@@ -276,11 +286,8 @@ public class ExercisesFragment extends Fragment {
     }
 
 
-
-
-
     //TODO: Anpassen, genau wie oben :)
-    private void openEditExerciseDialog() {
+    private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Übung bearbeiten");
 
@@ -343,8 +350,6 @@ public class ExercisesFragment extends Fragment {
     }
 
 
-
-
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         //TODO: Tutorial schreiben für Fragment "Übungen"
@@ -375,7 +380,7 @@ public class ExercisesFragment extends Fragment {
     }
 
 
-    private void openDeleteExerciseDialog() {
+    private void openDeleteExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Übung löschen");
         builder.setMessage("Möchten Sie diese Übung endgültig löschen?");
@@ -392,10 +397,22 @@ public class ExercisesFragment extends Fragment {
                 // Beispiel:
                 // int exerciseId = 1; // Hier sollte die tatsächliche Übungs-ID stehen
                 // db.deleteExercise(exerciseId);
-
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        appDatabase.exerciseDao().deleteExerciseById(exercise_id);
+                    }
+                });
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 // Aktualisieren Sie die Ansicht oder den Adapter, um die Änderungen widerzuspiegeln
 
                 dialog.dismiss();
+                exercisesAuslesenRoom();
             }
         });
 
@@ -410,51 +427,63 @@ public class ExercisesFragment extends Fragment {
     }
 
 
-
-
-
-
-
-
-
     //=====================================================HILFSMETHODEN==========================================================================
 
-    private void auslesen() {
-        try {
-            db = new DBManager(getContext());
-            Cursor cursor = db.selectAllExercises();
-            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
-            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
+//    private void auslesen() {
+//        try {
+//            db = new DBManager(getContext());
+//            Cursor cursor = db.selectAllExercises();
+//            String[] from = new String[]{db.SPALTE_EXERCISES_IMG, db.SPALTE_EXERCISES_NAME, db.SPALTE_EXERCISES_CATEGORY, db.SPALTE_EXERCISES_REP, db.SPALTE_EXERCISES_WEIGHT};
+//            int[] to = new int[]{R.id.img, R.id.name, R.id.category, R.id.rep, R.id.weight};
+//
+//            ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
+//            listView.setAdapter(adapter);
+//        } catch (Exception e) {
+//            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
+//        }
+//    }
 
-            ExercisesAdapter adapter = new ExercisesAdapter(getContext(), R.layout.exercises_list_layout, cursor, from, to, 0);
-            listView.setAdapter(adapter);
-        } catch (Exception e) {
-            Log.e("CHAD", "Fehler beim Auslesen der Daten : " + e.getMessage());
-        }
-    }
+//    private void exercisesAuslesenRoom() throws InterruptedException {
+//        Thread backgroundThread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                Log.d("CHAD","First Runnable");
+//                try {
+//                    final LiveData<List<Exercise>> exercises = appDatabase.exerciseDao().getAllExercises();
+//                    Log.d("CHAD", "Exercises: " + exercises.toString());
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Log.d("CHAD","Second Runnable");
+//                            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+//                            listView.setAdapter(adapter);
+//                        }
+//                    });
+//                } catch (Exception e){
+//                    Log.e("CHAD", "Fehler bei dem Datanbankzugriff: " + e);
+//                }
+//            }
+//        });
+//        backgroundThread.start();
+//        try {
+//            backgroundThread.join();
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-    private void exerciseAuslesenRoom() {
-        Thread backgroundThread = new Thread(new Runnable() {
+    private void exercisesAuslesenRoom() {
+        LiveData<List<Exercise>> exercisesLiveData = appDatabase.exerciseDao().getAllExercises();
+
+        exercisesLiveData.observe(requireActivity(), new Observer<List<Exercise>>() {
             @Override
-            public void run() {
-                Log.d("CHAD","First Runnable");
-                try {
-                    final List<Exercise> exercises = appDatabase.exerciseDao().getAllExercises();
-                    Log.d("CHAD", "Exercises: " + exercises.toString());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.d("CHAD","Second Runnable");
-                            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
-                            listView.setAdapter(adapter);
-                        }
-                    });
-                } catch (Exception e){
-                    Log.e("CHAD", "Fehler bei dem Datanbankzugriff: " + e);
-                }
+            public void onChanged(List<Exercise> exercises) {
+
+                ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+                listView.setAdapter(adapter);
+
             }
         });
-        backgroundThread.start();
     }
 
     private MenuInflater getMenuInflater() {

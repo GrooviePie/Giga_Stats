@@ -1,4 +1,4 @@
-package com.example.giga_stats;
+package com.example.giga_stats.activityNfragments;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.giga_stats.R;
 
 public class WorkoutsFragment extends Fragment {
 

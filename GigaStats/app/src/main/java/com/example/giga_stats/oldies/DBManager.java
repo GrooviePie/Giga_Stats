@@ -1,4 +1,4 @@
-package com.example.giga_stats;
+package com.example.giga_stats.oldies;
 
 import android.content.ContentValues;
 import android.content.Context;
