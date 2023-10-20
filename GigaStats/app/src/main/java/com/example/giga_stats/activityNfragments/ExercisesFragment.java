@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -37,14 +38,10 @@ import java.util.concurrent.CompletableFuture;
 public class ExercisesFragment extends Fragment {
 
 
-    //TODO: Fenster für Bearbeiten einer Übung
-
     //TODO: Hardcoded Texte bearbeiten
 
     private ListView listView;
-
     private String[] context_menu_item;
-    private DBManager db;
     int index;
     private Context context;
     private AppDatabase appDatabase;
@@ -113,7 +110,7 @@ public class ExercisesFragment extends Fragment {
 
     //=====================================================OPTIONSMENÜ==========================================================================
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         Log.d("CHAD", "onCreateOptionsMenu() in ExerciseFragment.java aufgerufen JUUUUUUUUUUUUUUUHUUUUUUUUUUUU");
         inflater.inflate(R.menu.menu_option_exercises, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -137,7 +134,7 @@ public class ExercisesFragment extends Fragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -150,7 +147,7 @@ public class ExercisesFragment extends Fragment {
     //=====================================================KONTEXTMENÜ==========================================================================
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         Log.d("CHAD", "onCreateContextMenu() in ExercisesFragmente aufgerufen :)");
 
@@ -301,9 +298,7 @@ public class ExercisesFragment extends Fragment {
                 Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight);
                 updatedExercise.setExercise_id(exercise_id);
 
-                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                    appDatabase.exerciseDao().updateExercise(updatedExercise);
-                });
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().updateExercise(updatedExercise));
 
                 future.thenRun(() -> {
                     dialog.dismiss();
@@ -326,9 +321,7 @@ public class ExercisesFragment extends Fragment {
             dialog.dismiss();
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().deleteExerciseById(exercise_id));
 
-            future.thenRun(() -> {
-                updateExerciseList();
-            });
+            future.thenRun(() -> updateExerciseList());
         });
 
         builder.setNegativeButton("Nein", (dialog, which) -> dialog.dismiss());
@@ -355,9 +348,7 @@ public class ExercisesFragment extends Fragment {
         layout.addView(textView);
         builder.setView(layout);
 
-        builder.setPositiveButton("OK", (dialog, which) -> {
-            dialog.dismiss();
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
         builder.create().show();
     }
