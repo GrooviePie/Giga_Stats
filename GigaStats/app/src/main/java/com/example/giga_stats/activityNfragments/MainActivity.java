@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialisieren Sie die Toolbar und setzen Sie sie als Aktionsleiste
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Erstellen Sie eine Instanz des FragmentManagers
         fragmentManager = getSupportFragmentManager();
