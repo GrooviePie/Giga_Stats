@@ -58,6 +58,7 @@ public class ExerciseRoomAdapter extends BaseAdapter {
             categoryTextView.setText(exercise.getCategory());
             repTextView.setText("x" + String.valueOf(exercise.getRep()));
             weightTextView.setText(String.valueOf(exercise.getWeight()) + "kg");
+
         }
 
         return convertView;

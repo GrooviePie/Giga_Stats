@@ -24,11 +24,15 @@ public class Exercise {
     @Nullable
     int weight;
 
-    public Exercise(String name, String category, @Nullable int rep, @Nullable int weight) {
+    @ColumnInfo(name = "desc")
+    String desc;
+
+    public Exercise(String name, String category, @Nullable int rep, @Nullable int weight, @Nullable String desc) {
         this.name = name;
         this.category = category;
         this.rep = rep;
         this.weight = weight;
+        this.desc = desc;
     }
 
     public int getExercise_id() {
@@ -69,5 +73,13 @@ public class Exercise {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

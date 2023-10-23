@@ -8,15 +8,16 @@
     android:orientation="vertical"
     tools:context=".activityNfragments.ExercisesFragment">
 
-    <ListView
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
+        android:id="@+id/expandableListView"
         android:scrollbars="vertical"
-        tools:listitem="@layout/exercise_list_item"
+        tools:listitem="@layout/exercise_list_group"
         android:divider="@android:color/transparent"
         android:background="@color/listBackground"
-        android:dividerHeight="10sp" />
+        android:dividerHeight="10sp"
+        android:groupIndicator="@null"/>
 
 
 </LinearLayout>

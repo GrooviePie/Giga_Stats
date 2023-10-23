@@ -18,7 +18,7 @@ import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseSetCrossRef.class, Sets.class}, version = 4)
+@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseSetCrossRef.class, Sets.class}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ExerciseDAO exerciseDao();
     public abstract WorkoutDAO workoutDao();
@@ -45,9 +45,6 @@ public abstract class AppDatabase extends RoomDatabase {
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
             Executors.newSingleThreadScheduledExecutor().execute(() -> {
-                ExerciseDAO exerciseDAO = instance.exerciseDao();
-                exerciseDAO.insertExercise(new Exercise("Übung 1", "Kategorie 1", 10, 50));
-                exerciseDAO.insertExercise(new Exercise("Übung 2", "Kategorie 2", 12, 60));
             });
         }
     };

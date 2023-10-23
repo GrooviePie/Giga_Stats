@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,9 +29,9 @@ import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
-import com.example.giga_stats.oldies.DBManager;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.ExerciseRoomAdapter;
+import com.example.giga_stats.adapter.ExerciseRoomExpandableListAdapter;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -40,7 +41,7 @@ public class ExercisesFragment extends Fragment {
 
     //TODO: Hardcoded Texte bearbeiten
 
-    private ListView listView;
+    private ExpandableListView expandableListView;
     private String[] context_menu_item;
     int index;
     private Context context;
@@ -62,11 +63,11 @@ public class ExercisesFragment extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         // Initialisieren Sie die, bevor Sie den Adapter setzen
-        listView = new ListView(getContext());
+        expandableListView = new ExpandableListView(getContext());
 
         try {
             ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
-            listView.setAdapter(adapter);
+            expandableListView.setAdapter(adapter);
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
         }
@@ -79,7 +80,7 @@ public class ExercisesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE EXERCISE - onCreateView() in ExerciseFragment.java aufgerufen");
         View rootView = inflater.inflate(R.layout.fragment_exercises, container, false);
-        listView = rootView.findViewById(R.id.listView);
+        expandableListView = rootView.findViewById(R.id.expandableListView);
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
         try {
@@ -89,7 +90,7 @@ public class ExercisesFragment extends Fragment {
         }
 
         // Registrieren Sie den ListView für LongClick-Ereignisse
-        registerForContextMenu(listView);
+        registerForContextMenu(expandableListView);
 
         return rootView;
     }
@@ -171,7 +172,7 @@ public class ExercisesFragment extends Fragment {
         int exercise_id = 0;
 
         if (index >= 0) {
-            Exercise selectedExercise = (Exercise) listView.getItemAtPosition(index);
+            Exercise selectedExercise = (Exercise) expandableListView.getItemAtPosition(index);
             exercise_id = selectedExercise.getExercise_id();
             Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
         }
@@ -237,7 +238,7 @@ public class ExercisesFragment extends Fragment {
                     int weight = Integer.parseInt(weightStr);
 
                     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                        appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight));
+                        appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
                         Log.e("CHAD", "Name: " + name + " Category: " + category + " rep: " + rep + " weight: " + weight);
                     });
 
@@ -295,7 +296,7 @@ public class ExercisesFragment extends Fragment {
                 int newRep = Integer.parseInt(newRepStr);
                 int newWeight = Integer.parseInt(newWeightStr);
 
-                Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight);
+                Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight, null);
                 updatedExercise.setExercise_id(exercise_id);
 
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().updateExercise(updatedExercise));
@@ -360,8 +361,9 @@ public class ExercisesFragment extends Fragment {
 
         exercisesLiveData.observe(requireActivity(), exercises -> {
 
-            ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
-            listView.setAdapter(adapter);
+            //ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
+            ExerciseRoomExpandableListAdapter adapter = new ExerciseRoomExpandableListAdapter(context, exercises);
+            expandableListView.setAdapter(adapter);
 
         });
     }
