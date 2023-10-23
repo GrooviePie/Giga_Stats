@@ -24,13 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager2;
-    private int currentPage = 0; // Um den aktuellen Tab zu speichern
+
+    private Fragment currentFragment;
+    private StatisticsFragment statisticsFragment;
+    private TimerFragment timerFragment;
+    private RunningWorkoutFragment runningWorkoutFragment;
+    private ExercisesFragment exercisesFragment;
+    private WorkoutsFragment workoutsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //TODO: -Startbildschirm muss auf RunningWorkouts gesetzt werden
-        //      -Bottommenü Klicks funktionieren nicht mehr
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -45,53 +48,63 @@ public class MainActivity extends AppCompatActivity {
         // Erstellen Sie eine Instanz des FragmentManagers
         fragmentManager = getSupportFragmentManager();
 
+        // Initialisiere die Instanzvariablen für die Fragmente
+        statisticsFragment = new StatisticsFragment();
+        timerFragment = new TimerFragment();
+        runningWorkoutFragment = new RunningWorkoutFragment();
+        exercisesFragment = new ExercisesFragment();
+        workoutsFragment = new WorkoutsFragment();
+
+        // Erstelle die Liste von Fragmenten
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new StatisticsFragment());
-        fragments.add(new TimerFragment());
-        fragments.add(new RunningWorkoutFragment());
-        fragments.add(new ExercisesFragment());
-        fragments.add(new WorkoutsFragment());
+        fragments.add(statisticsFragment);
+        fragments.add(timerFragment);
+        fragments.add(runningWorkoutFragment);
+        fragments.add(exercisesFragment);
+        fragments.add(workoutsFragment);
 
         MyPagerAdapter pagerAdapter = new MyPagerAdapter(this, fragments);
         viewPager2.setAdapter(pagerAdapter);
-
 
         // Set up the OnPageChangeCallback to detect swiping
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
-                // This method is called when a new page is selected
-                // You can handle different cases based on the selected page
+
+
+                // Wechsle basierend auf der ausgewählten Position zu den entsprechenden Fragmenten
                 switch (position) {
                     case 0:
-                        showStatisticsFragment();
+                        switchToFragment(statisticsFragment);
+                        Log.d("CHAD", "StatisticsFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.STATS_BUTTONMENU_BUTTON);
                         break;
                     case 1:
-                        showTimerFragment();
+                        switchToFragment(timerFragment);
+                        Log.d("CHAD", "TimerFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.TIMER_BUTTONMENU_BUTTON);
                         break;
                     case 2:
-                        showRunningWorkout();
+                        switchToFragment(runningWorkoutFragment);
+                        Log.d("CHAD", "RunningWorkoutFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
                         break;
                     case 3:
-                        showExercisesFragment();
+                        switchToFragment(exercisesFragment);
+                        Log.d("CHAD", "ExercisesFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.EXERCISES_BUTTONMENU_BUTTON);
                         break;
                     case 4:
-                        showWorkoutsFragment();
+                        switchToFragment(workoutsFragment);
+                        Log.d("CHAD", "WorkoutsFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.WORKOUT_BUTTONMENU_BUTTON);
                         break;
                 }
-                currentPage = position; // Update the current page
             }
         });
 
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            // Hier können Sie die Tab-Texte festlegen, z.B.:
-            Log.e("CHAD", "Setting tab text for position: " + position);
             tab.setText("Tab " + (position + 1));
         }).attach();
 
@@ -104,67 +117,57 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
+
             if (itemId == R.id.STATS_BUTTONMENU_BUTTON) {
-                showStatisticsFragment();
+                if (!isCurrentFragment(statisticsFragment)) {
+                    switchToFragment(statisticsFragment);
+                    Log.d("CHAD", "showStatisticsFragment(): StatisticsFragment wird erzeugt ||| per Bottommenü-Klick");
+                }
                 return true;
             } else if (itemId == R.id.TIMER_BUTTONMENU_BUTTON) {
-                showTimerFragment();
-                return true;
-            } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
-                showExercisesFragment();
-                return true;
-            } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
-                showWorkoutsFragment();
+                if (!isCurrentFragment(timerFragment)) {
+                    switchToFragment(timerFragment);
+                    Log.d("CHAD", "showTimerFragment(): TimerFragment wird erzeugt ||| per Bottommenü-Klick");
+                }
                 return true;
             } else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
-                showRunningWorkout();
+                if (!isCurrentFragment(runningWorkoutFragment)) {
+                    switchToFragment(runningWorkoutFragment);
+                    Log.d("CHAD", "RunningWorkoutFragment wird erzeugt ||| per Bottommenü-Klick");
+                }
+                return true;
+            } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
+                if (!isCurrentFragment(exercisesFragment)) {
+                    switchToFragment(exercisesFragment);
+                    Log.d("CHAD", "showExercisesFragment(): ExercisesFragment wird erzeugt ||| per Bottommenü-Klick");
+                }
+                return true;
+            } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
+                if (!isCurrentFragment(workoutsFragment)) {
+                    switchToFragment(workoutsFragment);
+                    Log.d("CHAD", "showWorkoutsFragment(): WorkoutsFragment wird erzeugt ||| per Bottommenü-Klick");
+                }
                 return true;
             }
             return false;
         });
     }
 
+    private void switchToFragment(Fragment fragment) {
+        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
+            return; // Das gewählte Fragment ist bereits aktiv, daher nichts tun
+        }
 
-    private void showStatisticsFragment() {
-        Log.d("CHAD", "showStatisticsFragment(): StatisticsFragment wird erzeugt");
-        StatisticsFragment statisticsFragment = new StatisticsFragment();
-
-
-        //showFragment(statisticsFragment);
-    }
-
-    private void showRunningWorkout() {
-        Log.d("CHAD", "showRunningWorkout(): RunningWorkoutFragment wird erzeugt");
-        RunningWorkoutFragment runningWorkoutFragment = new RunningWorkoutFragment();
-        //showFragment(runningWorkoutFragment);
-    }
-
-    private void showTimerFragment() {
-        Log.d("CHAD", "showTimerFragment(): TimerFragment wird erzeugt");
-        TimerFragment timerFragment = new TimerFragment();
-        //showFragment(timerFragment);
-    }
-
-    private void showExercisesFragment() {
-        Log.d("CHAD", "showExercisesFragment(): ExercisesFragment wird erzeugt");
-        ExercisesFragment exercisesFragment = new ExercisesFragment();
-        //showFragment(exercisesFragment);
-    }
-
-    private void showWorkoutsFragment() {
-        Log.d("CHAD", "showWorkoutsFragment(): WorkoutsFragment wird erzeugt");
-        WorkoutsFragment workoutsFragment = new WorkoutsFragment();
-        //showFragment(workoutsFragment);
-    }
-
-    private void showFragment(Fragment fragment) {
-        Log.d("CHAD", "Fragment wird ausgetauscht: " + fragment.getClass().getSimpleName());
-
-        // Beginne eine Transaktion, um das Fragment hinzuzufügen
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragment); // "frameLayout" ist die ID des Containers, in dem das Fragment angezeigt werden soll
-        transaction.addToBackStack(null); // Optional: Füge die Transaktion zum Back-Stack hinzu, um den Zurück-Knopf zu unterstützen
+        transaction.replace(R.id.frameLayout, fragment);
+
         transaction.commit();
+
+        currentFragment = fragment;
+    }
+
+    private boolean isCurrentFragment(Fragment fragment) {
+        return currentFragment != null && currentFragment.getClass().equals(fragment.getClass());
     }
 
     @Override

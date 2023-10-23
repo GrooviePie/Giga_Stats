@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class StatisticsFragment extends Fragment {
 
-    //TODO: Hardcoded Texte bearbeiten
+    private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -35,8 +35,10 @@ public class StatisticsFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("CHAD", "onCreateOptionsMenu() in StatisticsFragment.java aufgerufen CHA-LA HEAD-CHA-LA");
-        inflater.inflate(R.menu.menu_option_statistics, menu);
+        if (!isFragmentInitialized) { // Überprüfen, ob das Fragment bereits initialisiert wurde
+            inflater.inflate(R.menu.menu_option_statistics, menu);
+            isFragmentInitialized = true; // Setze die Flagge auf true, um die Initialisierung zu markieren
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -44,6 +46,7 @@ public class StatisticsFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in StatisticsFragment.java aufgerufen");
+
         if (itemId == R.id.option_menu_tutorial_statistics) {
             openTutorialDialog();
             return true;
@@ -59,7 +62,6 @@ public class StatisticsFragment extends Fragment {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
             toolbar.setTitleTextColor(Color.WHITE);
-
         }
     }
 
@@ -98,5 +100,4 @@ public class StatisticsFragment extends Fragment {
 
         builder.create().show();
     }
-
 }
