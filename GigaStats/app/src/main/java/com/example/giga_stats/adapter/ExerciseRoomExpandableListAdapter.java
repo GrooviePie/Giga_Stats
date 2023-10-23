@@ -15,13 +15,10 @@ import java.util.List;
 public class ExerciseRoomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private LayoutInflater layoutInflater;
-    private int itemLayout;
     private List<Exercise> exercises;
 
 
     public ExerciseRoomExpandableListAdapter(Context context, List<Exercise> exercises) {
-        this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.exercises = exercises;
     }

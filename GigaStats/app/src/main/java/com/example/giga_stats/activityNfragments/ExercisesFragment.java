@@ -2,9 +2,11 @@ package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -142,6 +144,7 @@ public class ExercisesFragment extends Fragment {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
             toolbar.setTitleTextColor(Color.WHITE);
+
         }
     }
 
@@ -217,6 +220,9 @@ public class ExercisesFragment extends Fragment {
         final EditText inputExerciseWeight = new EditText(requireContext());
         inputExerciseWeight.setHint("Gewicht");
 
+        final EditText inputExerciseDesc = new EditText(requireContext());
+        inputExerciseDesc.setHint("Kurzbeschreibung");
+
         // Fügen Sie die EditText-Felder zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -224,6 +230,7 @@ public class ExercisesFragment extends Fragment {
         layout.addView(inputExerciseCategory);
         layout.addView(inputExerciseRep);
         layout.addView(inputExerciseWeight);
+        layout.addView(inputExerciseDesc);
         builder.setView(layout);
 
         builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
@@ -231,6 +238,7 @@ public class ExercisesFragment extends Fragment {
             String category = inputExerciseCategory.getText().toString();
             String repStr = inputExerciseRep.getText().toString();
             String weightStr = inputExerciseWeight.getText().toString();
+            String desc = inputExerciseDesc.getText().toString();
 
             if (!name.isEmpty() && !category.isEmpty() && !repStr.isEmpty() && !weightStr.isEmpty()) {
                 try {
@@ -238,7 +246,7 @@ public class ExercisesFragment extends Fragment {
                     int weight = Integer.parseInt(weightStr);
 
                     CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                        appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+                        appDatabase.exerciseDao().insertExercise(new Exercise(name, category, rep, weight, desc));
                         Log.e("CHAD", "Name: " + name + " Category: " + category + " rep: " + rep + " weight: " + weight);
                     });
 
@@ -276,6 +284,9 @@ public class ExercisesFragment extends Fragment {
         final EditText inputExerciseWeight = new EditText(requireContext());
         inputExerciseWeight.setHint("Gewicht");
 
+        final EditText inputExerciseDesc = new EditText(requireContext());
+        inputExerciseDesc.setHint("Kurzbeschreibung");
+
         // Fügen Sie die EditText-Felder zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -283,6 +294,7 @@ public class ExercisesFragment extends Fragment {
         layout.addView(inputExerciseCategory);
         layout.addView(inputExerciseRep);
         layout.addView(inputExerciseWeight);
+        layout.addView(inputExerciseDesc);
         builder.setView(layout);
 
         builder.setPositiveButton("Speichern", (dialog, which) -> {
@@ -290,13 +302,14 @@ public class ExercisesFragment extends Fragment {
             String newCategory = inputExerciseCategory.getText().toString();
             String newRepStr = inputExerciseRep.getText().toString();
             String newWeightStr = inputExerciseWeight.getText().toString();
+            String newDesc = inputExerciseDesc.getText().toString();
 
 
             if (!newName.isEmpty() && !newCategory.isEmpty() && !newRepStr.isEmpty() && !newWeightStr.isEmpty()) {
                 int newRep = Integer.parseInt(newRepStr);
                 int newWeight = Integer.parseInt(newWeightStr);
 
-                Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight, null);
+                Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight, newDesc);
                 updatedExercise.setExercise_id(exercise_id);
 
                 CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().updateExercise(updatedExercise));
