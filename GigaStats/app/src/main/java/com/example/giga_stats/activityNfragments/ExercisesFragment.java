@@ -11,8 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -33,6 +31,7 @@ import com.example.giga_stats.adapter.ExerciseRoomExpandableListAdapter;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ExercisesFragment extends Fragment {
 
@@ -63,12 +62,12 @@ public class ExercisesFragment extends Fragment {
         // Initialisieren Sie die, bevor Sie den Adapter setzen
         expandableListView = new ExpandableListView(getContext());
 
-        try {
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
-            expandableListView.setAdapter(adapter);
-        } catch (Exception e) {
-            Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
-        }
+//        try {
+//            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
+//            expandableListView.setAdapter(adapter);
+//        } catch (Exception e) {
+//            Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
+//        }
 
         setHasOptionsMenu(true); // Optionsmenü erstellen
     }
@@ -151,18 +150,26 @@ public class ExercisesFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         Log.d("CHAD", "onCreateContextMenu() in ExercisesFragmente aufgerufen :)");
 
-        MenuInflater inflater = getMenuInflater();
-        if (inflater != null) {
-            inflater.inflate(R.menu.menu_context_exercises, menu);
+        if (menuInfo instanceof ExpandableListView.ExpandableListContextMenuInfo) {
+            ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
+            int type = ExpandableListView.getPackedPositionType(info.packedPosition);
 
-            index = ((AdapterView.AdapterContextMenuInfo) menuInfo).position;
-            MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_EXERCISES);
-            MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_EXERCISES);
+            index = ExpandableListView.getPackedPositionGroup(info.packedPosition);
 
-            edit_context.setTitle("Übung bearbeiten");
-            delete_context.setTitle("Übung löschen");
+            MenuInflater inflater = getMenuInflater();
+            if (inflater != null) {
+                inflater.inflate(R.menu.menu_context_exercises, menu);
+
+                MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_EXERCISES);
+                MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_EXERCISES);
+
+                edit_context.setTitle("Übung bearbeiten");
+                delete_context.setTitle("Übung löschen");
+            }
+
         }
     }
+
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -171,8 +178,21 @@ public class ExercisesFragment extends Fragment {
         int exercise_id = 0;
 
         if (index >= 0) {
-            Exercise selectedExercise = (Exercise) expandableListView.getItemAtPosition(index);
-            exercise_id = selectedExercise.getExercise_id();
+
+            int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
+
+            AtomicReference<Exercise> selectedExercise = new AtomicReference<>();
+            Thread thr = new Thread(() -> {
+                selectedExercise.set(appDatabase.exerciseDao().getExerciseById(id));
+            });
+            thr.start();
+            try {
+                thr.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Log.d("CHAD", "selectedExercie" + selectedExercise);
+            exercise_id = selectedExercise.get().getExercise_id();
             Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
         }
 
