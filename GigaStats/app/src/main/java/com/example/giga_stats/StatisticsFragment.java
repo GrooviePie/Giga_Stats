@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class StatisticsFragment extends Fragment {
 
-    private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
+    //private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
 
     public StatisticsFragment() {
         // Required empty public constructor
@@ -34,11 +34,8 @@ public class StatisticsFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        if (!isFragmentInitialized) { // Überprüfen, ob das Fragment bereits initialisiert wurde
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {// Überprüfen, ob das Fragment bereits initialisiert wurde
             inflater.inflate(R.menu.menu_option_statistics, menu);
-            isFragmentInitialized = true; // Setze die Flagge auf true, um die Initialisierung zu markieren
-        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 

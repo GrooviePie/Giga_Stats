@@ -4,8 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+//import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
@@ -21,16 +20,17 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FragmentManager fragmentManager;
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager2;
-
     private Fragment currentFragment;
     private StatisticsFragment statisticsFragment;
     private TimerFragment timerFragment;
     private RunningWorkoutFragment runningWorkoutFragment;
     private ExercisesFragment exercisesFragment;
     private WorkoutsFragment workoutsFragment;
+
+    public MainActivity() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         viewPager2 = findViewById(R.id.viewPager2);
+        // Initialize the Bottom Navigation View
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
         // Erstellen Sie eine Instanz des FragmentManagers
-        fragmentManager = getSupportFragmentManager();
+        //FragmentManager fragmentManager = getSupportFragmentManager();
 
         // Initialisiere die Instanzvariablen für die Fragmente
         statisticsFragment = new StatisticsFragment();
@@ -72,31 +74,30 @@ public class MainActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-
                 // Wechsle basierend auf der ausgewählten Position zu den entsprechenden Fragmenten
                 switch (position) {
                     case 0:
-                        switchToFragment(statisticsFragment);
+                        viewPager2.setCurrentItem(0, true);
                         Log.d("CHAD", "StatisticsFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.STATS_BUTTONMENU_BUTTON);
                         break;
                     case 1:
-                        switchToFragment(timerFragment);
+                        viewPager2.setCurrentItem(1, true);
                         Log.d("CHAD", "TimerFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.TIMER_BUTTONMENU_BUTTON);
                         break;
                     case 2:
-                        switchToFragment(runningWorkoutFragment);
+                        viewPager2.setCurrentItem(2, true);
                         Log.d("CHAD", "RunningWorkoutFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
                         break;
                     case 3:
-                        switchToFragment(exercisesFragment);
+                        viewPager2.setCurrentItem(3, true);
                         Log.d("CHAD", "ExercisesFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.EXERCISES_BUTTONMENU_BUTTON);
                         break;
                     case 4:
-                        switchToFragment(workoutsFragment);
+                        viewPager2.setCurrentItem(4, true);
                         Log.d("CHAD", "WorkoutsFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.WORKOUT_BUTTONMENU_BUTTON);
                         break;
@@ -104,12 +105,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> {
-            tab.setText("Tab " + (position + 1));
-        }).attach();
+        new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
 
-        // Initialize the Bottom Navigation View
-        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+
         // Set the "Start" button as selected
         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
 
@@ -119,32 +117,32 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (itemId == R.id.STATS_BUTTONMENU_BUTTON) {
-                if (!isCurrentFragment(statisticsFragment)) {
-                    switchToFragment(statisticsFragment);
+                if (isCurrentFragment(statisticsFragment)) {
+                    viewPager2.setCurrentItem(0, true);
                     Log.d("CHAD", "showStatisticsFragment(): StatisticsFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.TIMER_BUTTONMENU_BUTTON) {
-                if (!isCurrentFragment(timerFragment)) {
-                    switchToFragment(timerFragment);
+                if (isCurrentFragment(timerFragment)) {
+                    viewPager2.setCurrentItem(1, true);
                     Log.d("CHAD", "showTimerFragment(): TimerFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
-                if (!isCurrentFragment(runningWorkoutFragment)) {
-                    switchToFragment(runningWorkoutFragment);
+                if (isCurrentFragment(runningWorkoutFragment)) {
+                    viewPager2.setCurrentItem(2, true);
                     Log.d("CHAD", "RunningWorkoutFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
-                if (!isCurrentFragment(exercisesFragment)) {
-                    switchToFragment(exercisesFragment);
+                if (isCurrentFragment(exercisesFragment)) {
+                    viewPager2.setCurrentItem(3, true);
                     Log.d("CHAD", "showExercisesFragment(): ExercisesFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
-                if (!isCurrentFragment(workoutsFragment)) {
-                    switchToFragment(workoutsFragment);
+                if (isCurrentFragment(workoutsFragment)) {
+                    viewPager2.setCurrentItem(4, true);
                     Log.d("CHAD", "showWorkoutsFragment(): WorkoutsFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
@@ -153,21 +151,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void switchToFragment(Fragment fragment) {
-        if (currentFragment != null && currentFragment.getClass().equals(fragment.getClass())) {
-            return; // Das gewählte Fragment ist bereits aktiv, daher nichts tun
-        }
-
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.frameLayout, fragment);
-
-        transaction.commit();
-
-        currentFragment = fragment;
-    }
 
     private boolean isCurrentFragment(Fragment fragment) {
-        return currentFragment != null && currentFragment.getClass().equals(fragment.getClass());
+        return currentFragment == null || !currentFragment.getClass().equals(fragment.getClass());
     }
 
     @Override
