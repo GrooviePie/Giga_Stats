@@ -2,11 +2,9 @@ package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +29,6 @@ import androidx.room.Room;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
-import com.example.giga_stats.adapter.ExerciseRoomAdapter;
 import com.example.giga_stats.adapter.ExerciseRoomExpandableListAdapter;
 
 import java.util.List;

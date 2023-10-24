@@ -1,4 +1,4 @@
-package com.example.giga_stats.adapter;
+package com.example.giga_stats.oldies;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -26,4 +26,7 @@ public interface WorkoutDAO {
 
     @Query("SELECT * FROM workouts WHERE workout_id = :id")
     List<Workout> getWorkoutById(int id);
+
+    @Query("SELECT exercise_id FROM workoutexercisesetcrossref r WHERE  r.workout_id = :id")
+    List <Integer> getAllExerciseIds(int id);
 }
