@@ -152,7 +152,6 @@ public class ExercisesFragment extends Fragment {
 
         if (menuInfo instanceof ExpandableListView.ExpandableListContextMenuInfo) {
             ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
-            int type = ExpandableListView.getPackedPositionType(info.packedPosition);
 
             index = ExpandableListView.getPackedPositionGroup(info.packedPosition);
 
@@ -182,16 +181,10 @@ public class ExercisesFragment extends Fragment {
             int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
 
             AtomicReference<Exercise> selectedExercise = new AtomicReference<>();
-            Thread thr = new Thread(() -> {
-                selectedExercise.set(appDatabase.exerciseDao().getExerciseById(id));
-            });
-            thr.start();
-            try {
-                thr.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            Log.d("CHAD", "selectedExercie" + selectedExercise);
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedExercise.set(appDatabase.exerciseDao().getExerciseById(id)));
+
+            future.join();
+
             exercise_id = selectedExercise.get().getExercise_id();
             Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
         }
