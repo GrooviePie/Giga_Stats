@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialisieren Sie die Toolbar und setzen Sie sie als Aktionsleiste
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         viewPager2 = findViewById(R.id.viewPager2);
         // Initialize the Bottom Navigation View
