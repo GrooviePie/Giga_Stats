@@ -8,56 +8,83 @@
     android:orientation="vertical"
     tools:context=".activityNfragments.TimerFragment">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-    <com.example.giga_stats.activityNfragments.RoundProgressBar
-        android:id="@+id/workoutProgressBar"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_centerInParent="true"
-        android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:backgroundColor="#0000FF" />
+        <com.example.giga_stats.activityNfragments.RoundProgressBar
+            android:id="@+id/workoutProgressBar"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:backgroundColor="@color/light_blue_400"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/workoutProgressBar"
+            android:layout_alignTop="@+id/workoutProgressBar"
+            android:layout_alignEnd="@+id/workoutProgressBar"
+            android:layout_alignBottom="@+id/workoutProgressBar"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="130dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textColor="@color/light_blue_400"
+            android:textSize="24sp" />
+
     </RelativeLayout>
-
-
 
     <TextView
         android:id="@+id/workoutTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Workout Time: 01:00"
         android:layout_gravity="center_horizontal"
-        android:textColor="#FA0505" />
+        android:paddingTop="16dip"
+        android:text="Übungszeit: 01:00"
+        android:textColor="@color/light_blue_400"
+        android:textSize="24sp" />
 
     <SeekBar
         android:id="@+id/workoutSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="300"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
         android:progress="60"
-        />
+        android:progressTint="@color/light_blue_400" />
 
     <TextView
         android:id="@+id/restTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rest Time: 00:20"
         android:layout_gravity="center_horizontal"
-        android:textColor="#FA0505" />
+        android:text="Pausenzeit: 00:20"
+        android:textColor="@color/light_blue_400"
+        android:textSize="24sp" />
 
     <SeekBar
         android:id="@+id/restSeekBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:max="120"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"
         android:progress="20"
-    />
+        android:progressTint="@color/light_blue_400" />
 
 
 </LinearLayout>

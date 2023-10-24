@@ -7,10 +7,12 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.giga_stats.R;
+
 public class RoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;
-    private int color = 0xFF0000FF; // Blau
+    private int color = R.color.light_blue_400; // Blau
     private int backgroundColor = 0x22000000; // Hintergrundfarbe
     private int padding = 20; // Abstand von den Rändern
 

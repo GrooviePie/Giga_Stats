@@ -24,6 +24,7 @@ public class TimerFragment extends Fragment {
     private CountDownTimer restTimer;
     private TextView workoutTimeTextView;
     private TextView restTimeTextView;
+    private TextView currentTime;
     private SeekBar workoutSeekBar;
     private SeekBar restSeekBar;
     private RoundProgressBar workoutProgressBar;
@@ -32,7 +33,9 @@ public class TimerFragment extends Fragment {
     private boolean isWorkoutPaused = false;
     private boolean isRestPaused = false;
     private long workoutDurationInMillis = 60000; // Workout-Dauer in Millisekunden (hier 60 Sekunden)
+    private long workoutTemp = workoutDurationInMillis; //Dient als temporäre Variable um Änderungen während der Laufzeit des Timers zu speichern
     private long restDurationInMillis = 20000;    // Pause-Dauer in Millisekunden (hier 30 Sekunden)
+    private long restTemp = restDurationInMillis; //Dient als temporäre Variable um Änderungen während der Laufzeit des Timers zu speichern
     private long remainingWorkoutTime = 0;
     private long remainingRestTime = 0;
 
@@ -82,12 +85,11 @@ public class TimerFragment extends Fragment {
 
         if (!isWorkoutPaused&&!isRestPaused) {
             isWorkoutRunning = true;
-            restTimeTextView.setText("Rest Time: "+ formatTime(restDurationInMillis/1000));
             workoutTimer = new CountDownTimer(initialTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    workoutTimeTextView.setText("Workout Time: " + formatTime(seconds));
+                    currentTime.setText(formatTime(seconds));
                     remainingWorkoutTime = millisUntilFinished; // Speichere die verbleibende Zeit
                     updateProgressbar();
                 }
@@ -101,12 +103,11 @@ public class TimerFragment extends Fragment {
         }
         else if (isWorkoutPaused&&!isRestPaused){
             isWorkoutRunning = true;
-            restTimeTextView.setText("Rest Time: "+ formatTime(restDurationInMillis/1000));
             workoutTimer = new CountDownTimer(remainingWorkoutTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    workoutTimeTextView.setText("Workout Time: " + formatTime(seconds));
+                    currentTime.setText(formatTime(seconds));
                     remainingWorkoutTime = millisUntilFinished; // Speichere die verbleibende Zeit
                     updateProgressbar();
                 }
@@ -145,7 +146,6 @@ public class TimerFragment extends Fragment {
     }
 
     private void startRestTimer() {
-        workoutTimeTextView.setText("Workout Time: "+ formatTime(workoutDurationInMillis/1000));
         remainingWorkoutTime = workoutDurationInMillis;
         isRestRunning = true;
         if (!isRestPaused){
@@ -153,7 +153,7 @@ public class TimerFragment extends Fragment {
             @Override
             public void onTick(long millisUntilFinished) {
                 long seconds = millisUntilFinished / 1000;
-                restTimeTextView.setText("Rest Time: " + formatTime(seconds));
+                currentTime.setText(formatTime(seconds));
                 remainingRestTime = millisUntilFinished;
                 updateProgressbar();
             }
@@ -169,7 +169,7 @@ public class TimerFragment extends Fragment {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     long seconds = millisUntilFinished / 1000;
-                    restTimeTextView.setText("Rest Time: " + formatTime(seconds));
+                    currentTime.setText(formatTime(seconds));
                     remainingRestTime = millisUntilFinished;
                     updateProgressbar();
                 }
@@ -205,18 +205,19 @@ public class TimerFragment extends Fragment {
             restTimer.cancel();
         }
         isWorkoutPaused = false;
-        workoutTimeTextView.setText("Workout Time: "+ formatTime(workoutDurationInMillis/1000));
-        restTimeTextView.setText("Rest Time: "+ formatTime(restDurationInMillis/1000));
-        workoutProgressBar.setColor(0xFF0000FF); // Setzen Sie die Farbe der gefüllten Fläche auf Blau
+        isRestPaused = false;
+        isRestRunning = false;
+        isWorkoutRunning = false;
+        workoutDurationInMillis = workoutTemp;
+        restDurationInMillis = restTemp;
+        currentTime.setText(formatTime(workoutDurationInMillis/1000));
+        workoutProgressBar.setColor(R.color.light_blue_400); // Setzen Sie die Farbe der gefüllten Fläche auf Blau
         workoutProgressBar.setProgress(100);
     }
 
     private void restartWorkoutTimer() {
-        if (isWorkoutRunning) {
-            isWorkoutPaused = false;
-            workoutTimer.cancel();
-            startWorkoutTimer(remainingWorkoutTime); // Starte den Timer mit der verbleibenden Zeit
-        }
+        stopTimers();
+        startWorkoutTimer(workoutDurationInMillis);
     }
 
     private void openTutorialDialog() {
@@ -258,9 +259,10 @@ public class TimerFragment extends Fragment {
         restSeekBar = view.findViewById(R.id.restSeekBar);
         workoutTimeTextView = view.findViewById(R.id.workoutTimeTextView);
         restTimeTextView = view.findViewById(R.id.restTimeTextView);
+        currentTime = view.findViewById(R.id.currentTime);
+        currentTime.setText(formatTime(workoutDurationInMillis/1000));
         workoutProgressBar = view.findViewById(R.id.workoutProgressBar);
         workoutProgressBar.setMax(100); // Setzen Sie den maximalen Wert
-        workoutProgressBar.setColor(0xFF0000FF); // Setzen Sie die Farbe der gefüllten Fläche auf Blau
         workoutProgressBar.setBackgroundColor(0x22000000); // Setzen Sie die Hintergrundfarbe
         workoutProgressBar.setProgress(100);
 
@@ -268,8 +270,12 @@ public class TimerFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 // workoutDurationInMillis nur beim Start oder Neustart aktualisieren
-                workoutTimeTextView.setText("Workout Time: " + formatTime(progress));
-                workoutDurationInMillis = progress * 1000;
+                workoutTimeTextView.setText("Übungszeit: " + formatTime(progress));
+                workoutTemp = progress * 1000;
+                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                    currentTime.setText(formatTime(workoutDurationInMillis / 1000));
+                    workoutDurationInMillis = progress * 1000;
+                }
             }
 
             @Override
@@ -282,8 +288,11 @@ public class TimerFragment extends Fragment {
         restSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                restDurationInMillis = progress * 1000;
-                restTimeTextView.setText("Rest Time: " + formatTime(progress));
+                restTemp = progress * 1000;
+                restTimeTextView.setText("Pausenzeit: " + formatTime(progress));
+                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                    restDurationInMillis = progress * 1000;
+                }
             }
 
             @Override
