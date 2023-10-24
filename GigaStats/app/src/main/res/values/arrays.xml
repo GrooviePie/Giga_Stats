@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string-array name="context_menu_items">
         <item>Item 1</item>
         <item>Item 2</item>
         <!-- Weitere Elemente hier -->
     </string-array>
+
 </resources>

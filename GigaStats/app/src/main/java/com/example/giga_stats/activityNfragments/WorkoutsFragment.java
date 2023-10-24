@@ -1,37 +1,49 @@
 package com.example.giga_stats.activityNfragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.room.Room;
+
+import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
+import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class WorkoutsFragment extends Fragment {
 
-    //TODO: LongClickEventHandler erstellen für
-    // - Bearbeiten eines Workouts
-    // - Löschen eines Workouts
-
     //TODO: Fenster für Hinzufügen eines Workouts
-
     //TODO: Fenster für Bearbeiten eines Workouts
 
     //TODO: Hardcoded Texte bearbeiten
 
+    private ExpandableListView expandableListView;
+    private String[] context_menu_item;
+    int index;
+    private Context context;
+    private AppDatabase appDatabase;
 
     public WorkoutsFragment() {
         // Required empty public constructor
@@ -43,13 +55,38 @@ public class WorkoutsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CHAD", "LIFE WORKOUTS: onCreate() in WorkoutsFragment.java aufgerufen");
+
+        context = getContext();
+        assert context != null;
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
+
+        context_menu_item = getResources().getStringArray(R.array.ContextMenuWorkouts);
+
+        // Initialisieren Sie die, bevor Sie den Adapter setzen
+        expandableListView = new ExpandableListView(getContext());
+
         setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_workouts, container, false);
+        Log.d("CHAD", "LIFE WORKOUTS - onCreateView() in WorkoutsFragment.java aufgerufen");
+        View rootView = inflater.inflate(R.layout.fragment_workouts, container, false);
+        expandableListView = rootView.findViewById(R.id.expandableListViewWorkouts);
+        context_menu_item = getResources().getStringArray(R.array.ContextMenuWorkouts);
+
+        try {
+            updateWorkoutsList();
+        } catch (Exception e) {
+            Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
+        }
+
+        // Registrieren Sie den ListView für LongClick-Ereignisse
+        registerForContextMenu(expandableListView);
+
+        return rootView;
     }
 
     @Override
@@ -68,7 +105,7 @@ public class WorkoutsFragment extends Fragment {
 
     //=====================================================OPTIONSMENÜ==========================================================================
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         Log.d("CHAD", "onCreateOptionsMenu() in WorkoutsFragment.java aufgerufen YEAHYEAHYEAH");
         inflater.inflate(R.menu.menu_option_workouts, menu);
         super.onCreateOptionsMenu(menu, inflater);
@@ -76,11 +113,13 @@ public class WorkoutsFragment extends Fragment {
 
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        Log.d("CHAD", "onOptionsItemSelected() in ExerciseFragment.java aufgerufen");
+        Log.d("CHAD", "onOptionsItemSelected() in WorkoutsFragment.java aufgerufen");
         if (itemId == R.id.option_menu_add_workouts) {
-            //TODO: Aktion für "Hinzufügen" in der Toolbar innerhalb des Fragments WorkoutsFragment
+            Log.d("CHAD", "ADD Optionsmenü in WorkoutsFragment gedrückt");
+            openAddWorkoutsDialog();
             return true;
         } else if (itemId == R.id.option_menu_tutorial_workouts) {
+            Log.d("CHAD", "TUTORIAL Optionsmenü in WorkoutsFragment gedrückt");
             openTutorialDialog();//Tutorialdialog wird geöffnet
             return true;
         } else {
@@ -88,7 +127,7 @@ public class WorkoutsFragment extends Fragment {
         }
     }
 
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
@@ -101,8 +140,84 @@ public class WorkoutsFragment extends Fragment {
 
     //=====================================================KONTEXTMENÜ==========================================================================
 
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        Log.d("CHAD", "onCreateContextMenu() in WorkoutsFragment aufgerufen");
+
+        if (menuInfo instanceof ExpandableListView.ExpandableListContextMenuInfo) {
+            ExpandableListView.ExpandableListContextMenuInfo info = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
+
+            index = ExpandableListView.getPackedPositionGroup(info.packedPosition);
+
+            MenuInflater inflater = getMenuInflater();
+            if (inflater != null) {
+                inflater.inflate(R.menu.menu_context_workouts, menu);
+
+                MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_WORKOUTS);
+                MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_WORKOUTS);
+
+                edit_context.setTitle("Workout bearbeiten");
+                delete_context.setTitle("Workout löschen");
+            }
+
+        }
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        Log.d("CHAD", "Item Id: " + itemId);
+        int workout_id = 0;
+
+        if (index >= 0) {
+
+            int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
+
+            AtomicReference<Workout> selectedWorkout = new AtomicReference<>();
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedWorkout.set((Workout) appDatabase.workoutDao().getWorkoutById(id)));
+
+            future.join();
+
+            workout_id = selectedWorkout.get().getWorkout_id();
+            Log.d("CHAD", "Workout Item mit der ID: " + workout_id);
+        }
+
+        if (itemId == R.id.MENU_CONTEXT_EDIT_WORKOUTS) {
+            // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments WorkoutsFragment
+            Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt in WorkoutsFragment BLUB");
+
+            openEditWorkoutsDialog(workout_id);
+
+            return true;
+        } else if (itemId == R.id.MENU_CONTEXT_DELETE_WORKOUTS) {
+            // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments WorkoutsFragment
+            Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt in WorkoutsFragment BLUB");
+
+            openDeleteWorkoutsDialog(workout_id);
+
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
+    }
+
+
+
 
     //=====================================================DIALOGE==========================================================================
+
+    private void openAddWorkoutsDialog() {
+        //TODO: ADD Dialog schreiben
+    }
+
+    private void openEditWorkoutsDialog(int workoutId) {
+        //TODO: Edit Dialog schreiben
+    }
+    private void openDeleteWorkoutsDialog(int workoutId) {
+        //TODO: Delete Dialog schreiben
+    }
+
 
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
@@ -122,15 +237,32 @@ public class WorkoutsFragment extends Fragment {
         layout.addView(textView);
         builder.setView(layout);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen Sie den Dialog
-                dialog.dismiss();
-            }
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            // Schließen Sie den Dialog
+            dialog.dismiss();
         });
 
         builder.create().show();
+    }
+
+    //=====================================================HILFSMETHODEN==========================================================================
+
+    private void updateWorkoutsList() {
+        LiveData<List<Workout>> workoutsLiveData = (LiveData<List<Workout>>) appDatabase.workoutDao().getAllWorkouts();
+
+        workoutsLiveData.observe(requireActivity(), workouts -> {
+            // Update your ExpandableListView with the WorkoutRoomExpandableListAdapter
+            WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workouts);
+            expandableListView.setAdapter(adapter);
+        });
+    }
+
+
+    private MenuInflater getMenuInflater() {
+        if (getActivity() != null) {
+            return getActivity().getMenuInflater();
+        }
+        return null;
     }
 
 
