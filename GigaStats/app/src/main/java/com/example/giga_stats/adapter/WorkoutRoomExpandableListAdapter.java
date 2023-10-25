@@ -31,7 +31,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public int getChildrenCount(int i) {
-        return 0; // Workouts don't have child items
+        return 1;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public boolean hasStableIds() {
-        return false; // If workout IDs are stable, return true
+        return true; // If workout IDs are stable, return true
     }
 
     @Override
@@ -81,7 +81,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         if (view == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.
+            LayoutInflater layoutInflater = (LayoutInflater) context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = layoutInflater.inflate(R.layout.workout_list_item, null);
         }
@@ -94,6 +94,6 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public boolean isChildSelectable(int i, int i1) {
-        return false; // No child items to select
+        return true; // No child items to select
     }
 }

@@ -385,7 +385,6 @@ public class ExercisesFragment extends Fragment {
 
         exercisesLiveData.observe(requireActivity(), exercises -> {
 
-            //ExerciseRoomAdapter adapter = new ExerciseRoomAdapter(context, R.layout.exercise_list_item, exercises);
             ExerciseRoomExpandableListAdapter adapter = new ExerciseRoomExpandableListAdapter(context, exercises);
             expandableListView.setAdapter(adapter);
 

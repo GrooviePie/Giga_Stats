@@ -293,9 +293,12 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
         LiveData<List<Workout>> workoutsLiveData = appDatabase.workoutDao().getAllWorkouts();
 
         workoutsLiveData.observe(requireActivity(), workouts -> {
-            // Update your ExpandableListView with the WorkoutRoomExpandableListAdapter
+
             WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workouts);
             expandableListView.setAdapter(adapter);
+
+            expandableListView.setOnGroupClickListener((parent, v, groupPosition, id) ->
+                    expandableListView.isGroupExpanded(groupPosition) ? expandableListView.collapseGroup(groupPosition) : expandableListView.expandGroup(groupPosition));
         });
     }
 
