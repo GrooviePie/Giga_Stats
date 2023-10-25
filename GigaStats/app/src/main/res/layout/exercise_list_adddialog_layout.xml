@@ -19,7 +19,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:id="@+id/listImageExercise"
+            android:id="@+id/listImageExerciseAddDialog"
             android:src="@drawable/weight_lifting"
             android:scaleType="centerCrop"
             android:layout_marginTop="10dp"
@@ -30,8 +30,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/categoryExercise"
-            android:layout_below="@id/listImageExercise"
+            android:id="@+id/categoryExerciseAddDialog"
+            android:layout_below="@id/listImageExerciseAddDialog"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
             android:textSize="16sp"
@@ -40,7 +40,7 @@
             android:textColor="@color/textHighlightColor"/>
 
         <LinearLayout
-            android:id="@+id/linearLayoutExercise"
+            android:id="@+id/linearLayoutExerciseAddDialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -48,18 +48,18 @@
             android:layout_marginStart="82dp"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="146dp"
-            android:layout_toEndOf="@id/listImageExercise"
+            android:layout_toEndOf="@id/listImageExerciseAddDialog"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/nameExercise"
+                android:id="@+id/nameExerciseAddDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="24sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <LinearLayout
-                android:id="@+id/linearLayoutExerciseItem"
+                android:id="@+id/linearLayoutExerciseItemAddDialog"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="100dp"
@@ -67,7 +67,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/idExercise"
+                    android:id="@+id/idExerciseAddDialog"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="invisible" />

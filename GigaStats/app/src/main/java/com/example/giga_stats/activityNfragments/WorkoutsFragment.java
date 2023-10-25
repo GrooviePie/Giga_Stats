@@ -1,5 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -10,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,18 +25,25 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
+import com.example.giga_stats.adapter.ExerciseRoomRecyclerViewAdapter;
 import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class WorkoutsFragment extends Fragment {
+public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerViewAdapter.OnItemClickListener {
 
     //TODO: Fenster für Hinzufügen eines Workouts
     //TODO: Fenster für Bearbeiten eines Workouts
@@ -40,10 +51,12 @@ public class WorkoutsFragment extends Fragment {
     //TODO: Hardcoded Texte bearbeiten
 
     private ExpandableListView expandableListView;
+    private RecyclerView recyclerView;
     private String[] context_menu_item;
     int index;
     private Context context;
     private AppDatabase appDatabase;
+    private List<Exercise> selectedAddExercises = new ArrayList<>();
 
     public WorkoutsFragment() {
         // Required empty public constructor
@@ -67,8 +80,6 @@ public class WorkoutsFragment extends Fragment {
 
         setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,7 +127,7 @@ public class WorkoutsFragment extends Fragment {
         Log.d("CHAD", "onOptionsItemSelected() in WorkoutsFragment.java aufgerufen");
         if (itemId == R.id.option_menu_add_workouts) {
             Log.d("CHAD", "ADD Optionsmenü in WorkoutsFragment gedrückt");
-            openAddWorkoutsDialog();
+            openAddWorkoutDialog();
             return true;
         } else if (itemId == R.id.option_menu_tutorial_workouts) {
             Log.d("CHAD", "TUTORIAL Optionsmenü in WorkoutsFragment gedrückt");
@@ -175,7 +186,7 @@ public class WorkoutsFragment extends Fragment {
             int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
 
             AtomicReference<Workout> selectedWorkout = new AtomicReference<>();
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedWorkout.set((Workout) appDatabase.workoutDao().getWorkoutById(id)));
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedWorkout.set(appDatabase.workoutDao().getWorkoutById(id)));
 
             future.join();
 
@@ -202,14 +213,45 @@ public class WorkoutsFragment extends Fragment {
         }
     }
 
-
-
-
     //=====================================================DIALOGE==========================================================================
 
-    private void openAddWorkoutsDialog() {
-        //TODO: ADD Dialog schreiben
+    private void openAddWorkoutDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Add Workout");
+
+        View dialogView = getLayoutInflater().inflate(R.layout.add_workout_dialog_layout, null);
+        builder.setView(dialogView);
+
+        EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
+
+        readExercisesToAdd(dialogView);
+
+        builder.setPositiveButton("Save Workout", (dialog, which) -> {
+            String workoutName = editTextWorkoutName.getText().toString();
+            Workout newWorkout = new Workout(workoutName);
+
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                int workoutId = (int) appDatabase.workoutDao().insertWorkout(newWorkout);
+                for(Exercise e : selectedAddExercises){
+                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseSetCrossRef(workoutId, e.getExercise_id()));
+                }
+            });
+
+            future.thenRun(()-> {
+                selectedAddExercises.clear();
+                updateWorkoutsList();
+                dialog.dismiss();
+            });
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            selectedAddExercises.clear();
+            dialog.dismiss();
+        });
+
+        builder.create().show();
     }
+
 
     private void openEditWorkoutsDialog(int workoutId) {
         //TODO: Edit Dialog schreiben
@@ -248,7 +290,7 @@ public class WorkoutsFragment extends Fragment {
     //=====================================================HILFSMETHODEN==========================================================================
 
     private void updateWorkoutsList() {
-        LiveData<List<Workout>> workoutsLiveData = (LiveData<List<Workout>>) appDatabase.workoutDao().getAllWorkouts();
+        LiveData<List<Workout>> workoutsLiveData = appDatabase.workoutDao().getAllWorkouts();
 
         workoutsLiveData.observe(requireActivity(), workouts -> {
             // Update your ExpandableListView with the WorkoutRoomExpandableListAdapter
@@ -257,6 +299,27 @@ public class WorkoutsFragment extends Fragment {
         });
     }
 
+    private  void readExercisesToAdd(View dialogView){
+        Log.d("CHAD","WorkoutFragment -- readExercisesToAdd() aufgerufen");
+
+        recyclerView = dialogView.findViewById(R.id.recyclerViewWorkoutAdd);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        recyclerView.setLayoutManager(layoutManager);
+
+        List<Exercise> exercises = new ArrayList<>();
+
+        appDatabase.exerciseDao().getAllExercises().observe(requireActivity(), exerciseList -> {
+            if (exerciseList != null) {
+                for(Exercise e : exerciseList) {
+                    exercises.add(e);
+                }
+                Log.d("CHAD", "Exercises: " + exercises);
+                ExerciseRoomRecyclerViewAdapter adapter = new ExerciseRoomRecyclerViewAdapter(context, exercises, this);
+                recyclerView.setAdapter(adapter);
+                Log.d("CHAD", "Adapter der RecyclerView gesetzt");
+            }
+        });
+    }
 
     private MenuInflater getMenuInflater() {
         if (getActivity() != null) {
@@ -265,6 +328,9 @@ public class WorkoutsFragment extends Fragment {
         return null;
     }
 
-
-
+    @Override
+    public void onItemClick(Exercise exercise) {
+        selectedAddExercises.add(exercise);
+        Log.d("CHAD", "Exercise: " + exercise.getName().toString() + "zu selectedExercises hinzugefügt");
+    }
 }

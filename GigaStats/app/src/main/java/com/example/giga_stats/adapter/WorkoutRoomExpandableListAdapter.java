@@ -56,7 +56,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public boolean hasStableIds() {
-        return true; // If workout IDs are stable, return true
+        return false; // If workout IDs are stable, return true
     }
 
     @Override
@@ -80,8 +80,16 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
 
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
-        // No child items for workouts, so return null
-        return null;
+        if (view == null) {
+            LayoutInflater layoutInflater = (LayoutInflater) this.context.
+                    getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            view = layoutInflater.inflate(R.layout.workout_list_item, null);
+        }
+
+        TextView exerciseNameTextView = view.findViewById(R.id.w);
+        exerciseNameTextView.setText("BROOOOOOOOOOOOOOOOT");
+
+        return view;
     }
 
     @Override
