@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,7 +45,7 @@ public class RunningWorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE SETS - onCreateView() in RunningWorkoutsFragment.java aufgerufen");
         View rootView = inflater.inflate(R.layout.fragment_running_workout, container, false);
-        //expandableListView = rootView.findViewById(R.id.expandableListView);
+
         context_menu_item = getResources().getStringArray(R.array.ContextMenuSets);
 
         try {
@@ -80,7 +81,7 @@ public class RunningWorkoutFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Log.d("CHAD", "onCreateOptionsMenu() in RunningWorkoutsFragment.java aufgerufen UTZUTZUTZUTZ");
+        Log.d("CHAD", "onCreateOptionsMenu() in RunningWorkoutsFragment.java aufgerufen ZOOM ZOOM ZOOM");
         inflater.inflate(R.menu.menu_option_runningworkouts, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -140,24 +141,43 @@ public class RunningWorkoutFragment extends Fragment {
 
     //=====================================================DIALOGE==========================================================================
 
+    //TODO: richtig implementieren wenn Aussehen bekannt
 
     private void openAddSetDialog() {
+        //TODO: ADD umbauen
+
         // Erstellen Sie einen AlertDialog für das Hinzufügen eines Sets
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Set hinzufügen");
 
-        // Hier können Sie den Dialoginhalt anpassen
-        // Zum Beispiel: Textfelder, Dropdowns, usw.
-        // Hier ist ein einfaches Beispiel mit einer Nachricht und Schaltflächen:
+        // Erstellen Sie ein benutzerdefiniertes Layout für den Dialog
+        View dialogLayout = getLayoutInflater().inflate(R.layout.dialog_add_workout_into_sets, null);
+        builder.setView(dialogLayout);
 
-        builder.setMessage("Fügen Sie hier Ihre Set-Details hinzu:");
+        // Hier können Sie die Dialogelemente aus dem Layout abrufen
+        EditText repetitionsEditText = dialogLayout.findViewById(R.id.editTextRepetitions);
+        EditText weightEditText = dialogLayout.findViewById(R.id.editTextWeight);
 
-        // Hinzufügen von Schaltflächen für Bestätigen und Abbrechen
+        // Hinzufügen von Schaltflächen für "Hinzufügen" und "Abbrechen"
         builder.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Fügen Sie hier den Code zum Hinzufügen des Sets hinzu
-                // Dies wird aufgerufen, wenn der "Hinzufügen" Button gedrückt wird
+                // Hier können Sie den Code zum Hinzufügen des Sets implementieren
+                // Lesen Sie die eingegebenen Werte aus den EditText-Feldern
+                String repetitions = repetitionsEditText.getText().toString();
+                String weight = weightEditText.getText().toString();
+
+                // Überprüfen Sie, ob die Eingaben gültig sind, und fügen Sie das Set hinzu
+                if (isValidInput(repetitions, weight)) {
+                    // Fügen Sie das Set der Datenbank hinzu oder speichern Sie es, wie auch immer Ihre Datenbankverwaltung funktioniert
+                    // Stellen Sie sicher, dass Sie die Datenbank-Operationen im Hintergrundthread ausführen, um die Benutzeroberfläche nicht zu blockieren
+
+                    // Schließen Sie den Dialog
+                    dialog.dismiss();
+                } else {
+                    // Wenn die Eingaben ungültig sind, zeigen Sie eine Fehlermeldung oder Validierungshinweise an
+                    // Zum Beispiel: Toast-Nachricht oder Anzeige eines Fehlers auf dem Dialog
+                }
             }
         });
 
@@ -173,9 +193,17 @@ public class RunningWorkoutFragment extends Fragment {
         builder.create().show();
     }
 
+    // Methode zur Validierung der Benutzereingabe
+
+
+
 
     private void openEditSetDialog(int set_id){
         //TODO: EDIT bauen
+    }
+
+    private void openDeleteSetDialog(int set_id){
+        //TODO: DELETE bauen
     }
 
     private void openTutorialDialog() {
@@ -221,6 +249,14 @@ public class RunningWorkoutFragment extends Fragment {
             return getActivity().getMenuInflater();
         }
         return null;
+    }
+
+    private boolean isValidInput(String repetitions, String weight) {
+        // Hier können Sie Ihre Validierungslogik implementieren
+        // Überprüfen Sie, ob die Eingaben gültig sind, z. B. ob sie numerisch sind und den Anforderungen entsprechen
+        // Geben Sie true zurück, wenn die Eingaben gültig sind, andernfalls false
+        // Zeigen Sie gegebenenfalls Fehlermeldungen an
+        return true; // Beispiel: Immer als gültig markiert (ersetzen Sie dies mit Ihrer Validierungslogik)
     }
 
 }
