@@ -32,12 +32,14 @@ import androidx.room.Room;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
+import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.ExerciseRoomRecyclerViewAdapter;
 import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
@@ -290,15 +292,14 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
     //=====================================================HILFSMETHODEN==========================================================================
 
     private void updateWorkoutsList() {
-        LiveData<List<Workout>> workoutsLiveData = appDatabase.workoutDao().getAllWorkouts();
+        LiveData<List<WorkoutExercises>> workoutWithExercisesLiveData = appDatabase.workoutExerciseCrossRefDao().getWorkoutsWithExercises();
 
-        workoutsLiveData.observe(requireActivity(), workouts -> {
+        workoutWithExercisesLiveData.observe(requireActivity(), workoutExercises -> {
+            if (workoutExercises != null) {
 
-            WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workouts);
-            expandableListView.setAdapter(adapter);
-
-            expandableListView.setOnGroupClickListener((parent, v, groupPosition, id) ->
-                    expandableListView.isGroupExpanded(groupPosition) ? expandableListView.collapseGroup(groupPosition) : expandableListView.expandGroup(groupPosition));
+                WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workoutExercises);
+                expandableListView.setAdapter(adapter);
+            }
         });
     }
 

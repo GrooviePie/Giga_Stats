@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.giga_stats.DB.DAO.ExerciseDAO;
 import com.example.giga_stats.DB.DAO.SetsDAO;
 import com.example.giga_stats.DB.DAO.WorkoutDAO;
+import com.example.giga_stats.DB.DAO.WorkoutExerciseCrossRefDAO;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Sets;
 import com.example.giga_stats.DB.ENTITY.Workout;
@@ -18,10 +19,11 @@ import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseSetCrossRef.class, Sets.class}, version = 7)
+@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseSetCrossRef.class, Sets.class}, version = 8)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ExerciseDAO exerciseDao();
     public abstract WorkoutDAO workoutDao();
+    public abstract WorkoutExerciseCrossRefDAO workoutExerciseCrossRefDao();
     public abstract SetsDAO setDao();
 
     private static AppDatabase instance;

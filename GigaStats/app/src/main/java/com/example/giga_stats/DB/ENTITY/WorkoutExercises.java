@@ -9,7 +9,7 @@ import java.util.List;
 
 public class WorkoutExercises {
     @Embedded
-    public Workout workout;
+    private Workout workout;
 
     @Relation(
             parentColumn = "workout_id",
@@ -17,5 +17,21 @@ public class WorkoutExercises {
             entityColumn = "exercise_id",
             associateBy = @Junction(WorkoutExerciseSetCrossRef.class)
     )
-    public List<Exercise> exercises;
+    private List<Exercise> exercises;
+
+    public Workout getWorkout() {
+        return workout;
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
 }
