@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 //import androidx.fragment.app.FragmentManager;
+import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.adapter.MyPagerAdapter;
 import com.example.giga_stats.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ExercisesFragment exercisesFragment;
     private WorkoutsFragment workoutsFragment;
 
+    private AppDatabase appDatabase;
+
     public MainActivity() {
     }
 
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        appDatabase = Room.databaseBuilder(this, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
         // Initialisieren Sie die Toolbar und setzen Sie sie als Aktionsleiste
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -57,8 +63,11 @@ public class MainActivity extends AppCompatActivity {
         statisticsFragment = new StatisticsFragment();
         timerFragment = new TimerFragment();
         runningWorkoutFragment = new RunningWorkoutFragment();
+        runningWorkoutFragment.setAppDatabase(appDatabase);
         exercisesFragment = new ExercisesFragment();
+        exercisesFragment.setAppDatabase(appDatabase);
         workoutsFragment = new WorkoutsFragment();
+        workoutsFragment.setAppDatabase(appDatabase);
 
         // Erstelle die Liste von Fragmenten
         List<Fragment> fragments = new ArrayList<>();

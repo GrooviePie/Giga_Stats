@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 
 public class RunningWorkoutFragment extends Fragment {
@@ -26,8 +27,14 @@ public class RunningWorkoutFragment extends Fragment {
 
     //TODO: Hardcoded Texte bearbeiten
 
+    AppDatabase appDatabase;
+
     public RunningWorkoutFragment() {
         // Required empty public constructor
+    }
+
+    public void setAppDatabase(AppDatabase appDatabase) {
+        this.appDatabase = appDatabase;
     }
 
     @Override

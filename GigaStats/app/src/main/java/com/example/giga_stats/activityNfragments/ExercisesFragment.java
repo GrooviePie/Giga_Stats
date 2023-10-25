@@ -50,6 +50,10 @@ public class ExercisesFragment extends Fragment {
         // Required empty public constructor
     }
 
+    public void setAppDatabase(AppDatabase appDatabase) {
+        this.appDatabase = appDatabase;
+    }
+
     //=====================================================LEBENSZYKLUS==========================================================================
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +61,6 @@ public class ExercisesFragment extends Fragment {
         Log.d("CHAD", "LIFE EXERCISE - onCreate() in ExerciseFragment.java aufgerufen");
 
         context = getContext();
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
