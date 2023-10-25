@@ -1,5 +1,6 @@
 package com.example.giga_stats.DB.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -7,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
 
 import java.util.List;
 
@@ -29,4 +31,7 @@ public interface WorkoutDAO {
 
     @Query("SELECT exercise_id FROM workoutexercisesetcrossref r WHERE  r.workout_id = :id")
     List <Integer> getAllExerciseIds(int id);
+
+    @Query("SELECT * FROM workoutexercisesetcrossref")
+    LiveData<List<WorkoutExerciseSetCrossRef>> getAllCrossRef();
 }

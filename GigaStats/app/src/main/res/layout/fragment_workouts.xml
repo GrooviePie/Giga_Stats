@@ -3,15 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#000000"
     android:orientation="vertical"
     tools:context=".activityNfragments.WorkoutsFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <ExpandableListView
         android:layout_width="match_parent"
-        android:layout_height="166dp"
-        android:text="Hier kommen Workouts rein"
-        android:textColor="#F4EEEE" />
+        android:layout_height="match_parent"
+        android:id="@+id/expandableListView"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/exercise_list_group"
+        android:divider="@android:color/transparent"
+        android:background="@color/listBackground"
+        android:dividerHeight="10sp"
+        android:groupIndicator="@null"/>
+
 </LinearLayout>
