@@ -256,10 +256,43 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
 
 
     private void openEditWorkoutsDialog(int workoutId) {
-        //TODO: Edit Dialog schreiben
+        //TODO: Edit Dialog Logik schreiben
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Edit Workout");
+        View dialogView = getLayoutInflater().inflate(R.layout.edit_workout_dialog_layout, null);
+        builder.setView(dialogView);
+
+        builder.setPositiveButton("Save Workout", (dialog, which) -> {
+            dialog.dismiss();
+        });
+
+        builder.setNegativeButton("Cancel", (dialog, which) -> {
+            dialog.dismiss();
+        });
+        builder.create().show();
     }
+
     private void openDeleteWorkoutsDialog(int workoutId) {
         //TODO: Delete Dialog schreiben
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Delete Workout");
+        builder.setMessage("Do you really want to delete the workout?");
+
+        builder.setPositiveButton("Yes", (dialog, which) -> {
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                appDatabase.workoutDao().deleteWorkoutById(workoutId);
+                appDatabase.workoutExerciseCrossRefDao().deleteRefsById(workoutId);
+            });
+
+            future.thenRun(() -> {
+                updateWorkoutsList();
+                dialog.dismiss();
+            });
+        });
+
+        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+
+        builder.create().show();
     }
 
 

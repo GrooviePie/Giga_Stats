@@ -24,6 +24,9 @@ public interface WorkoutDAO {
     @Delete
     void deleteWorkout(Workout workout);
 
+    @Query("DELETE FROM workouts  WHERE workout_id = :workout_id")
+    void deleteWorkoutById(int workout_id);
+
     @Query("SELECT * FROM workouts")
     LiveData<List<Workout>> getAllWorkouts();
 
