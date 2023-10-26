@@ -262,13 +262,36 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
         View dialogView = getLayoutInflater().inflate(R.layout.edit_workout_dialog_layout, null);
         builder.setView(dialogView);
 
+        EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
+
+        readExercisesToAdd(dialogView);
+
         builder.setPositiveButton("Save Workout", (dialog, which) -> {
-            dialog.dismiss();
+            String newWorkoutName = editTextWorkoutName.getText().toString();
+            Workout newWorkout = new Workout(newWorkoutName);
+            newWorkout.setWorkout_id(workoutId);
+
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                appDatabase.workoutDao().updateWorkout(newWorkout);
+                appDatabase.workoutExerciseCrossRefDao().deleteRefsById(workoutId);
+
+                for(Exercise e : selectedAddExercises){
+                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseSetCrossRef(workoutId, e.getExercise_id()));
+                }
+            });
+
+            future.thenRun(()-> {
+                selectedAddExercises.clear();
+                updateWorkoutsList();
+                dialog.dismiss();
+            });
         });
 
         builder.setNegativeButton("Cancel", (dialog, which) -> {
+            selectedAddExercises.clear();
             dialog.dismiss();
         });
+
         builder.create().show();
     }
 
