@@ -12,13 +12,13 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
-public class ExerciseRoomExpandableListAdapter extends BaseExpandableListAdapter {
+public class AdapterExerciseRoomExpandableList extends BaseExpandableListAdapter {
 
     private Context context;
     private List<Exercise> exercises;
 
 
-    public ExerciseRoomExpandableListAdapter(Context context, List<Exercise> exercises) {
+    public AdapterExerciseRoomExpandableList(Context context, List<Exercise> exercises) {
         this.context = context;
         this.exercises = exercises;
     }
@@ -63,7 +63,7 @@ public class ExerciseRoomExpandableListAdapter extends BaseExpandableListAdapter
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.exercise_list_group, null);
+            view = layoutInflater.inflate(R.layout.list_group_exercise, null);
         }
         Exercise exercise = exercises.get(i);
 
@@ -85,7 +85,7 @@ public class ExerciseRoomExpandableListAdapter extends BaseExpandableListAdapter
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.exercises_list_item, null);
+            view = layoutInflater.inflate(R.layout.list_item_exercise, null);
         }
 
         Exercise exercise = exercises.get(i);

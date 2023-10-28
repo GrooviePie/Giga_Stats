@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activityNfragments.ExercisesFragment">
+    tools:context=".activityNfragments.FragmentExercises">
 
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/expandableListView"
         android:scrollbars="vertical"
-        tools:listitem="@layout/exercise_list_group"
+        tools:listitem="@layout/list_group_exercise"
         android:divider="@android:color/transparent"
         android:background="@color/listBackground"
         android:dividerHeight="10sp"

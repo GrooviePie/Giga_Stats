@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerViewWorkoutAdd"
-                tools:listitem="@layout/exercise_list_group"
+                tools:listitem="@layout/list_group_exercise"
                 />
 
         </androidx.cardview.widget.CardView>

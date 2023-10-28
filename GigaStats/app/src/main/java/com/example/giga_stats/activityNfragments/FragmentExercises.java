@@ -2,20 +2,21 @@ package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,18 +25,17 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
-import com.example.giga_stats.adapter.ExerciseRoomExpandableListAdapter;
+import com.example.giga_stats.adapter.AdapterExerciseRoomExpandableList;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ExercisesFragment extends Fragment {
+public class FragmentExercises extends Fragment {
 
 
     //TODO: Hardcoded Texte bearbeiten
@@ -46,7 +46,7 @@ public class ExercisesFragment extends Fragment {
     private Context context;
     private AppDatabase appDatabase;
 
-    public ExercisesFragment() {
+    public FragmentExercises() {
         // Required empty public constructor
     }
 
@@ -66,13 +66,6 @@ public class ExercisesFragment extends Fragment {
 
         // Initialisieren Sie die, bevor Sie den Adapter setzen
         expandableListView = new ExpandableListView(getContext());
-
-//        try {
-//            ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, context_menu_item);
-//            expandableListView.setAdapter(adapter);
-//        } catch (Exception e) {
-//            Log.e("CHAD", "Fehler beim Erstellen des Adapters in onCreate(): " + e.getMessage());
-//        }
 
         setHasOptionsMenu(true); // Optionsmenü erstellen
     }
@@ -225,23 +218,28 @@ public class ExercisesFragment extends Fragment {
         final EditText inputExerciseName = new EditText(requireContext());
         inputExerciseName.setHint("Übungsname");
 
-        final EditText inputExerciseCategory = new EditText(requireContext());
-        inputExerciseCategory.setHint("Kategorie");
+        // Spinner für die Kategorie
+        final Spinner categorySpinner = new Spinner(requireContext());
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
+        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        categorySpinner.setAdapter(categoryAdapter);
 
         final EditText inputExerciseRep = new EditText(requireContext());
         inputExerciseRep.setHint("Wiederholungen");
+        inputExerciseRep.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         final EditText inputExerciseWeight = new EditText(requireContext());
         inputExerciseWeight.setHint("Gewicht");
+        inputExerciseWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         final EditText inputExerciseDesc = new EditText(requireContext());
         inputExerciseDesc.setHint("Kurzbeschreibung");
 
-        // Fügen Sie die EditText-Felder zum Dialog hinzu
+        // Fügen Sie die UI-Elemente zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(inputExerciseName);
-        layout.addView(inputExerciseCategory);
+        layout.addView(categorySpinner);
         layout.addView(inputExerciseRep);
         layout.addView(inputExerciseWeight);
         layout.addView(inputExerciseDesc);
@@ -249,7 +247,7 @@ public class ExercisesFragment extends Fragment {
 
         builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
             String name = inputExerciseName.getText().toString();
-            String category = inputExerciseCategory.getText().toString();
+            String category = categorySpinner.getSelectedItem().toString();
             String repStr = inputExerciseRep.getText().toString();
             String weightStr = inputExerciseWeight.getText().toString();
             String desc = inputExerciseDesc.getText().toString();
@@ -280,6 +278,8 @@ public class ExercisesFragment extends Fragment {
 
         builder.create().show();
     }
+
+
 
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -388,7 +388,7 @@ public class ExercisesFragment extends Fragment {
 
         exercisesLiveData.observe(requireActivity(), exercises -> {
 
-            ExerciseRoomExpandableListAdapter adapter = new ExerciseRoomExpandableListAdapter(context, exercises);
+            AdapterExerciseRoomExpandableList adapter = new AdapterExerciseRoomExpandableList(context, exercises);
             expandableListView.setAdapter(adapter);
 
         });

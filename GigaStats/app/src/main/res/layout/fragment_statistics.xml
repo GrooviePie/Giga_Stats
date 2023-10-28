@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#000000"
+    android:background="@color/listBackground"
     android:orientation="vertical"
-    tools:context=".activityNfragments.StatisticsFragment">
+    tools:context=".activityNfragments.FragmentStatistics">
 
     <!-- Clownsgesicht -->
     <TextView
@@ -15,7 +15,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:text="  ʕ•ᴥ•ʔ \nWas gibts den heut in der Mensa?"
-        android:textColor="#FFFFFF"
         android:textSize="40sp" />
 
 

@@ -9,12 +9,12 @@ import android.widget.TextView;
 import com.example.giga_stats.R;
 import com.example.giga_stats.DB.ENTITY.Workout;
 
-public class RunningWorkoutAdapter extends BaseAdapter {
+public class AdapterRunningWorkout extends BaseAdapter {
 
     Context context;
     Workout[] workouts;
 
-    public RunningWorkoutAdapter(Context context, Workout[] workouts) {
+    public AdapterRunningWorkout(Context context, Workout[] workouts) {
         this.context = context;
         this.workouts = workouts;
     }
@@ -38,7 +38,7 @@ public class RunningWorkoutAdapter extends BaseAdapter {
     public View getView(int position, View view, ViewGroup viewGroup) {
         if (view == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.running_workout_item, null);
+            view = inflater.inflate(R.layout.list_item_running_workout, null);
         }
 
         TextView runningNameInsert = view.findViewById(R.id.runningNameInsert);

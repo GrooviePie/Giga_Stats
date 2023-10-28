@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/listBackground"
-
+    app:cardPreventCornerOverlap="false"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -14,12 +14,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:horizontalSpacing="6dp"
+        android:horizontalSpacing="10dp"
         android:numColumns="2"
-        android:verticalSpacing="6dp"
+        android:verticalSpacing="10dp"
+        android:padding="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        tools:listitem="@layout/running_workout_item"></GridView>
+        android:background="@android:color/transparent"
+        tools:listitem="@layout/list_item_running_workout"></GridView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

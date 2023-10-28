@@ -20,11 +20,11 @@ import android.widget.TextView;
 
 import com.example.giga_stats.R;
 
-public class StatisticsFragment extends Fragment {
+public class FragmentStatistics extends Fragment {
 
     //private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
 
-    public StatisticsFragment() {
+    public FragmentStatistics() {
         // Required empty public constructor
     }
 

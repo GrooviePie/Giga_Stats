@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/listBackground"
     android:orientation="vertical"
-    tools:context=".activityNfragments.TimerFragment">
+    tools:context=".activityNfragments.FragmentTimer">
 
 
     <RelativeLayout
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
 
-        <com.example.giga_stats.activityNfragments.RoundProgressBar
+        <com.example.giga_stats.activityNfragments.FragmentTimerRoundProgressBar
             android:id="@+id/workoutProgressBar"
             android:layout_width="300dp"
             android:layout_height="300dp"

@@ -1,10 +1,13 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,13 +15,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.giga_stats.R;
 
-public class TimerFragment extends Fragment {
+public class FragmentTimer extends Fragment {
+
+    //TODO: Bottons bauen
 
     private CountDownTimer workoutTimer;
     private CountDownTimer restTimer;
@@ -27,7 +31,7 @@ public class TimerFragment extends Fragment {
     private TextView currentTime;
     private SeekBar workoutSeekBar;
     private SeekBar restSeekBar;
-    private RoundProgressBar workoutProgressBar;
+    private FragmentTimerRoundProgressBar workoutProgressBar;
     private boolean isWorkoutRunning = false;
     private boolean isRestRunning = false;
     private boolean isWorkoutPaused = false;
@@ -39,9 +43,12 @@ public class TimerFragment extends Fragment {
     private long remainingWorkoutTime = 0;
     private long remainingRestTime = 0;
 
-    public TimerFragment() {
+    public FragmentTimer() {
         // Required empty public constructor
     }
+
+
+    //=====================================================LEBENSZYKLUS==========================================================================
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,11 +57,97 @@ public class TimerFragment extends Fragment {
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+
+        workoutSeekBar = view.findViewById(R.id.workoutSeekBar);
+        restSeekBar = view.findViewById(R.id.restSeekBar);
+        workoutTimeTextView = view.findViewById(R.id.workoutTimeTextView);
+        restTimeTextView = view.findViewById(R.id.restTimeTextView);
+        currentTime = view.findViewById(R.id.currentTime);
+        currentTime.setText(formatTime(workoutDurationInMillis/1000));
+        workoutProgressBar = view.findViewById(R.id.workoutProgressBar);
+        workoutProgressBar.setMax(100); // Setzen Sie den maximalen Wert
+        workoutProgressBar.setBackgroundColor(0x22000000); // Setzen Sie die Hintergrundfarbe
+        workoutProgressBar.setProgress(100);
+
+        workoutSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                // workoutDurationInMillis nur beim Start oder Neustart aktualisieren
+                workoutTimeTextView.setText("Übungszeit: " + formatTime(progress));
+                workoutTemp = progress * 1000;
+                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                    currentTime.setText(formatTime(workoutDurationInMillis / 1000));
+                    workoutDurationInMillis = progress * 1000;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        restSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                restTemp = progress * 1000;
+                restTimeTextView.setText("Pausenzeit: " + formatTime(progress));
+                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                    restDurationInMillis = progress * 1000;
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {}
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d("CHAD", "LIFE TIMER: onResume(): Das Fragment tritt in den Vordergrund");
+        // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("CHAD", "LIFE TIMER: onPause(): Das Fragment wechselt in den Hintergrund");
+        // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
+    }
+
+
+
+
+    //=====================================================OPTIONSMENÜ==========================================================================
+
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_option_timer, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.option_menu_tutorial_timer) {
+            openTutorialDialog();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    /* //TODO: Hier ist die alte Optionsbar
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -77,6 +170,54 @@ public class TimerFragment extends Fragment {
             return super.onOptionsItemSelected(item);
         }
     }
+
+ */
+
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
+        if (toolbar != null) {
+            // Konfigurieren Sie die Toolbar nach Bedarf
+            toolbar.setTitle("Timer"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitleTextColor(Color.WHITE);
+        }
+    }
+
+
+    //=====================================================KONTEXTMENÜ==========================================================================
+
+
+    //=====================================================DIALOGE==========================================================================
+
+
+    private void openTutorialDialog() {
+        String textContent = "Der Platz von GrooviePie :D \n Herrscher der Zeit ";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("DUDORIEL");
+
+        final TextView textView = new TextView(requireContext());
+        textView.setText(textContent);
+
+        LinearLayout layout = new LinearLayout(requireContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.addView(textView);
+        builder.setView(layout);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+
+
+    //=====================================================TIMERFUNKTIONEN==========================================================================
+
+
 
     private void startWorkoutTimer(long initialTime) {
         if (isWorkoutRunning) {
@@ -220,29 +361,7 @@ public class TimerFragment extends Fragment {
         startWorkoutTimer(workoutDurationInMillis);
     }
 
-    private void openTutorialDialog() {
-        String textContent = "Der Platz von GrooviePie :D \n Herrscher der Zeit ";
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("DUDORIEL");
-
-        final TextView textView = new TextView(requireContext());
-        textView.setText(textContent);
-
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(textView);
-        builder.setView(layout);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        builder.create().show();
-    }
 
     private String formatTime(long seconds) {
         long minutes = seconds / 60;
@@ -250,58 +369,5 @@ public class TimerFragment extends Fragment {
         return String.format("%02d:%02d", minutes, remainingSeconds);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timer, container, false);
 
-        workoutSeekBar = view.findViewById(R.id.workoutSeekBar);
-        restSeekBar = view.findViewById(R.id.restSeekBar);
-        workoutTimeTextView = view.findViewById(R.id.workoutTimeTextView);
-        restTimeTextView = view.findViewById(R.id.restTimeTextView);
-        currentTime = view.findViewById(R.id.currentTime);
-        currentTime.setText(formatTime(workoutDurationInMillis/1000));
-        workoutProgressBar = view.findViewById(R.id.workoutProgressBar);
-        workoutProgressBar.setMax(100); // Setzen Sie den maximalen Wert
-        workoutProgressBar.setBackgroundColor(0x22000000); // Setzen Sie die Hintergrundfarbe
-        workoutProgressBar.setProgress(100);
-
-        workoutSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                // workoutDurationInMillis nur beim Start oder Neustart aktualisieren
-                workoutTimeTextView.setText("Übungszeit: " + formatTime(progress));
-                workoutTemp = progress * 1000;
-                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
-                    currentTime.setText(formatTime(workoutDurationInMillis / 1000));
-                    workoutDurationInMillis = progress * 1000;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-
-        restSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                restTemp = progress * 1000;
-                restTimeTextView.setText("Pausenzeit: " + formatTime(progress));
-                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
-                    restDurationInMillis = progress * 1000;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
-        });
-
-        return view;
-    }
 }

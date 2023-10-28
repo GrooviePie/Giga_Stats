@@ -7,22 +7,20 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.R;
 
-import java.util.HashMap;
 import java.util.List;
 
-public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter {
+public class AdapterWorkoutRoomExpandableList extends BaseExpandableListAdapter {
 
 
     //TODO: Adapter anpassen
     private Context context;
     private List <WorkoutExercises> workoutExercises;
 
-    public WorkoutRoomExpandableListAdapter(Context context, List <WorkoutExercises> workoutExercises) {
+    public AdapterWorkoutRoomExpandableList(Context context, List <WorkoutExercises> workoutExercises) {
         this.context = context;
         this.workoutExercises = workoutExercises;
     }
@@ -66,7 +64,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.workout_list_group, null);
+            view = layoutInflater.inflate(R.layout.list_group_workout, null);
         }
         Workout workout = workoutExercises.get(i).getWorkout();
 
@@ -86,7 +84,7 @@ public class WorkoutRoomExpandableListAdapter extends BaseExpandableListAdapter 
         if (view == null) {
             LayoutInflater layoutInflater = (LayoutInflater) context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = layoutInflater.inflate(R.layout.workout_list_item, null);
+            view = layoutInflater.inflate(R.layout.list_item_workout, null);
         }
 
         TextView exerciseNameTextView = view.findViewById(R.id.w);

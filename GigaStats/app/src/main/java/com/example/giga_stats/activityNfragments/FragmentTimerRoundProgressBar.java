@@ -9,22 +9,22 @@ import android.view.View;
 
 import com.example.giga_stats.R;
 
-public class RoundProgressBar extends View {
+public class FragmentTimerRoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;
     private int color = R.color.light_blue_400; // Blau
     private int backgroundColor = 0x22000000; // Hintergrundfarbe
     private int padding = 20; // Abstand von den Rändern
 
-    public RoundProgressBar(Context context) {
+    public FragmentTimerRoundProgressBar(Context context) {
         super(context);
     }
 
-    public RoundProgressBar(Context context, AttributeSet attrs) {
+    public FragmentTimerRoundProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public RoundProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public FragmentTimerRoundProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

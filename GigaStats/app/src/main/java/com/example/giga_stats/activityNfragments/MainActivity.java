@@ -8,12 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
-import com.example.giga_stats.adapter.MyPagerAdapter;
+import com.example.giga_stats.adapter.AdapterSwipePager;
 import com.example.giga_stats.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
@@ -27,13 +26,15 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private ViewPager2 viewPager2;
     private Fragment currentFragment;
-    private StatisticsFragment statisticsFragment;
-    private TimerFragment timerFragment;
-    private RunningWorkoutFragment runningWorkoutFragment;
-    private ExercisesFragment exercisesFragment;
-    private WorkoutsFragment workoutsFragment;
+    private FragmentStatistics fragmentStatistics;
+    private FragmentTimer fragmentTimer;
+    private FragmentRunningWorkout fragmentRunningWorkout;
+    private FragmentExercises fragmentExercises;
+    private FragmentWorkouts fragmentWorkouts;
 
     private AppDatabase appDatabase;
+
+    private int position = 2;
 
     public MainActivity() {
     }
@@ -52,34 +53,31 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         viewPager2 = findViewById(R.id.viewPager2);
-        // Initialize the Bottom Navigation View
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
-        // Erstellen Sie eine Instanz des FragmentManagers
-        //FragmentManager fragmentManager = getSupportFragmentManager();
 
         // Initialisiere die Instanzvariablen für die Fragmente
-        statisticsFragment = new StatisticsFragment();
-        timerFragment = new TimerFragment();
-        runningWorkoutFragment = new RunningWorkoutFragment();
-        runningWorkoutFragment.setAppDatabase(appDatabase);
-        exercisesFragment = new ExercisesFragment();
-        exercisesFragment.setAppDatabase(appDatabase);
-        workoutsFragment = new WorkoutsFragment();
-        workoutsFragment.setAppDatabase(appDatabase);
+        fragmentStatistics = new FragmentStatistics();
+        fragmentTimer = new FragmentTimer();
+        fragmentRunningWorkout = new FragmentRunningWorkout();
+        fragmentRunningWorkout.setAppDatabase(appDatabase);
+        fragmentExercises = new FragmentExercises();
+        fragmentExercises.setAppDatabase(appDatabase);
+        fragmentWorkouts = new FragmentWorkouts();
+        fragmentWorkouts.setAppDatabase(appDatabase);
 
         // Erstelle die Liste von Fragmenten
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(statisticsFragment);
-        fragments.add(timerFragment);
-        fragments.add(runningWorkoutFragment);
-        fragments.add(exercisesFragment);
-        fragments.add(workoutsFragment);
+        fragments.add(fragmentStatistics);
+        fragments.add(fragmentTimer);
+        fragments.add(fragmentRunningWorkout);
+        fragments.add(fragmentExercises);
+        fragments.add(fragmentWorkouts);
 
-        MyPagerAdapter pagerAdapter = new MyPagerAdapter(this, fragments);
+        AdapterSwipePager pagerAdapter = new AdapterSwipePager(this, fragments);
         viewPager2.setAdapter(pagerAdapter);
-
+        viewPager2.setCurrentItem(2);// Startfragment wird gesetzt
         // Set up the OnPageChangeCallback to detect swiping
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
@@ -109,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         bottomNavigationView.setSelectedItemId(R.id.EXERCISES_BUTTONMENU_BUTTON);
                         break;
                     case 4:
-                        viewPager2.setCurrentItem(4, true);
+                        viewPager2.setCurrentItem(4,  true);
                         Log.d("CHAD", "WorkoutsFragment wird erzeugt ||| per swipe");
                         bottomNavigationView.setSelectedItemId(R.id.WORKOUT_BUTTONMENU_BUTTON);
                         break;
@@ -129,31 +127,31 @@ public class MainActivity extends AppCompatActivity {
 
 
             if (itemId == R.id.STATS_BUTTONMENU_BUTTON) {
-                if (isCurrentFragment(statisticsFragment)) {
+                if (isCurrentFragment(fragmentStatistics)) {
                     viewPager2.setCurrentItem(0, true);
                     Log.d("CHAD", "showStatisticsFragment(): StatisticsFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.TIMER_BUTTONMENU_BUTTON) {
-                if (isCurrentFragment(timerFragment)) {
+                if (isCurrentFragment(fragmentTimer)) {
                     viewPager2.setCurrentItem(1, true);
                     Log.d("CHAD", "showTimerFragment(): TimerFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.START_BUTTONMENU_BUTTON) {
-                if (isCurrentFragment(runningWorkoutFragment)) {
+                if (isCurrentFragment(fragmentRunningWorkout)) {
                     viewPager2.setCurrentItem(2, true);
                     Log.d("CHAD", "RunningWorkoutFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.EXERCISES_BUTTONMENU_BUTTON) {
-                if (isCurrentFragment(exercisesFragment)) {
+                if (isCurrentFragment(fragmentExercises)) {
                     viewPager2.setCurrentItem(3, true);
                     Log.d("CHAD", "showExercisesFragment(): ExercisesFragment wird erzeugt ||| per Bottommenü-Klick");
                 }
                 return true;
             } else if (itemId == R.id.WORKOUT_BUTTONMENU_BUTTON) {
-                if (isCurrentFragment(workoutsFragment)) {
+                if (isCurrentFragment(fragmentWorkouts)) {
                     viewPager2.setCurrentItem(4, true);
                     Log.d("CHAD", "showWorkoutsFragment(): WorkoutsFragment wird erzeugt ||| per Bottommenü-Klick");
                 }

@@ -1,8 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -35,17 +31,15 @@ import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
-import com.example.giga_stats.adapter.ExerciseRoomRecyclerViewAdapter;
-import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
+import com.example.giga_stats.adapter.AdapterExerciseRoomRecyclerView;
+import com.example.giga_stats.adapter.AdapterWorkoutRoomExpandableList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerViewAdapter.OnItemClickListener {
+public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRecyclerView.OnItemClickListener {
 
     //TODO: Fenster für Hinzufügen eines Workouts
     //TODO: Fenster für Bearbeiten eines Workouts
@@ -60,7 +54,7 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
     private AppDatabase appDatabase;
     private List<Exercise> selectedAddExercises = new ArrayList<>();
 
-    public WorkoutsFragment() {
+    public FragmentWorkouts() {
         // Required empty public constructor
     }
 
@@ -224,7 +218,7 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Add Workout");
 
-        View dialogView = getLayoutInflater().inflate(R.layout.add_workout_dialog_layout, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_layout_add_workout, null);
         builder.setView(dialogView);
 
         EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
@@ -262,7 +256,7 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
         //TODO: Edit Dialog Logik schreiben
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Edit Workout");
-        View dialogView = getLayoutInflater().inflate(R.layout.edit_workout_dialog_layout, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_layout_edit_workout, null);
         builder.setView(dialogView);
 
         EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
@@ -356,7 +350,7 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
         workoutWithExercisesLiveData.observe(requireActivity(), workoutExercises -> {
             if (workoutExercises != null) {
 
-                WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workoutExercises);
+                AdapterWorkoutRoomExpandableList adapter = new AdapterWorkoutRoomExpandableList(context, workoutExercises);
                 expandableListView.setAdapter(adapter);
             }
         });
@@ -377,7 +371,7 @@ public class WorkoutsFragment extends Fragment implements ExerciseRoomRecyclerVi
                     exercises.add(e);
                 }
                 Log.d("CHAD", "Exercises: " + exercises);
-                ExerciseRoomRecyclerViewAdapter adapter = new ExerciseRoomRecyclerViewAdapter(context, exercises, this);
+                AdapterExerciseRoomRecyclerView adapter = new AdapterExerciseRoomRecyclerView(context, exercises, this);
                 recyclerView.setAdapter(adapter);
                 Log.d("CHAD", "Adapter der RecyclerView gesetzt");
             }

@@ -12,10 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,13 +26,11 @@ import androidx.room.Room;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
-import com.example.giga_stats.adapter.RunningWorkoutAdapter;
-import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
+import com.example.giga_stats.adapter.AdapterRunningWorkout;
 
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
-public class RunningWorkoutFragment extends Fragment {
+public class FragmentRunningWorkout extends Fragment {
 
     //TODO: Hardcoded Texte bearbeiten
 
@@ -46,13 +42,15 @@ public class RunningWorkoutFragment extends Fragment {
 
     private GridView gridView;
 
-    public RunningWorkoutFragment() {
+    public FragmentRunningWorkout() {
         // Required empty public constructor
     }
 
     public void setAppDatabase(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
+
+
     //=====================================================LEBENSZYKLUS==========================================================================
 
     @Override
@@ -76,7 +74,6 @@ public class RunningWorkoutFragment extends Fragment {
 
 
             updateRunningWorkoutList();
-
 
 
         } catch (Exception e) {
@@ -118,14 +115,14 @@ public class RunningWorkoutFragment extends Fragment {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in RunnningWorkoutsFragment.java aufgerufen");
 
-        if (itemId == R.id.option_menu_add_runningworkouts) {
-            //openAddSetDialog();
-            return true;
-        } else if (itemId == R.id.option_menu_tutorial_runningworkouts) {
+        if (itemId == R.id.option_menu_tutorial_runningworkouts) {
             openTutorialDialog();
             return true;
-        } else return super.onOptionsItemSelected(item);
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -222,7 +219,7 @@ public class RunningWorkoutFragment extends Fragment {
             if (workoutExercises != null) {
                 Workout[] workouts = workoutExercises.toArray(new Workout[0]);
 
-                RunningWorkoutAdapter adapter = new RunningWorkoutAdapter(context, workouts);
+                AdapterRunningWorkout adapter = new AdapterRunningWorkout(context, workouts);
                 gridView.setAdapter(adapter);
             }
         });

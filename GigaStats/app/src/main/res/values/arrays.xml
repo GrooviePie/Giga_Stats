@@ -7,4 +7,18 @@
         <!-- Weitere Elemente hier -->
     </string-array>
 
+    <string-array name="exercise_categories">
+        <item>Arme</item>
+        <item>Beine</item>
+        <item>Bauch</item>
+        <item>Core</item>
+        <item>Rücken</item>
+        <item>Brust</item>
+        <item>Schultern</item>
+        <item>Andere</item>
+        <item>Ganzer Körper</item>
+        <item>Cardio</item>
+    </string-array>
+
+
 </resources>

@@ -1,16 +1,13 @@
 package com.example.giga_stats.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
@@ -18,7 +15,7 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
-public class ExerciseRoomRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRoomRecyclerViewAdapter.MyViewHolder> {
+public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<AdapterExerciseRoomRecyclerView.MyViewHolder> {
 
     private int selectedItem;
 
@@ -30,7 +27,7 @@ public class ExerciseRoomRecyclerViewAdapter extends RecyclerView.Adapter<Exerci
     private OnItemClickListener listener;
     private Context context;
 
-    public ExerciseRoomRecyclerViewAdapter(Context context, List<Exercise> exercises, OnItemClickListener listener) {
+    public AdapterExerciseRoomRecyclerView(Context context, List<Exercise> exercises, OnItemClickListener listener) {
         this.exercises = exercises;
         this.listener = listener;
         this.context = context;
@@ -40,7 +37,7 @@ public class ExerciseRoomRecyclerViewAdapter extends RecyclerView.Adapter<Exerci
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d("CHAD", "Adapter erreicht! JJJJJJJJJJJJJJJJJJJUUUUUUUUUUUUUUUUUUUUUHHHHHHUUUUUUUUUUUU");
-        View itemView = LayoutInflater.from(context).inflate(R.layout.exercise_list_adddialog_layout, parent, false);
+        View itemView = LayoutInflater.from(context).inflate(R.layout.dialog_layout_add_exercise_list, parent, false);
         itemView.setBackgroundResource(R.drawable.selected_item);
         return new MyViewHolder(itemView);
     }

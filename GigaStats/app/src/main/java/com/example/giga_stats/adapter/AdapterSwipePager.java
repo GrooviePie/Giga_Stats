@@ -7,11 +7,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.List;
 
-public class MyPagerAdapter extends FragmentStateAdapter {
+public class AdapterSwipePager extends FragmentStateAdapter {
 
     private List<Fragment> fragments;
 
-    public MyPagerAdapter(FragmentActivity fragmentActivity, List<Fragment> fragments) {
+    public AdapterSwipePager(FragmentActivity fragmentActivity, List<Fragment> fragments) {
         super(fragmentActivity);
         this.fragments = fragments;
     }
