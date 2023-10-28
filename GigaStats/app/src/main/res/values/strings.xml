@@ -5,8 +5,21 @@
     <string name="bung_hinzuf_gen">Übung hinzufügen</string>
     <string name="bung_l_schen">Übung löschen</string>
     <string name="workout_hinzufuegen">Workout hinzufügen</string>
+
     <string-array name="ContextMenuExercises">
         <item>Übung bearbeiten</item>
         <item>Übung löschen</item>
     </string-array>
+
+    <string-array name="ContextMenuWorkouts">
+        <item>Workout bearbeiten</item>
+        <item>Workout löschen</item>
+    </string-array>
+
+    <string-array name="ContextMenuSets">
+        <item>Set bearbeiten</item>
+        <item>Set löschen</item>
+    </string-array>
+
+
 </resources>

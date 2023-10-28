@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FRAMELAYOUT_WORKOUT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -9,12 +11,13 @@
     <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/expandableListView"
+        android:id="@+id/expandableListViewWorkouts"
         android:scrollbars="vertical"
-        tools:listitem="@layout/exercise_list_group"
+        tools:listitem="@layout/workout_list_group"
         android:divider="@android:color/transparent"
         android:background="@color/listBackground"
         android:dividerHeight="10sp"
         android:groupIndicator="@null"/>
+
 
 </LinearLayout>

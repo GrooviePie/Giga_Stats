@@ -7,10 +7,15 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "workouts")
 public class Workout {
 
-    public Workout(int workout_id, String name) {
-        this.workout_id = workout_id;
+    public Workout(String name) {
         this.name = name;
     }
+
+    @PrimaryKey(autoGenerate = true)
+    public int workout_id;
+
+    @ColumnInfo(name = "name")
+    String name;
 
     public int getWorkout_id() {
         return workout_id;
@@ -27,10 +32,4 @@ public class Workout {
     public void setName(String name) {
         this.name = name;
     }
-
-    @PrimaryKey(autoGenerate = true)
-    public int workout_id;
-
-    @ColumnInfo(name = "name")
-    String name;
 }

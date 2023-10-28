@@ -5,17 +5,18 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.example.giga_stats.DB.ENTITY.Workout;
-import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
+import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 
 import java.util.List;
 
 @Dao
 public interface WorkoutDAO {
     @Insert
-    void insertWorkout(Workout workout);
+    long insertWorkout(Workout workout);
 
     @Update
     void updateWorkout(Workout workout);
@@ -23,15 +24,16 @@ public interface WorkoutDAO {
     @Delete
     void deleteWorkout(Workout workout);
 
+    @Query("DELETE FROM workouts  WHERE workout_id = :workout_id")
+    void deleteWorkoutById(int workout_id);
+
     @Query("SELECT * FROM workouts")
-    List<Workout> getAllWorkouts();
+    LiveData<List<Workout>> getAllWorkouts();
 
     @Query("SELECT * FROM workouts WHERE workout_id = :id")
-    List<Workout> getWorkoutById(int id);
+    Workout getWorkoutById(long id);
 
-    @Query("SELECT exercise_id FROM workoutexercisesetcrossref r WHERE  r.workout_id = :id")
-    List <Integer> getAllExerciseIds(int id);
-
-    @Query("SELECT * FROM workoutexercisesetcrossref")
-    LiveData<List<WorkoutExerciseSetCrossRef>> getAllCrossRef();
+    @Transaction
+    @Query("SELECT * FROM workouts")
+    LiveData<List<WorkoutExercises>> getWorkoutExercises();
 }
