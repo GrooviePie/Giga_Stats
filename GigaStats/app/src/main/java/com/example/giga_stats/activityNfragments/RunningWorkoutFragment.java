@@ -217,24 +217,11 @@ public class RunningWorkoutFragment extends Fragment {
 
         runningWorkoutsLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
             if (workoutExercises != null) {
-                // Konvertieren Sie die List<Workout> in ein Array, wenn dies benötigt wird
                 Workout[] workouts = workoutExercises.toArray(new Workout[0]);
 
                 RunningWorkoutAdapter adapter = new RunningWorkoutAdapter(context, workouts);
                 gridView.setAdapter(adapter);
             }
-        });
-    }
-
-
-
-    private void updateWorkoutsList() {
-        LiveData<List<Workout>> workoutsLiveData = (LiveData<List<Workout>>) appDatabase.workoutDao().getAllWorkouts();
-
-        workoutsLiveData.observe(requireActivity(), workouts -> {
-            // Update your ExpandableListView with the WorkoutRoomExpandableListAdapter
-            WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workouts);
-            // expandableListView.setAdapter(adapter);
         });
     }
 
