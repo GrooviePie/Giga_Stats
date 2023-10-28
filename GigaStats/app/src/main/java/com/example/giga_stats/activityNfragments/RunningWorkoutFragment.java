@@ -1,5 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,21 +13,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.room.Room;
 
+import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
+import com.example.giga_stats.adapter.RunningWorkoutAdapter;
+import com.example.giga_stats.adapter.WorkoutRoomExpandableListAdapter;
+
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class RunningWorkoutFragment extends Fragment {
 
     //TODO: Hardcoded Texte bearbeiten
 
     private String[] context_menu_item;
+
+    private AppDatabase appDatabase;
+
+    private Context context;
+
+    private GridView gridView;
 
     public RunningWorkoutFragment() {
         // Required empty public constructor
@@ -47,9 +65,17 @@ public class RunningWorkoutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_running_workout, container, false);
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuSets);
+        context = getContext();
+        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
+        gridView = rootView.findViewById(R.id.runningWorkoutGridView);
 
         try {
-            updateSetList();
+
+
+            updateRunningWorkoutList();
+
+
+
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
@@ -75,8 +101,6 @@ public class RunningWorkoutFragment extends Fragment {
     }
 
 
-
-
     //=====================================================OPTIONSMENÜ==========================================================================
 
     @Override
@@ -92,9 +116,9 @@ public class RunningWorkoutFragment extends Fragment {
         Log.d("CHAD", "onOptionsItemSelected() in RunnningWorkoutsFragment.java aufgerufen");
 
         if (itemId == R.id.option_menu_add_runningworkouts) {
-            openAddSetDialog();
+            //openAddSetDialog();
             return true;
-        } else if (itemId == R.id.option_menu_tutorial_runningworkouts ) {
+        } else if (itemId == R.id.option_menu_tutorial_runningworkouts) {
             openTutorialDialog();
             return true;
         } else return super.onOptionsItemSelected(item);
@@ -119,18 +143,18 @@ public class RunningWorkoutFragment extends Fragment {
         super.onCreateContextMenu(menu, v, menuInfo);
         Log.d("CHAD", "onCreateContextMenu() in RunningFragmte aufgerufen :)");
 
-            MenuInflater inflater = getMenuInflater();
-            if (inflater != null) {
-                inflater.inflate(R.menu.menu_context_runningworkouts, menu);
+        MenuInflater inflater = getMenuInflater();
+        if (inflater != null) {
+            inflater.inflate(R.menu.menu_context_runningworkouts, menu);
 
-                MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_SET);
-                MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_SET);
+            MenuItem edit_context = menu.findItem(R.id.MENU_CONTEXT_EDIT_SET);
+            MenuItem delete_context = menu.findItem(R.id.MENU_CONTEXT_DELETE_SET);
 
-                edit_context.setTitle("Set bearbeiten");
-                delete_context.setTitle("Set löschen");
-            }
-
+            edit_context.setTitle("Set bearbeiten");
+            delete_context.setTitle("Set löschen");
         }
+
+    }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
@@ -141,68 +165,17 @@ public class RunningWorkoutFragment extends Fragment {
 
     //=====================================================DIALOGE==========================================================================
 
-    //TODO: richtig implementieren wenn Aussehen bekannt
 
-    private void openAddSetDialog() {
-        //TODO: ADD umbauen
+    private void openStartWorkoutDialog() {
 
-        // Erstellen Sie einen AlertDialog für das Hinzufügen eines Sets
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Set hinzufügen");
-
-        // Erstellen Sie ein benutzerdefiniertes Layout für den Dialog
-        View dialogLayout = getLayoutInflater().inflate(R.layout.dialog_add_workout_into_sets, null);
-        builder.setView(dialogLayout);
-
-        // Hier können Sie die Dialogelemente aus dem Layout abrufen
-        EditText repetitionsEditText = dialogLayout.findViewById(R.id.editTextRepetitions);
-        EditText weightEditText = dialogLayout.findViewById(R.id.editTextWeight);
-
-        // Hinzufügen von Schaltflächen für "Hinzufügen" und "Abbrechen"
-        builder.setPositiveButton("Hinzufügen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Hier können Sie den Code zum Hinzufügen des Sets implementieren
-                // Lesen Sie die eingegebenen Werte aus den EditText-Feldern
-                String repetitions = repetitionsEditText.getText().toString();
-                String weight = weightEditText.getText().toString();
-
-                // Überprüfen Sie, ob die Eingaben gültig sind, und fügen Sie das Set hinzu
-                if (isValidInput(repetitions, weight)) {
-                    // Fügen Sie das Set der Datenbank hinzu oder speichern Sie es, wie auch immer Ihre Datenbankverwaltung funktioniert
-                    // Stellen Sie sicher, dass Sie die Datenbank-Operationen im Hintergrundthread ausführen, um die Benutzeroberfläche nicht zu blockieren
-
-                    // Schließen Sie den Dialog
-                    dialog.dismiss();
-                } else {
-                    // Wenn die Eingaben ungültig sind, zeigen Sie eine Fehlermeldung oder Validierungshinweise an
-                    // Zum Beispiel: Toast-Nachricht oder Anzeige eines Fehlers auf dem Dialog
-                }
-            }
-        });
-
-        builder.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Dies wird aufgerufen, wenn der "Abbrechen" Button gedrückt wird
-                dialog.dismiss(); // Schließen Sie den Dialog
-            }
-        });
-
-        // Den Dialog anzeigen
-        builder.create().show();
     }
 
-    // Methode zur Validierung der Benutzereingabe
 
-
-
-
-    private void openEditSetDialog(int set_id){
+    private void openEditSetDialog(int set_id) {
         //TODO: EDIT bauen
     }
 
-    private void openDeleteSetDialog(int set_id){
+    private void openDeleteSetDialog(int set_id) {
         //TODO: DELETE bauen
     }
 
@@ -236,12 +209,33 @@ public class RunningWorkoutFragment extends Fragment {
     }
 
 
-
     //=====================================================HILFSMETHODEN==========================================================================
 
 
-    private void updateSetList() {
-        //TODO: Adapter bauen
+    private void updateRunningWorkoutList() {
+        LiveData<List<Workout>> runningWorkoutsLiveData = appDatabase.workoutDao().getAllWorkouts();
+
+        runningWorkoutsLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
+            if (workoutExercises != null) {
+                // Konvertieren Sie die List<Workout> in ein Array, wenn dies benötigt wird
+                Workout[] workouts = workoutExercises.toArray(new Workout[0]);
+
+                RunningWorkoutAdapter adapter = new RunningWorkoutAdapter(context, workouts);
+                gridView.setAdapter(adapter);
+            }
+        });
+    }
+
+
+
+    private void updateWorkoutsList() {
+        LiveData<List<Workout>> workoutsLiveData = (LiveData<List<Workout>>) appDatabase.workoutDao().getAllWorkouts();
+
+        workoutsLiveData.observe(requireActivity(), workouts -> {
+            // Update your ExpandableListView with the WorkoutRoomExpandableListAdapter
+            WorkoutRoomExpandableListAdapter adapter = new WorkoutRoomExpandableListAdapter(context, workouts);
+            // expandableListView.setAdapter(adapter);
+        });
     }
 
     private MenuInflater getMenuInflater() {

@@ -1,5 +1,6 @@
 package com.example.giga_stats.DB.DAO;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -22,7 +23,7 @@ public interface WorkoutDAO {
     void deleteWorkout(Workout workout);
 
     @Query("SELECT * FROM workouts")
-    List<Workout> getAllWorkouts();
+     LiveData<List<Workout>> getAllWorkouts();
 
     @Query("SELECT * FROM workouts WHERE workout_id = :id")
     List<Workout> getWorkoutById(int id);
