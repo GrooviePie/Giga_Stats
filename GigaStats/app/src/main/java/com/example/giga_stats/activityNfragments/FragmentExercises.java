@@ -1,7 +1,9 @@
 package com.example.giga_stats.activityNfragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -300,11 +302,12 @@ public class FragmentExercises extends Fragment {
     }
 
 
+
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setTitle("Übung bearbeiten");
 
-        // Labels für dern Input
+        // Labels für den Input
         TextView categoryLabel = new TextView(requireContext());
         categoryLabel.setText("Kategorie: ");
         TextView exerciseLabel = new TextView(requireContext());
@@ -318,25 +321,53 @@ public class FragmentExercises extends Fragment {
 
         // Erstellen Sie EditText-Felder für die Eingabe von Übungsdetails
         final EditText inputExerciseName = new EditText(requireContext());
-        inputExerciseName.setHint("[Name der Übung eingeben...]");
+        //inputExerciseName.setHint("[Name der Übung eingeben...]");
 
         // Weitere EditText-Felder für die Eingabe von Übungsdetails
         final EditText inputExerciseRep = new EditText(requireContext());
-        inputExerciseRep.setHint("[Anzahl eingeben...]");
+        //inputExerciseRep.setHint("[Anzahl eingeben...]");
         inputExerciseRep.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         final EditText inputExerciseWeight = new EditText(requireContext());
-        inputExerciseWeight.setHint("[Eingabe in kg...]");
+        //inputExerciseWeight.setHint("[Eingabe in kg...]");
         inputExerciseWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
 
         final EditText inputExerciseDesc = new EditText(requireContext());
-        inputExerciseDesc.setHint("[...]");
+        //inputExerciseDesc.setHint("[...]");
 
         // Spinner für die Kategorie
         final Spinner categorySpinner = new Spinner(requireContext());
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
+
+        // Abfrage der Übung aus der Datenbank in einem Hintergrund-Thread
+        new AsyncTask<Integer, Void, Exercise>() {
+            @Override
+            protected Exercise doInBackground(Integer... params) {
+                int exerciseId = params[0];
+                return appDatabase.exerciseDao().getExerciseById(exerciseId);
+            }
+
+            @Override
+            protected void onPostExecute(Exercise existingExercise) {
+                if (existingExercise != null) {
+                    // Setze die abgerufenen Werte in die Eingabefelder
+                    inputExerciseName.setText(existingExercise.getName());
+                    categorySpinner.setSelection(categoryAdapter.getPosition(existingExercise.getCategory()));
+
+                    if (existingExercise.getRep() != 0) {
+                        inputExerciseRep.setText(String.valueOf(existingExercise.getRep()));
+                    }
+
+                    if (existingExercise.getWeight() != 0) {
+                        inputExerciseWeight.setText(String.valueOf(existingExercise.getWeight()));
+                    }
+
+                    inputExerciseDesc.setText(existingExercise.getDesc());
+                }
+            }
+        }.execute(exercise_id);
 
         // Fügen Sie die UI-Elemente zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
@@ -360,7 +391,6 @@ public class FragmentExercises extends Fragment {
             String newWeightStr = inputExerciseWeight.getText().toString();
             String newDesc = inputExerciseDesc.getText().toString();
 
-
             if (!newName.isEmpty() && !newCategory.isEmpty() && !newRepStr.isEmpty() && !newWeightStr.isEmpty()) {
                 int newRep = Integer.parseInt(newRepStr);
                 int newWeight = Integer.parseInt(newWeightStr);
@@ -368,12 +398,20 @@ public class FragmentExercises extends Fragment {
                 Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight, newDesc);
                 updatedExercise.setExercise_id(exercise_id);
 
-                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().updateExercise(updatedExercise));
+                // Datenbankaktualisierung kann auch in einem AsyncTask erfolgen
+                new AsyncTask<Exercise, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Exercise... exercises) {
+                        appDatabase.exerciseDao().updateExercise(exercises[0]);
+                        return null;
+                    }
 
-                future.thenRun(() -> {
-                    dialog.dismiss();
-                    updateExerciseList();
-                });
+                    @Override
+                    protected void onPostExecute(Void aVoid) {
+                        dialog.dismiss();
+                        updateExerciseList();
+                    }
+                }.execute(updatedExercise);
             }
         });
 
@@ -381,6 +419,9 @@ public class FragmentExercises extends Fragment {
 
         builder.create().show();
     }
+
+
+
 
     private void openDeleteExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
