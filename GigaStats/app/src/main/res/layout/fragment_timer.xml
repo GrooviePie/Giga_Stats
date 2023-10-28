@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFFFFF"
+    android:background="@color/listBackground"
     android:orientation="vertical"
     tools:context=".activityNfragments.TimerFragment">
 
@@ -23,7 +23,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            app:backgroundColor="@color/light_blue_400"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +41,7 @@
             android:layout_marginBottom="130dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/light_blue_400"
+            android:textColor="@color/textHighlightColor"
             android:textSize="24sp" />
 
     </RelativeLayout>
@@ -54,7 +53,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="16dip"
         android:text="Übungszeit: 01:00"
-        android:textColor="@color/light_blue_400"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <SeekBar
@@ -65,7 +64,7 @@
         android:paddingTop="16dip"
         android:paddingBottom="16dip"
         android:progress="60"
-        android:progressTint="@color/light_blue_400" />
+        android:progressTint="@color/textHighlightColor" />
 
     <TextView
         android:id="@+id/restTimeTextView"
@@ -73,7 +72,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Pausenzeit: 00:20"
-        android:textColor="@color/light_blue_400"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
     <SeekBar
@@ -84,7 +83,7 @@
         android:paddingTop="16dip"
         android:paddingBottom="16dip"
         android:progress="20"
-        android:progressTint="@color/light_blue_400" />
+        android:progressTint="@color/textHighlightColor" />
 
 
 </LinearLayout>
