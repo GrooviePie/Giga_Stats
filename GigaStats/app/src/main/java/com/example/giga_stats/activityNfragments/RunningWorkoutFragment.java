@@ -90,7 +90,7 @@ public class RunningWorkoutFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("CHAD", "LIFE SETS: onResume(): Das Fragment tritt in den Vordergrund");
-        // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
+        updateRunningWorkoutList();
     }
 
     @Override
