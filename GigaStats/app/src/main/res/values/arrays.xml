@@ -9,15 +9,15 @@
 
     <string-array name="exercise_categories">
         <item>Arme</item>
-        <item>Beine</item>
         <item>Bauch</item>
-        <item>Core</item>
-        <item>Rücken</item>
+        <item>Beine</item>
         <item>Brust</item>
+        <item>Cardio</item>
+        <item>Core</item>
+        <item>Ganzer Körper</item>
+        <item>Rücken</item>
         <item>Schultern</item>
         <item>Andere</item>
-        <item>Ganzer Körper</item>
-        <item>Cardio</item>
     </string-array>
 
 
