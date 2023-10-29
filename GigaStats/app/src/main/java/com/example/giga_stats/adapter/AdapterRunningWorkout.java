@@ -5,9 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
 import com.example.giga_stats.R;
 import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.activityNfragments.FragmentRunningWorkoutBottomSheet;
 
 public class AdapterRunningWorkout extends BaseAdapter {
 
@@ -21,7 +27,7 @@ public class AdapterRunningWorkout extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return workouts.length; // Return the actual number of items in the array
+        return workouts.length;
     }
 
     @Override
@@ -41,12 +47,32 @@ public class AdapterRunningWorkout extends BaseAdapter {
             view = inflater.inflate(R.layout.list_item_running_workout, null);
         }
 
+        LinearLayout runningTile = view.findViewById(R.id.runningTile);
         TextView runningNameInsert = view.findViewById(R.id.runningNameInsert);
         TextView runningWorkoutId = view.findViewById(R.id.runningWorkoutId);
+        //TextView bottomSheetExerciseNameTextView = view.findViewById(R.id.bottomSheetExerciseNameTextView);
 
         runningNameInsert.setText(workouts[position].getName());
         runningWorkoutId.setText(String.valueOf(workouts[position].getWorkout_id()));
+        //bottomSheetExerciseNameTextView.setText(workouts[position].getName());
+
+        // Füge den Klicklistener zum runningTile hinzu
+        runningTile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Klick-Callback-Methode, um das Bottom Sheet zu öffnen
+                openBottomSheetDialog();
+            }
+        });
 
         return view;
     }
+
+    private void openBottomSheetDialog() {
+        FragmentRunningWorkoutBottomSheet bottomSheetFragment = new FragmentRunningWorkoutBottomSheet();
+        bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
+    }
 }
+
+
+
