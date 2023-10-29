@@ -27,7 +27,9 @@ import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkout;
+import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentRunningWorkout extends Fragment {
@@ -41,6 +43,9 @@ public class FragmentRunningWorkout extends Fragment {
     private Context context;
 
     private GridView gridView;
+
+    private AdapterRunningWorkoutBottomSheet adapterBottomSheet;
+    private ArrayList<String> exerciseNames;
 
     public FragmentRunningWorkout() {
         // Required empty public constructor
@@ -70,6 +75,9 @@ public class FragmentRunningWorkout extends Fragment {
         appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
         gridView = rootView.findViewById(R.id.runningWorkoutGridView);
 
+        exerciseNames = new ArrayList<>(); // Erstellen Sie eine leere Liste für die Übungsnamen
+        adapterBottomSheet = new AdapterRunningWorkoutBottomSheet(context, exerciseNames);
+
         try {
 
 
@@ -80,8 +88,6 @@ public class FragmentRunningWorkout extends Fragment {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
 
-        // Registrieren Sie den ListView für LongClick-Ereignisse
-        //registerForContextMenu(expandableListView);
 
         return rootView;
     }
@@ -194,12 +200,6 @@ public class FragmentRunningWorkout extends Fragment {
         builder.create().show();
     }
 
-    private void openBottomSheetDialog() {
-        FragmentRunningWorkoutBottomSheet bottomSheetFragment = new FragmentRunningWorkoutBottomSheet();
-        bottomSheetFragment.show(getParentFragmentManager(), bottomSheetFragment.getTag());
-    }
-
-
 
 
 
@@ -214,10 +214,23 @@ public class FragmentRunningWorkout extends Fragment {
                 Workout[] workouts = workoutExercises.toArray(new Workout[0]);
 
                 AdapterRunningWorkout adapter = new AdapterRunningWorkout(context, workouts);
-                gridView.setAdapter(adapter);
+                gridView.setAdapter(adapter); // Aktualisieren Sie Ihre aktuelle GridView
+
+                // Füllen Sie exerciseNames mit den Übungsnamen aus workouts (oder Ihren Daten)
+                exerciseNames.clear();
+                for (Workout workout : workouts) {
+                    exerciseNames.add(workout.getName());
+                }
+
+                // Aktualisieren Sie den Adapter für das Bottom Sheet
+                adapterBottomSheet.notifyDataSetChanged();
             }
         });
     }
+
+
+
+
 
     private MenuInflater getMenuInflater() {
         if (getActivity() != null) {

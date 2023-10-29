@@ -50,9 +50,11 @@ public class AdapterRunningWorkout extends BaseAdapter {
         LinearLayout runningTile = view.findViewById(R.id.runningTile);
         TextView runningNameInsert = view.findViewById(R.id.runningNameInsert);
         TextView runningWorkoutId = view.findViewById(R.id.runningWorkoutId);
+        //TextView bottomSheetExerciseNameTextView = view.findViewById(R.id.bottomSheetExerciseNameTextView);
 
         runningNameInsert.setText(workouts[position].getName());
         runningWorkoutId.setText(String.valueOf(workouts[position].getWorkout_id()));
+        //bottomSheetExerciseNameTextView.setText(workouts[position].getName());
 
         // Füge den Klicklistener zum runningTile hinzu
         runningTile.setOnClickListener(new View.OnClickListener() {
