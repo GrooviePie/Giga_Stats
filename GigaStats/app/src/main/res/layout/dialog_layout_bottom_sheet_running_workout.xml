@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="-25dp"
+    android:background="#00000000"
+    app:cardCornerRadius="16dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="610dp">
+
+        <!-- Zurück Button in der oberen linken Ecke -->
+
+        <!-- Start Button in der rechten oberen Ecke -->
+
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="600dp"
+            android:layout_below="@id/buttonStartRunningWorkoutBottomSheet"
+            android:layout_marginTop="0dp"
+            android:text="Mit Start soll das Workout beginnen\n\nHier soll auch alle Infos zur Übung stehen\n (Set, Vorheriges?, KG, Wiederholungen, Checkbox)\n\nDie Checkbox dient dazu anzuzeigen \ndas man einen Satz beendet hat" />
+
+        <Button
+            android:id="@+id/buttonBackRunningWorkoutBottomSheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginStart="-1dp"
+            android:layout_marginLeft="-1dp"
+            android:background="#A4ED0808"
+            android:text="Zurück" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:text="Übungsname" />
+
+        <Button
+            android:id="@+id/buttonStartRunningWorkoutBottomSheet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:background="#6660ED08"
+            android:text="Start" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

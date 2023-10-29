@@ -165,20 +165,6 @@ public class FragmentRunningWorkout extends Fragment {
 
     //=====================================================DIALOGE==========================================================================
 
-
-    private void openStartWorkoutDialog() {
-
-    }
-
-
-    private void openEditSetDialog(int set_id) {
-        //TODO: EDIT bauen
-    }
-
-    private void openDeleteSetDialog(int set_id) {
-        //TODO: DELETE bauen
-    }
-
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         //TODO: Tutorial schreiben für Fragment "Workout beginnen"
@@ -207,6 +193,14 @@ public class FragmentRunningWorkout extends Fragment {
 
         builder.create().show();
     }
+
+    private void openBottomSheetDialog() {
+        FragmentRunningWorkoutBottomSheet bottomSheetFragment = new FragmentRunningWorkoutBottomSheet();
+        bottomSheetFragment.show(getParentFragmentManager(), bottomSheetFragment.getTag());
+    }
+
+
+
 
 
     //=====================================================HILFSMETHODEN==========================================================================
