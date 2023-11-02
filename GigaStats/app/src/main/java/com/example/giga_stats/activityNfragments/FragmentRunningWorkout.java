@@ -21,9 +21,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
-import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Workout;
+import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkout;
@@ -37,15 +37,11 @@ public class FragmentRunningWorkout extends Fragment {
     //TODO: Hardcoded Texte bearbeiten
 
     private String[] context_menu_item;
-
     private AppDatabase appDatabase;
-
     private Context context;
-
     private GridView gridView;
-
+    private GridView gridViewBottomSheet;
     private AdapterRunningWorkoutBottomSheet adapterBottomSheet;
-    private ArrayList<String> exerciseNames;
 
     public FragmentRunningWorkout() {
         // Required empty public constructor
@@ -72,22 +68,16 @@ public class FragmentRunningWorkout extends Fragment {
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuSets);
         context = getContext();
-        appDatabase = Room.databaseBuilder(context, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
         gridView = rootView.findViewById(R.id.runningWorkoutGridView);
 
-        exerciseNames = new ArrayList<>(); // Erstellen Sie eine leere Liste für die Übungsnamen
-        adapterBottomSheet = new AdapterRunningWorkoutBottomSheet(context, exerciseNames);
+         // Erstellen Sie eine leere Liste für die Übungsnamen
 
         try {
-
-
             updateRunningWorkoutList();
-
 
         } catch (Exception e) {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
-
 
         return rootView;
     }
@@ -129,7 +119,6 @@ public class FragmentRunningWorkout extends Fragment {
         }
     }
 
-
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -140,7 +129,6 @@ public class FragmentRunningWorkout extends Fragment {
             toolbar.setTitleTextColor(Color.WHITE);
         }
     }
-
 
     //=====================================================KONTEXTMENÜ==========================================================================
 
@@ -167,7 +155,6 @@ public class FragmentRunningWorkout extends Fragment {
 
         return false;
     }
-
 
     //=====================================================DIALOGE==========================================================================
 
@@ -200,37 +187,20 @@ public class FragmentRunningWorkout extends Fragment {
         builder.create().show();
     }
 
-
-
-
     //=====================================================HILFSMETHODEN==========================================================================
-
 
     private void updateRunningWorkoutList() {
         LiveData<List<Workout>> runningWorkoutsLiveData = appDatabase.workoutDao().getAllWorkouts();
 
-        runningWorkoutsLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
-            if (workoutExercises != null) {
-                Workout[] workouts = workoutExercises.toArray(new Workout[0]);
+        runningWorkoutsLiveData.observe(getViewLifecycleOwner(), workoutsLiveData -> {
+            if (workoutsLiveData != null) {
+                Workout[] workoutArr = workoutsLiveData.toArray(new Workout[0]);
 
-                AdapterRunningWorkout adapter = new AdapterRunningWorkout(context, workouts);
-                gridView.setAdapter(adapter); // Aktualisieren Sie Ihre aktuelle GridView
-
-                // Füllen Sie exerciseNames mit den Übungsnamen aus workouts (oder Ihren Daten)
-                exerciseNames.clear();
-                for (Workout workout : workouts) {
-                    exerciseNames.add(workout.getName());
-                }
-
-                // Aktualisieren Sie den Adapter für das Bottom Sheet
-                adapterBottomSheet.notifyDataSetChanged();
+                AdapterRunningWorkout adapter = new AdapterRunningWorkout(context, workoutArr);
+                gridView.setAdapter(adapter);
             }
         });
     }
-
-
-
-
 
     private MenuInflater getMenuInflater() {
         if (getActivity() != null) {

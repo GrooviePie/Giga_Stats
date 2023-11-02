@@ -18,14 +18,20 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 
 public class FragmentStatistics extends Fragment {
+    private AppDatabase appDatabase;
 
     //private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
 
     public FragmentStatistics() {
         // Required empty public constructor
+    }
+
+    public void setAppDatabase(AppDatabase appDatabase) {
+        this.appDatabase = appDatabase;
     }
 
     @Override

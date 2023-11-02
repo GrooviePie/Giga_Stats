@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,12 +32,15 @@ public class MainActivity extends AppCompatActivity {
     private FragmentRunningWorkout fragmentRunningWorkout;
     private FragmentExercises fragmentExercises;
     private FragmentWorkouts fragmentWorkouts;
-
     private AppDatabase appDatabase;
-
+    static Context context;
     private int position = 2;
 
     public MainActivity() {
+    }
+
+    public static AppDatabase getAppDatabase() {
+        return AppDatabase.getDatabase(context);
     }
 
     @Override
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        context = getBaseContext();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
@@ -59,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialisiere die Instanzvariablen für die Fragmente
         fragmentStatistics = new FragmentStatistics();
+        fragmentStatistics.setAppDatabase(appDatabase);
         fragmentTimer = new FragmentTimer();
         fragmentRunningWorkout = new FragmentRunningWorkout();
         fragmentRunningWorkout.setAppDatabase(appDatabase);

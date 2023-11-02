@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.lifecycle.LiveData;
 
+import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.R;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.activityNfragments.FragmentRunningWorkoutBottomSheet;
+
+import java.util.List;
 
 public class AdapterRunningWorkout extends BaseAdapter {
 
@@ -61,15 +65,15 @@ public class AdapterRunningWorkout extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Klick-Callback-Methode, um das Bottom Sheet zu öffnen
-                openBottomSheetDialog();
+                openBottomSheetDialog(workouts[position]);
             }
         });
 
         return view;
     }
 
-    private void openBottomSheetDialog() {
-        FragmentRunningWorkoutBottomSheet bottomSheetFragment = new FragmentRunningWorkoutBottomSheet();
+    private void openBottomSheetDialog(Workout workout) {
+        FragmentRunningWorkoutBottomSheet bottomSheetFragment = new FragmentRunningWorkoutBottomSheet(workout);
         bottomSheetFragment.show(((AppCompatActivity) context).getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }
