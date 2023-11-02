@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp">
 
@@ -37,7 +38,7 @@
                 android:layout_gravity="fill"
                 android:gravity="center"
                 android:text="SET"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -51,7 +52,7 @@
                 android:layout_gravity="fill"
                 android:gravity="center"
                 android:text="VORHERIGES"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -65,7 +66,7 @@
                 android:layout_gravity="fill"
                 android:gravity="center"
                 android:text="KG"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -79,7 +80,7 @@
                 android:layout_gravity="fill"
                 android:gravity="center"
                 android:text="WIEDERH."
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +93,7 @@
                 android:layout_columnWeight="1"
                 android:layout_gravity="fill"
                 android:text=""
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView

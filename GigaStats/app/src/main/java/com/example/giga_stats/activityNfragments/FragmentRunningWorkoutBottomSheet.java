@@ -1,19 +1,18 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
@@ -21,8 +20,6 @@ import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import java.util.List;
 
 
 public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment {
@@ -34,7 +31,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     int seconds = 0;
     boolean isTimerRunning = false;
     AppDatabase appDatabase;
-    GridView gridViewBottomSheet;
+    RecyclerView recyclerViewBottomSheet;
     private Context context;
 
     public FragmentRunningWorkoutBottomSheet(Workout workout) {
@@ -51,7 +48,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         TextView bottomSheetExerciseNameTextView = view.findViewById(R.id.bottomSheetExerciseNameTextView);
         bottomSheetExerciseNameTextView.setText(workout.getName());
 
-        gridViewBottomSheet = view.findViewById(R.id.gridViewBottomSheet);
+        recyclerViewBottomSheet = view.findViewById(R.id.gridViewBottomSheet);
 
         appDatabase = MainActivity.getAppDatabase();
         context = getContext();
@@ -157,7 +154,8 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
             if(workoutExercises != null) {
                 AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises);
-                gridViewBottomSheet.setAdapter(adapter);
+                recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
+                recyclerViewBottomSheet.setAdapter(adapter);
             }
             Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
         });

@@ -1,35 +1,27 @@
 package com.example.giga_stats.adapter;
 
-
-
 import android.content.Context;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.GridLayout;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class AdapterRunningWorkoutBottomSheet extends BaseAdapter {
+
+public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<AdapterRunningWorkoutBottomSheet.ViewHolder> {
 
     private Context context;
     private WorkoutExercises workoutWithExercises;
-    private GridLayout gridLayout;
     private ArrayList<Integer> setCount = new ArrayList<>();
 
     public AdapterRunningWorkoutBottomSheet(Context context, WorkoutExercises workoutWithExercises) {
@@ -37,45 +29,49 @@ public class AdapterRunningWorkoutBottomSheet extends BaseAdapter {
         this.workoutWithExercises = workoutWithExercises;
     }
 
+    public void updateData() {
+        notifyDataSetChanged();
+    }
+
+    @NonNull
     @Override
-    public int getCount() {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bottom_sheet_list_item, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        Exercise exercise = workoutWithExercises.getExercises().get(position);
+        holder.nameExerciseBottomSheetTextView.setText(exercise.getName());
+
+        AdapterSets adapterSets = new AdapterSets(context, setCount);
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setAdapter(adapterSets);
+
+        holder.addSetRowButton.setOnClickListener(view -> {
+            int size = setCount.size();
+            setCount.add(size + 1);
+            adapterSets.notifyDataSetChanged();
+            updateData();
+        });
+    }
+
+    @Override
+    public int getItemCount() {
         return workoutWithExercises.getExercises().size();
     }
 
-    @Override
-    public Object getItem(int position) {
-        return workoutWithExercises.getExercises().get(position);
-    }
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nameExerciseBottomSheetTextView;
+        RecyclerView recyclerView;
+        Button addSetRowButton;
 
-    @Override
-    public long getItemId(int position) {
-        return workoutWithExercises.getWorkout().getWorkout_id();
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.bottom_sheet_list_item, null);
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            nameExerciseBottomSheetTextView = itemView.findViewById(R.id.nameExerciseBottomSheet);
+            recyclerView = itemView.findViewById(R.id.setRecyclerView);
+            addSetRowButton = itemView.findViewById(R.id.addNewRowButton);
         }
-
-        gridLayout = convertView.findViewById(R.id.gridLayoutBottomSheet);
-
-        TextView nameExerciseBottomSheetTextView = convertView.findViewById(R.id.nameExerciseBottomSheet);
-        nameExerciseBottomSheetTextView.setText(workoutWithExercises.getExercises().get(position).getName());
-
-        ListView listView = convertView.findViewById(R.id.setListView);
-        AdapterSets adapterSets = new AdapterSets(context, setCount);
-        listView.setAdapter(adapterSets);
-
-        Button addSetRowButton = convertView.findViewById(R.id.addNewRowButton);
-        addSetRowButton.setOnClickListener(view -> {
-            int size = setCount.size();
-            setCount.add(size+1);
-            adapterSets.notifyDataSetChanged();
-        });
-
-        return convertView;
     }
 }
-
