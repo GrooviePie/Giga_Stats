@@ -16,17 +16,20 @@ import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<AdapterRunningWorkoutBottomSheet.ViewHolder> {
 
     private Context context;
     private WorkoutExercises workoutWithExercises;
-    private ArrayList<Integer> setCount = new ArrayList<>();
+    private HashMap<Integer, ArrayList<Integer>> setsPerExercise;
 
     public AdapterRunningWorkoutBottomSheet(Context context, WorkoutExercises workoutWithExercises) {
         this.context = context;
         this.workoutWithExercises = workoutWithExercises;
+        setsPerExercise = new HashMap<>();
+        initializeSetsPerExercise();
     }
 
     public void updateData() {
@@ -45,16 +48,21 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         Exercise exercise = workoutWithExercises.getExercises().get(position);
         holder.nameExerciseBottomSheetTextView.setText(exercise.getName());
 
-        AdapterSets adapterSets = new AdapterSets(context, setCount);
+        AdapterSets adapterSets = new AdapterSets(context, setsPerExercise, position);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapterSets);
 
         holder.addSetRowButton.setOnClickListener(view -> {
-            int size = setCount.size();
-            setCount.add(size + 1);
-            adapterSets.notifyDataSetChanged();
+            int count = setsPerExercise.get(position).size();
+            setsPerExercise.get(position).add(count + 1);
             updateData();
         });
+    }
+
+    private void initializeSetsPerExercise() {
+        for (int i = 0; i < workoutWithExercises.getExercises().size(); i++) {
+            setsPerExercise.put(i, new ArrayList<>());
+        }
     }
 
     @Override

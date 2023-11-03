@@ -8,18 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdapterSets extends RecyclerView.Adapter<AdapterSets.ViewHolder> {
 
     Context context;
     ArrayList<Integer> setCount;
+    HashMap<Integer, ArrayList<Integer>> setsPerExercise;
 
-    public AdapterSets(Context context, ArrayList<Integer> setCount){
+    public AdapterSets(Context context, HashMap<Integer, ArrayList<Integer>> setsPerExercise, int pos){
         this.context = context;
-        this.setCount = setCount;
+        this.setsPerExercise = setsPerExercise;
+        this.setCount = setsPerExercise.get(pos);
     }
 
     @NonNull
