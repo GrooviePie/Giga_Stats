@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/option_menu_tutorial_runningworkouts"
-        android:icon="@drawable/ic_toolbar_questionmark_24_white"
+        android:icon="@drawable/baseline_question_mark_24_green"
         android:title="Tutorial anzeigen"
         app:showAsAction="always" />/>
 </menu>

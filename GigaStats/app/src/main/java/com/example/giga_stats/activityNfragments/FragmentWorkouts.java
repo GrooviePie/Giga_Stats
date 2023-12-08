@@ -143,7 +143,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         if (toolbar != null) {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Workouts"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
 
         }
     }

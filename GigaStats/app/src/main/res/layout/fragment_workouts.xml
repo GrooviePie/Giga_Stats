@@ -5,6 +5,8 @@
     android:id="@+id/FRAMELAYOUT_WORKOUT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="4dip"
+    android:paddingTop="2dip"
     android:orientation="vertical"
     tools:context=".activityNfragments.FragmentWorkouts">
 
@@ -15,6 +17,8 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/list_group_workout"
         android:divider="@android:color/transparent"
+        android:childDivider="@android:color/transparent"
+        android:childIndicator="@color/menuBar"
         android:background="@color/listBackground"
         android:dividerHeight="10sp"
         android:groupIndicator="@null"/>

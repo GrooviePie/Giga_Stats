@@ -66,7 +66,6 @@ public class FragmentStatistics extends Fragment {
         if (toolbar != null) {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
         }
     }
 

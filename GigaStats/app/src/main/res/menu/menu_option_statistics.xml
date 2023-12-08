@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/option_menu_tutorial_statistics"
-        android:icon="@drawable/ic_toolbar_questionmark_24_white"
+        android:icon="@drawable/baseline_question_mark_24_green"
         android:title="Tutorial"
         app:showAsAction="always" />/>
 </menu>

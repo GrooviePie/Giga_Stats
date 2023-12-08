@@ -2,10 +2,8 @@
 <resources>
 
     <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textSize">20sp
-        </item> <!-- Hier kannst du die gewünschte Textgröße festlegen -->
-        <item name="android:textColor">#FFFFFF
-        </item> <!-- Hier kannst du die Textfarbe festlegen, falls gewünscht -->
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Widget.Theme.GigaStats.MyView" parent="">

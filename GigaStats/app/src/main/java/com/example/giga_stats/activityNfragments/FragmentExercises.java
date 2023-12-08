@@ -138,8 +138,6 @@ public class FragmentExercises extends Fragment {
         if (toolbar != null) {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
-
         }
     }
 

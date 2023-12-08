@@ -7,7 +7,6 @@
     app:cardPreventCornerOverlap="false"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <GridView
         android:id="@+id/runningWorkoutGridView"
         android:layout_width="match_parent"
@@ -19,8 +18,6 @@
         android:padding="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp"
-        android:background="@android:color/transparent"
-        tools:listitem="@layout/list_item_running_workout"></GridView>
-
+        tools:listitem="@layout/list_item_running_workout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

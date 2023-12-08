@@ -126,7 +126,6 @@ public class FragmentRunningWorkout extends Fragment {
         if (toolbar != null) {
 
             toolbar.setTitle("Workout beginnen"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
         }
     }
 

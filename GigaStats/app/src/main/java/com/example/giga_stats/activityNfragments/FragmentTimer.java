@@ -179,7 +179,6 @@ public class FragmentTimer extends Fragment {
         if (toolbar != null) {
             // Konfigurieren Sie die Toolbar nach Bedarf
             toolbar.setTitle("Timer"); // Setzen Sie den Titel für die Toolbar
-            toolbar.setTitleTextColor(Color.WHITE);
         }
     }
 

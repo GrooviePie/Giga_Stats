@@ -27,7 +27,7 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginStart="20dp"
-            android:background="@drawable/element_divider"
+            android:background="@drawable/element_divider_bottom"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.054"

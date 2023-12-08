@@ -9,8 +9,7 @@
     android:layout_column="0"
     android:layout_columnWeight="1"
     android:layout_margin="25dp"
-    app:cardCornerRadius="15dp"
-    app:cardElevation="10dp"
+    app:cardCornerRadius="16dip"
     app:cardPreventCornerOverlap="false"
     tools:ignore="MissingDefaultResource">
 
