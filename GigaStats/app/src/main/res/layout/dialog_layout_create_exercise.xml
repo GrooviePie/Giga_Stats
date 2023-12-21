@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- layout.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@drawable/element_divider_bottom">
+
+    <TextView
+        android:id="@+id/categoryLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kategorie: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/textHighlightColor"
+        android:paddingBottom="8dip"
+        android:paddingTop="4dip"
+        android:paddingLeft="8dip"/>
+
+    <Spinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dip"/>
+
+    <TextView
+        android:id="@+id/exerciseLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Übungsname: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/textHighlightColor"
+        android:padding="8dip"/>
+
+    <EditText
+        android:id="@+id/inputExerciseName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="[Name der Übung eingeben...]"
+        android:paddingLeft="8dip"/>
+
+    <TextView
+        android:id="@+id/repLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wiederholungen: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/textHighlightColor"
+        android:padding="8dip"/>
+
+    <EditText
+        android:id="@+id/inputExerciseRep"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="[Anzahl eingeben...]"
+        android:inputType="number"
+        android:paddingLeft="8dip"/>
+
+    <TextView
+        android:id="@+id/weightLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gewicht: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/textHighlightColor"
+        android:padding="8dip"/>
+
+    <EditText
+        android:id="@+id/inputExerciseWeight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="[Eingabe in kg...]"
+        android:inputType="number"
+        android:paddingLeft="8dip"/>
+
+    <TextView
+        android:id="@+id/noteLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kurzbeschreibung: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/textHighlightColor"
+        android:padding="8dip"/>
+
+    <EditText
+        android:id="@+id/inputExerciseDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="[...]"
+        android:paddingLeft="8dip"/>
+
+</LinearLayout>

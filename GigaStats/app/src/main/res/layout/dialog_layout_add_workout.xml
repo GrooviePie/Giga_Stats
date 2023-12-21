@@ -14,7 +14,8 @@
         android:hint="Workout Name"
         android:gravity="center"
         android:textSize="23sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        />
 
     <TextView
         android:id="@+id/textViewAddExercise"

@@ -27,7 +27,7 @@
 
         <LinearLayout
             android:id="@+id/linearLayoutExercise"
-            android:layout_width="240dp"
+            android:layout_width="240dip"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"

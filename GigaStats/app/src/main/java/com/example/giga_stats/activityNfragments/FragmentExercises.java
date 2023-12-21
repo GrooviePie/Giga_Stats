@@ -3,10 +3,12 @@ package com.example.giga_stats.activityNfragments;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -212,57 +214,30 @@ public class FragmentExercises extends Fragment {
         Log.d("CHAD", "openAddExerciseDialog() in ExercisesFragment aufgerufen");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Übungen");
 
+        // Custom Titel aufblähen und setzen
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Übung hinzufügen");
+        builder.setCustomTitle(titleView);
 
-        // Hinzufügen des Texts "Kategorie: " vor dem Spinner
-        TextView categoryLabel = new TextView(requireContext());
-        categoryLabel.setText("Kategorie: ");
-        TextView exerciseLabel = new TextView(requireContext());
-        exerciseLabel.setText("Übungsname: ");
-        TextView repLabel = new TextView(requireContext());
-        repLabel.setText("Wiederholungen: ");
-        TextView weightLabel = new TextView(requireContext());
-        weightLabel.setText("Gewicht: ");
-        TextView noteLabel = new TextView(requireContext());
-        noteLabel.setText("Kurzbeschreibung: ");
+        // Inflate des benutzerdefinierten Layouts
+        //LayoutInflater inflater2 = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
+        builder.setView(dialogView);
 
-        // Erstellen Sie EditText-Felder für die Eingabe von Übungsdetails
-        final EditText inputExerciseName = new EditText(requireContext());
-        inputExerciseName.setHint("[Name der Übung eingeben...]");
+        // Zugriff auf die Views
+        final EditText inputExerciseName = dialogView.findViewById(R.id.inputExerciseName);
+        final EditText inputExerciseRep = dialogView.findViewById(R.id.inputExerciseRep);
+        final EditText inputExerciseWeight = dialogView.findViewById(R.id.inputExerciseWeight);
+        final EditText inputExerciseDesc = dialogView.findViewById(R.id.inputExerciseDesc);
+        final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
-        // Weitere EditText-Felder für die Eingabe von Übungsdetails
-        final EditText inputExerciseRep = new EditText(requireContext());
-        inputExerciseRep.setHint("[Anzahl eingeben...]");
-        inputExerciseRep.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        final EditText inputExerciseWeight = new EditText(requireContext());
-        inputExerciseWeight.setHint("[Eingabe in kg...]");
-        inputExerciseWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        final EditText inputExerciseDesc = new EditText(requireContext());
-        inputExerciseDesc.setHint("[...]");
-
-        // Spinner für die Kategorie
-        final Spinner categorySpinner = new Spinner(requireContext());
+        // Konfiguration des Spinners
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
-
-        // Fügen Sie die UI-Elemente zum Dialog hinzu
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(categoryLabel); // Hinzufügen des Labels "Kategorie: " über dem Spinner
-        layout.addView(categorySpinner);
-        layout.addView(exerciseLabel);
-        layout.addView(inputExerciseName); // Hinzufügen des Übungsnamens unter dem Label
-        layout.addView(repLabel);
-        layout.addView(inputExerciseRep);
-        layout.addView(weightLabel);
-        layout.addView(inputExerciseWeight);
-        layout.addView(noteLabel);
-        layout.addView(inputExerciseDesc);
-        builder.setView(layout);
 
 
         builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
