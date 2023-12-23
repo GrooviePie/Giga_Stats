@@ -39,7 +39,7 @@
             android:gravity="center"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/textHighlightColor"/>
+            android:textColor="@color/pastelGreen"/>
 
         <TextView
             android:id="@+id/runningWorkoutId"

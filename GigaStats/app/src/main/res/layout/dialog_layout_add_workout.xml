@@ -5,25 +5,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutWorkoutAdd"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/element_divider_bottom">
 
     <EditText
         android:id="@+id/editTextWorkoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Workout Name"
         android:gravity="center"
+        android:hint="[Workoutname]"
         android:textSize="23sp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/textViewAddExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Exercises"
-        android:gravity="center"
-        android:textSize="18sp"/>
+        android:text="Übungen auswählen"
+        android:paddingTop="12dip"
+        android:paddingBottom="4dip"
+        android:paddingLeft="12dip"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/softerBlack"/>
 
     <LinearLayout
         android:id="@+id/addedExercisesLayout"

@@ -2,13 +2,9 @@ package com.example.giga_stats.activityNfragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.InputType;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,7 +12,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -27,8 +25,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
@@ -170,6 +171,52 @@ public class FragmentExercises extends Fragment {
     }
 
 
+//    @Override
+//    public boolean onContextItemSelected(MenuItem item) {
+//        int itemId = item.getItemId();
+//        Log.d("CHAD", "Item Id: " + itemId);
+//
+//        if (index >= 0) {
+//
+//            int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
+//
+////            AtomicReference<Exercise> selectedExercise = new AtomicReference<>();
+////            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedExercise.set(appDatabase.exerciseDao().getExerciseById(id)));
+////
+////            future.join();
+//
+//            LiveData<Exercise> exerciseLiveData = appDatabase.exerciseDao().getExerciseById(id);
+//
+//            Observer<Exercise> exerciseObserver = new Observer<Exercise>() {
+//                @Override
+//                public void onChanged(Exercise existingExercise) {
+//                    if (existingExercise != null) {
+//                        int exercise_id = existingExercise.getExercise_id();
+//                        Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
+//
+//                        if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
+//                            Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt");
+//                            openEditExerciseDialog(exercise_id);
+//                        } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
+//                            Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt");
+//                            openDeleteExerciseDialog(exercise_id);
+//                        }
+//
+//                        // Entfernen des Observers, um zu verhindern, dass der Dialog erneut geöffnet wird
+//                        exerciseLiveData.removeObserver(this);
+//                    }
+//                }
+//            };
+//
+//            // LiveData beobachten
+//            exerciseLiveData.observe(this, exerciseObserver);
+//            return true;
+//        } else {
+//            return super.onContextItemSelected(item);
+//        }
+//
+//    }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -271,45 +318,50 @@ public class FragmentExercises extends Fragment {
 
         builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        // Zugriff auf die Buttons und Anpassen des Stils
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
     }
 
 
-
+    @SuppressLint("StaticFieldLeak")
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Übung bearbeiten");
 
-        // Labels für den Input
-        TextView categoryLabel = new TextView(requireContext());
-        categoryLabel.setText("Kategorie: ");
-        TextView exerciseLabel = new TextView(requireContext());
-        exerciseLabel.setText("Übungsname: ");
-        TextView repLabel = new TextView(requireContext());
-        repLabel.setText("Wiederholungen: ");
-        TextView weightLabel = new TextView(requireContext());
-        weightLabel.setText("Gewicht: ");
-        TextView noteLabel = new TextView(requireContext());
-        noteLabel.setText("Kurzbeschreibung: ");
+        // Custom Titel aufblähen und setzen
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Übung bearbeiten");
+        builder.setCustomTitle(titleView);
 
-        // Erstellen Sie EditText-Felder für die Eingabe von Übungsdetails
-        final EditText inputExerciseName = new EditText(requireContext());
-        //inputExerciseName.setHint("[Name der Übung eingeben...]");
+        // Inflate des benutzerdefinierten Layouts
+        //LayoutInflater inflater2 = requireActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
+        builder.setView(dialogView);
 
-        // Weitere EditText-Felder für die Eingabe von Übungsdetails
-        final EditText inputExerciseRep = new EditText(requireContext());
-        //inputExerciseRep.setHint("[Anzahl eingeben...]");
-        inputExerciseRep.setInputType(InputType.TYPE_CLASS_NUMBER);
+        // Zugriff auf die Views
+        final EditText inputExerciseName = dialogView.findViewById(R.id.inputExerciseName);
+        final EditText inputExerciseRep = dialogView.findViewById(R.id.inputExerciseRep);
+        final EditText inputExerciseWeight = dialogView.findViewById(R.id.inputExerciseWeight);
+        final EditText inputExerciseDesc = dialogView.findViewById(R.id.inputExerciseDesc);
+        final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
-        final EditText inputExerciseWeight = new EditText(requireContext());
-        //inputExerciseWeight.setHint("[Eingabe in kg...]");
-        inputExerciseWeight.setInputType(InputType.TYPE_CLASS_NUMBER);
-
-        final EditText inputExerciseDesc = new EditText(requireContext());
-        //inputExerciseDesc.setHint("[...]");
-
-        // Spinner für die Kategorie
-        final Spinner categorySpinner = new Spinner(requireContext());
+        // Konfiguration des Spinners
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(categoryAdapter);
@@ -342,20 +394,26 @@ public class FragmentExercises extends Fragment {
             }
         }.execute(exercise_id);
 
-        // Fügen Sie die UI-Elemente zum Dialog hinzu
-        LinearLayout layout = new LinearLayout(requireContext());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        layout.addView(categoryLabel); // Hinzufügen des Labels "Kategorie: " über dem Spinner
-        layout.addView(categorySpinner);
-        layout.addView(exerciseLabel);
-        layout.addView(inputExerciseName); // Hinzufügen des Übungsnamens unter dem Label
-        layout.addView(repLabel);
-        layout.addView(inputExerciseRep);
-        layout.addView(weightLabel);
-        layout.addView(inputExerciseWeight);
-        layout.addView(noteLabel);
-        layout.addView(inputExerciseDesc);
-        builder.setView(layout);
+//        LiveData<Exercise> exerciseLiveData = appDatabase.exerciseDao().getExerciseById(exercise_id);
+//
+//        // LiveData beobachten
+//        exerciseLiveData.observe(this, existingExercise -> {
+//            if (existingExercise != null) {
+//                inputExerciseName.setText(existingExercise.getName());
+//                categorySpinner.setSelection(categoryAdapter.getPosition(existingExercise.getCategory()));
+//
+//                if (existingExercise.getRep() != 0) {
+//                    inputExerciseRep.setText(String.valueOf(existingExercise.getRep()));
+//                }
+//
+//                if (existingExercise.getWeight() != 0) {
+//                    inputExerciseWeight.setText(String.valueOf(existingExercise.getWeight()));
+//                }
+//
+//                inputExerciseDesc.setText(existingExercise.getDesc());
+//            }
+//        });
+
 
         builder.setPositiveButton("Speichern", (dialog, which) -> {
             String newName = inputExerciseName.getText().toString();
@@ -390,16 +448,37 @@ public class FragmentExercises extends Fragment {
 
         builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        // Zugriff auf die Buttons und Anpassen des Stils
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
+
     }
-
-
 
 
     private void openDeleteExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Übung löschen");
-        builder.setMessage("Möchten Sie diese Übung endgültig löschen?");
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Übung löschen");
+        builder.setCustomTitle(titleView);
+
+        builder.setMessage("Möchten Sie diese Übung wirklich löschen?");
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
             dialog.dismiss();
@@ -410,7 +489,23 @@ public class FragmentExercises extends Fragment {
 
         builder.setNegativeButton("Nein", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
+
     }
 
 
@@ -420,7 +515,12 @@ public class FragmentExercises extends Fragment {
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Tutorial");
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Tutorial Übungen");
+        builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
@@ -434,7 +534,18 @@ public class FragmentExercises extends Fragment {
 
         builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
     }
 
     //=====================================================HILFSMETHODEN==========================================================================

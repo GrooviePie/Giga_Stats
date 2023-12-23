@@ -24,17 +24,21 @@
             android:layout_alignParentTop="true"
             android:background="@drawable/rounded_element_background"
             android:gravity="center"
+            android:minHeight="24dip"
             android:text="Beschreibung"
             android:textColor="@color/white"
-            android:textSize="14dp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/descExercise"
-            android:layout_below="@+id/beschr"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
+            android:layout_below="@+id/beschr"
+            android:layout_marginHorizontal="12dip"
+            android:paddingBottom="12dip"
+            android:textAlignment="inherit"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <TextView
@@ -44,35 +48,47 @@
             android:layout_below="@+id/descExercise"
             android:background="@drawable/rounded_element_background"
             android:gravity="center"
+            android:minHeight="24dip"
             android:text="Wiederholungen und Gewicht"
             android:textColor="@color/white"
-            android:textSize="14dip"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/repExercise"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/wiederh"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:gravity="center"
-            android:minHeight="26dip"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/weightExercise"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/repExercise"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:minHeight="26dip"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/repExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dip"
+                android:layout_marginEnd="12dip"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:minHeight="24dip"
+                android:background="@drawable/element_divider_bottom"/>
+
+            <TextView
+                android:id="@+id/weightExercise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dip"
+                android:layout_marginEnd="12dip"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:minHeight="24dip"
+                android:background="@drawable/element_divider_bottom"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 

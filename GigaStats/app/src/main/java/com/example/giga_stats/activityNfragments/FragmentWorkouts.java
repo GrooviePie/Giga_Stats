@@ -11,6 +11,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -215,16 +218,21 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
     private void openAddWorkoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Add Workout");
 
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_layout_add_workout, null);
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Workout hinzufügen");
+        builder.setCustomTitle(titleView);
+
+        View dialogView = inflater.inflate(R.layout.dialog_layout_add_workout, null);
         builder.setView(dialogView);
 
         EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
 
         readExercisesToAdd(dialogView);
 
-        builder.setPositiveButton("Save Workout", (dialog, which) -> {
+        builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
             String workoutName = editTextWorkoutName.getText().toString();
             Workout newWorkout = new Workout(workoutName);
 
@@ -242,27 +250,56 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             });
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
+        builder.setNegativeButton("Abbrechen", (dialog, which) -> {
             selectedAddExercises.clear();
             dialog.dismiss();
         });
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
     }
 
 
     private void openEditWorkoutsDialog(int workoutId) {
         //TODO: Edit Dialog Logik schreiben
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Edit Workout");
-        View dialogView = getLayoutInflater().inflate(R.layout.dialog_layout_edit_workout, null);
+
+        // Custom Titel aufblähen und setzen
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Workout bearbeiten");
+        builder.setCustomTitle(titleView);
+
+        View dialogView = inflater.inflate(R.layout.dialog_layout_edit_workout, null);
         builder.setView(dialogView);
 
         EditText editTextWorkoutName = dialogView.findViewById(R.id.editTextWorkoutName);
 
+        AtomicReference<Workout> selectedWorkout = new AtomicReference<>();
+        CompletableFuture<Void> future1 = CompletableFuture.runAsync(() -> selectedWorkout.set(appDatabase.workoutDao().getWorkoutById(workoutId)));
+
+        future1.join();
+        String currentWorkoutName = selectedWorkout.get().getName();
+        editTextWorkoutName.setText(currentWorkoutName);
+
         readExercisesToAdd(dialogView);
 
-        builder.setPositiveButton("Save Workout", (dialog, which) -> {
+        builder.setPositiveButton("Speichern", (dialog, which) -> {
             String newWorkoutName = editTextWorkoutName.getText().toString();
             Workout newWorkout = new Workout(newWorkoutName);
             newWorkout.setWorkout_id(workoutId);
@@ -283,21 +320,42 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             });
         });
 
-        builder.setNegativeButton("Cancel", (dialog, which) -> {
+        builder.setNegativeButton("Abbrechen", (dialog, which) -> {
             selectedAddExercises.clear();
             dialog.dismiss();
         });
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
     }
 
     private void openDeleteWorkoutsDialog(int workoutId) {
         //TODO: Delete Dialog schreiben
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Delete Workout");
-        builder.setMessage("Do you really want to delete the workout?");
 
-        builder.setPositiveButton("Yes", (dialog, which) -> {
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Workout löschen");
+        builder.setCustomTitle(titleView);
+
+        builder.setMessage("Möchten Sie das Workout wirklich löschen?");
+
+        builder.setPositiveButton("Ja", (dialog, which) -> {
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 appDatabase.workoutDao().deleteWorkoutById(workoutId);
                 appDatabase.workoutExerciseCrossRefDao().deleteRefsById(workoutId);
@@ -309,9 +367,24 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             });
         });
 
-        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
+        builder.setNegativeButton("Nein", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
     }
 
 
@@ -321,7 +394,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Tutorial");
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Tutorial Workout");
+        builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
@@ -338,7 +415,18 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             dialog.dismiss();
         });
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
     }
 
     //=====================================================HILFSMETHODEN==========================================================================

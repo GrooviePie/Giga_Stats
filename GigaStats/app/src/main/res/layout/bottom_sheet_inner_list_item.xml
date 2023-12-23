@@ -122,11 +122,12 @@
                 android:id="@+id/weightText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="36dip"
+                android:minHeight="20dip"
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_gravity="center"
-                android:background="@color/listBackground"
-                android:hint="Gewicht"
+                android:background="@drawable/rounded_element_background_beige"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -134,11 +135,12 @@
                 android:id="@+id/repText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:minWidth="36dip"
+                android:minHeight="20dip"
                 android:layout_row="1"
                 android:layout_column="3"
                 android:layout_gravity="center"
-                android:background="@color/listBackground"
-                android:hint="wiederh."
+                android:background="@drawable/rounded_element_background_beige"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

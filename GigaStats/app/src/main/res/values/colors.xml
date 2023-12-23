@@ -3,14 +3,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692F7</color>
-    <color name="listBackground">#edede9</color>
-    <color name="actionAndMenuBar">#edede9</color>
-    <color name="menuBar">#8AA6A3</color>
-    <color name="textHighlightColor">#8AA6A3</color>
-    <color name="dividerGray">#BFBFBF</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+
+    <color name="eggshellWhite">#edede9</color>
+    <color name="pastelGreen">#8AA6A3</color>
+    <color name="softerBlack">#2E2E2E</color>
+    <color name="dividerGray">#BFBFBF</color>
+    <color name="softRed">#EB817F</color>
     <!-- og color = 2D88EB -->
 </resources>

@@ -3,7 +3,7 @@
     <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/white</item>
-        <item name="android:statusBarColor">@color/menuBar</item>
+        <item name="android:statusBarColor">@color/pastelGreen</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 

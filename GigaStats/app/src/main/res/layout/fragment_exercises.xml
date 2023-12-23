@@ -16,7 +16,7 @@
         android:scrollbars="vertical"
         tools:listitem="@layout/list_group_exercise"
         android:divider="@android:color/transparent"
-        android:background="@color/listBackground"
+        android:background="@color/eggshellWhite"
         android:dividerHeight="10sp"
         android:groupIndicator="@null"/>
 

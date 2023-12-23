@@ -18,8 +18,8 @@
         tools:listitem="@layout/list_group_workout"
         android:divider="@android:color/transparent"
         android:childDivider="@android:color/transparent"
-        android:childIndicator="@color/menuBar"
-        android:background="@color/listBackground"
+        android:childIndicator="@color/pastelGreen"
+        android:background="@color/eggshellWhite"
         android:dividerHeight="10sp"
         android:groupIndicator="@null"/>
 
