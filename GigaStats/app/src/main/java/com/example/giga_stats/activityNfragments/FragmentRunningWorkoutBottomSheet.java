@@ -7,19 +7,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.DB.DTO.SetData;
+import com.example.giga_stats.DB.ENTITY.Exercise;
+import com.example.giga_stats.DB.ENTITY.Sets;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import java.util.ArrayList;
 
 
 public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment {
@@ -80,7 +88,13 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     //Dialog zum Beenden des Workouts
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Workout beenden");
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Workout beenden");
+        builder.setCustomTitle(titleView);
+
         builder.setMessage("Möchten Sie das Workout wirklich beenden?");
         builder.setPositiveButton("Ja", (dialog, which) -> {
             // Hier können Sie den Dialog für die Gesamtstatistik aufrufen
@@ -93,12 +107,32 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         });
 
         AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
         dialog.show();
+
+        // Zugriff auf die Buttons und Anpassen des Stils
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        int red = ContextCompat.getColor(requireContext(), R.color.softRed);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
+
+        Button negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+        negativeButton.setTextColor(red);
+        negativeButton.setTextSize(14);
     }
 
     private void showTotalStatsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Gesamtstatistik");
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Stats");
+        builder.setCustomTitle(titleView);
 
         // Hinzufügen der Glückwunschnachricht zur Nachricht des Dialogs
         String message = "Herzlichen Glückwunsch! Hier Ihre Statistik:\n";
@@ -109,7 +143,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         builder.setMessage(message);
 
         // Fügt einen "Ja"-Button zum Dialog hinzu
-        builder.setPositiveButton("Ja", (dialog, which) -> {
+        builder.setPositiveButton("OK", (dialog, which) -> {
             // Hier können Sie die Logik für die Anzeige der Gesamtstatistik implementieren
             // Schließen Sie das Bottom Sheet
             dismiss();
@@ -117,7 +151,17 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
 
         // Dialog erstellen und anzeigen
         AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
         dialog.show();
+
+        // Zugriff auf die Buttons und Anpassen des Stils
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
     }
 
 
@@ -156,6 +200,16 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
                 AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises);
                 recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
                 recyclerViewBottomSheet.setAdapter(adapter);
+
+
+                ArrayList<Sets> set = new ArrayList<>();
+                for (int i = 0; i < workoutExercises.getExercises().size(); i++) {
+                    set.add(new Sets());
+                }
+
+                //TODO: setDetailsPerExercise aus dem Adapter rauskriegen
+                //      sets in die DB schreiben
+
             }
             Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
         });

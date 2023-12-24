@@ -1,27 +1,13 @@
-package com.example.giga_stats.DB.ENTITY;
+package com.example.giga_stats.DB.DTO;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
-
-@Entity
-public class Sets {
-    @PrimaryKey(autoGenerate = true)
-    public long set_id;
+public class SetData {
     public long workout_id;
     public long exercise_id;
     public String date;
     public int repetitions;
     public int weight;
 
-    public Sets() {
-    }
-
-    public long getSet_id() {
-        return set_id;
-    }
-
-    public void setSet_id(long set_id) {
-        this.set_id = set_id;
+    public SetData() {
     }
 
     public long getWorkout_id() {

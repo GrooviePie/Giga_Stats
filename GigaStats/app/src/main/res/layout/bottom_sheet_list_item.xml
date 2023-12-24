@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:paddingBottom="12dip"
             app:layout_constraintBottom_toTopOf="@+id/addNewRowButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,19 +61,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible" />
-
         </LinearLayout>
 
         <Button
             android:id="@+id/addNewRowButton"
+            android:layout_width="64dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rounded_element_background_beige"
+            android:drawableRight="@drawable/baseline_add_24_green"
+            android:text="Set"
+            android:textAlignment="center"
+            android:textColor="@color/softerBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.075"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/saveSetsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/pastelGreen"
-            android:text="Set hinzufügen"
+            android:layout_marginBottom="12dp"
+            android:paddingHorizontal="6dip"
+            android:background="@drawable/rounded_element_background"
+            android:text="Speichern"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.903"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
