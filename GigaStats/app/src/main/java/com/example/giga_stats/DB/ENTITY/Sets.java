@@ -6,12 +6,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Sets {
     @PrimaryKey(autoGenerate = true)
-    public long set_id;
-    public long workout_id;
-    public long exercise_id;
-    public String date;
-    public int repetitions;
-    public int weight;
+    private long set_id;
+    private long workout_id;
+    private long exercise_id;
+    private String date;
+    private int repetitions;
+    private int weight;
 
     public Sets() {
     }
@@ -62,5 +62,17 @@ public class Sets {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+        return "Sets{" +
+                "set_id=" + getSet_id() +
+                ", workout_id=" + getWorkout_id() +
+                ", exercise_id=" + getExercise_id() +
+                ", date='" + getDate() + '\'' +
+                ", repetitions=" + getRepetitions() +
+                ", weight=" + getWeight() +
+                '}';
     }
 }

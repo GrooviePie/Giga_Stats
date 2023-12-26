@@ -1,6 +1,7 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -17,20 +18,27 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.DB.DTO.SetData;
+import com.example.giga_stats.DB.DTO.SetDetails;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Sets;
 import com.example.giga_stats.DB.ENTITY.Workout;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
+import com.example.giga_stats.OnDataChangedListener;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.concurrent.CompletableFuture;
 
 
-public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment {
+public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment implements OnDataChangedListener {
     private Workout workout;
     TextView startWorkout;
     TextView endWorkout;
@@ -41,6 +49,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     AppDatabase appDatabase;
     RecyclerView recyclerViewBottomSheet;
     private Context context;
+    HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise;
 
     public FragmentRunningWorkoutBottomSheet(Workout workout) {
         this.workout = workout;
@@ -193,25 +202,59 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         return String.format("%02d:%02d", minutes, remainingSeconds);
     }
 
+    //=================================================HILFSMETHODEN======================================================================
+
     private void updateRunningWorkoutExercisesList() {
         LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkout(workout.getWorkout_id());
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
-            if(workoutExercises != null) {
-                AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises);
+            if (workoutExercises != null) {
+                AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises, this);
                 recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
                 recyclerViewBottomSheet.setAdapter(adapter);
-
-
-                ArrayList<Sets> set = new ArrayList<>();
-                for (int i = 0; i < workoutExercises.getExercises().size(); i++) {
-                    set.add(new Sets());
-                }
-
-                //TODO: setDetailsPerExercise aus dem Adapter rauskriegen
-                //      sets in die DB schreiben
-
             }
             Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
         });
+    }
+
+    private void insertSets(WorkoutExercises workoutExercises) {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        String dateString = format.format(calendar.getTime());
+
+        // TODO: Speichern der Sets auf "Beenden" Button von BottomSheet oder Extra Button legen (daten mithilfe des OnDataChangedListeners an BottomSheet uebergeben)
+        //       XML je nach Entscheidung anpassen und bei Statistik evtl Durchschnitt Gewicht und Reps pro Exercise auflisten
+
+        ArrayList<Sets> setList = new ArrayList<>();
+
+        for (Exercise e : workoutExercises.getExercises()) {
+            Sets set = new Sets();
+            set.setWorkout_id(workoutExercises.getWorkout().getWorkout_id());
+            set.setExercise_id(e.getExercise_id());
+            for (SetDetails setD : setDetailsPerExercise.get(e.getExercise_id())) {
+                set.setWeight(setD.getWeight());
+                set.setRepetitions(setD.getReps());
+            }
+            set.setDate(dateString);
+            setList.add(set);
+        }
+
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            for (Sets set : setList){
+                appDatabase.setDao().insertSet(set);
+            }
+        });
+
+        future.join();
+    }
+
+    @Override
+    public void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise, WorkoutExercises workoutExercises) {
+        this.setDetailsPerExercise = setDetailsPerExercise;
+        Log.d("CHAD", "FragmentBottomSheet: onDataChanged: setDetailsPerExercise: " + setDetailsPerExercise.toString());
+    }
+
+    @Override
+    public void onSavePressed(WorkoutExercises workoutExercises) {
+        insertSets(workoutExercises);
     }
 }

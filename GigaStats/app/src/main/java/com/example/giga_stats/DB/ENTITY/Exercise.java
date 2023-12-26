@@ -82,4 +82,16 @@ public class Exercise {
     public void setDesc(String desc) {
         this.desc = desc;
     }
+
+    @Override
+    public String toString() {
+        return "Exercise{" +
+                "exercise_id=" + exercise_id +
+                ", name='" + name + '\'' +
+                ", category='" + category + '\'' +
+                ", rep=" + rep +
+                ", weight=" + weight +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }
