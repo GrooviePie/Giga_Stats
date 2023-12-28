@@ -105,7 +105,6 @@ public class AdapterSets extends RecyclerView.Adapter<AdapterSets.ViewHolder> {
         private TextView setCount;
         private TextView weightText;
         private TextView repText;
-        private CheckBox setsCheckBox;
         private TextWatcher weightTextWatcher;
         private TextWatcher repTextWatcher;
 
@@ -114,7 +113,6 @@ public class AdapterSets extends RecyclerView.Adapter<AdapterSets.ViewHolder> {
             setSetCount(itemView.findViewById(R.id.setCount));
             setWeightText(itemView.findViewById(R.id.weightText));
             setRepText(itemView.findViewById(R.id.repText));
-            setSetsCheckBox(itemView.findViewById(R.id.checkbox1));
         }
 
         public void addWeightTextWatcher(TextWatcher watcher) {
@@ -164,14 +162,6 @@ public class AdapterSets extends RecyclerView.Adapter<AdapterSets.ViewHolder> {
 
         private void setRepText(TextView repText) {
             this.repText = repText;
-        }
-
-        private CheckBox getSetsCheckBox() {
-            return setsCheckBox;
-        }
-
-        private void setSetsCheckBox(CheckBox setsCheckBox) {
-            this.setsCheckBox = setsCheckBox;
         }
 
         private TextWatcher getWeightTextWatcher() {

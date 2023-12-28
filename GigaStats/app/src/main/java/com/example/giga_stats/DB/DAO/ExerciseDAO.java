@@ -8,7 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
-import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
+import com.example.giga_stats.DB.ENTITY.WorkoutExerciseCrossRef;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ public interface ExerciseDAO {
     void insertExercise(Exercise exercise);
 
     @Insert
-    void insertCrossRef(WorkoutExerciseSetCrossRef crossRef);
+    void insertCrossRef(WorkoutExerciseCrossRef crossRef);
 
     @Update
     void updateExercise(Exercise exercise);

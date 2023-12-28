@@ -8,5 +8,4 @@ import java.util.HashMap;
 
 public interface OnDataChangedListener {
     void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise, WorkoutExercises workoutExercises);
-    void onSavePressed(WorkoutExercises workoutExercises);
 }

@@ -15,7 +15,7 @@ public class WorkoutExercises {
             parentColumn = "workout_id",
             entity = Exercise.class,
             entityColumn = "exercise_id",
-            associateBy = @Junction(WorkoutExerciseSetCrossRef.class)
+            associateBy = @Junction(WorkoutExerciseCrossRef.class)
     )
     private List<Exercise> exercises;
 

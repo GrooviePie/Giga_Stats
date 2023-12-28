@@ -16,6 +16,6 @@ public interface WorkoutExerciseCrossRefDAO {
     @Query("SELECT * FROM workouts")
     LiveData<List<WorkoutExercises>> getWorkoutsWithExercises();
 
-    @Query("DELETE FROM workoutexercisesetcrossref WHERE workout_id = :workoutId")
+    @Query("DELETE FROM WorkoutExerciseCrossRef WHERE workout_id = :workoutId")
     void deleteRefsById(int workoutId);
 }

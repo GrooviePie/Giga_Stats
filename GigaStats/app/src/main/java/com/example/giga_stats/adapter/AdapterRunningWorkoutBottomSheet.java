@@ -54,6 +54,8 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Exercise exercise = workoutWithExercises.getExercises().get(position);
         holder.nameExerciseBottomSheetTextView.setText(exercise.getName());
+        holder.weightExerciseBottomSheet.setText(String.valueOf(exercise.getWeight()));
+        holder.repExerciseBottomSheet.setText(String.valueOf(exercise.getRep()));
 
         AdapterSets adapterSets = new AdapterSets(context, setDetailsPerExercise, position, exercise.getExercise_id());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -62,10 +64,6 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         holder.addSetRowButton.setOnClickListener(view -> {
             addNewSet(position, exercise);
             updateData();
-        });
-
-        holder.saveSetButton.setOnClickListener(view -> {
-            listener.onSavePressed(workoutWithExercises);
         });
 
         if(listener != null) {
@@ -105,14 +103,16 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         TextView nameExerciseBottomSheetTextView;
         RecyclerView recyclerView;
         Button addSetRowButton;
-        Button saveSetButton;
+        TextView weightExerciseBottomSheet;
+        TextView repExerciseBottomSheet;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nameExerciseBottomSheetTextView = itemView.findViewById(R.id.nameExerciseBottomSheet);
             recyclerView = itemView.findViewById(R.id.setRecyclerView);
             addSetRowButton = itemView.findViewById(R.id.addNewRowButton);
-            saveSetButton = itemView.findViewById(R.id.saveSetsButton);
+            weightExerciseBottomSheet = itemView.findViewById(R.id.weightExerciseBottomSheet);
+            repExerciseBottomSheet = itemView.findViewById(R.id.repsExerciseBottomSheet);
         }
     }
 }

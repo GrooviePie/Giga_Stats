@@ -1,7 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -30,7 +29,7 @@ import androidx.room.Room;
 
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Workout;
-import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
+import com.example.giga_stats.DB.ENTITY.WorkoutExerciseCrossRef;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.R;
@@ -239,7 +238,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
                 int workoutId = (int) appDatabase.workoutDao().insertWorkout(newWorkout);
                 for(Exercise e : selectedAddExercises){
-                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseSetCrossRef(workoutId, e.getExercise_id()));
+                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, e.getExercise_id()));
                 }
             });
 
@@ -309,7 +308,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
                 appDatabase.workoutExerciseCrossRefDao().deleteRefsById(workoutId);
 
                 for(Exercise e : selectedAddExercises){
-                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseSetCrossRef(workoutId, e.getExercise_id()));
+                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, e.getExercise_id()));
                 }
             });
 

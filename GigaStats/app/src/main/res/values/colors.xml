@@ -13,5 +13,6 @@
     <color name="softerBlack">#2E2E2E</color>
     <color name="dividerGray">#BFBFBF</color>
     <color name="softRed">#EB817F</color>
+    <color name="fadedPastelGreen">#508AA6A3</color>
     <!-- og color = 2D88EB -->
 </resources>

@@ -15,11 +15,11 @@ import com.example.giga_stats.DB.DAO.WorkoutExerciseCrossRefDAO;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Sets;
 import com.example.giga_stats.DB.ENTITY.Workout;
-import com.example.giga_stats.DB.ENTITY.WorkoutExerciseSetCrossRef;
+import com.example.giga_stats.DB.ENTITY.WorkoutExerciseCrossRef;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseSetCrossRef.class, Sets.class}, version = 8)
+@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseCrossRef.class, Sets.class}, version = 9)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ExerciseDAO exerciseDao();
     public abstract WorkoutDAO workoutDao();
