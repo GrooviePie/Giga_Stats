@@ -19,7 +19,7 @@
         android:divider="@android:color/transparent"
         android:childDivider="@android:color/transparent"
         android:childIndicator="@color/pastelGreen"
-        android:background="@color/eggshellWhite"
+        style="@style/backgroundListElement"
         android:dividerHeight="10sp"
         android:groupIndicator="@null"/>
 

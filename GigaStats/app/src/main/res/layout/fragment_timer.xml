@@ -6,13 +6,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/eggshellWhite"
     android:orientation="vertical"
-    tools:context=".activityNfragments.FragmentTimer">
+    tools:context=".activityNfragments.FragmentTimer"
+    android:backgroundTint="@color/itemDivider">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        style="@style/backgroundScreen">
 
         <com.example.giga_stats.activityNfragments.FragmentTimerRoundProgressBar
             android:id="@+id/workoutProgressBar"
@@ -41,7 +43,7 @@
             android:layout_marginBottom="130dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/pastelGreen"
+            android:textColor="@color/textColorPrimary"
             android:textSize="24sp" />
 
     </RelativeLayout>
@@ -53,7 +55,7 @@
         android:layout_gravity="center_horizontal"
         android:paddingTop="16dip"
         android:text="Übungszeit: 01:00"
-        android:textColor="@color/black"
+        android:textColor="@color/textColorPrimary"
         android:textSize="24sp" />
 
     <SeekBar
@@ -72,7 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Pausenzeit: 00:20"
-        android:textColor="@color/black"
+        android:textColor="@color/textColorPrimary"
         android:textSize="24sp" />
 
     <SeekBar

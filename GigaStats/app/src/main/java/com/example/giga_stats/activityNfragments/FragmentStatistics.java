@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -15,6 +16,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -82,7 +85,12 @@ public class FragmentStatistics extends Fragment {
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        builder.setTitle("Tutorial");
+
+        LayoutInflater inflater = LayoutInflater.from(requireContext());
+        View titleView = inflater.inflate(R.layout.dialog_title, null);
+        TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
+        titleTextView.setText("Tutorial Übungen");
+        builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
@@ -94,14 +102,19 @@ public class FragmentStatistics extends Fragment {
         layout.addView(textView);
         builder.setView(layout);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen Sie den Dialog
-                dialog.dismiss();
-            }
-        });
+        builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
 
-        builder.create().show();
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setBackgroundDrawableResource(R.drawable.rounded_dialog_background);
+        }
+        dialog.show();
+
+        int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setTextSize(16);
+        positiveButton.setTextColor(green);
     }
 }

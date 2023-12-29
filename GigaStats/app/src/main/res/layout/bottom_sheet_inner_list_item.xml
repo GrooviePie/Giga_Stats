@@ -12,7 +12,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="2dip">
+        android:paddingBottom="2dip"
+        android:background="@color/setsBackground">
 
         <GridLayout
             android:id="@+id/gridLayoutBottomSheet"
@@ -40,7 +41,8 @@
                 android:gravity="center"
                 android:text="SET"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/previousColumn"
@@ -54,7 +56,8 @@
                 android:gravity="center"
                 android:text="VORHERIGES"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/weightColumn"
@@ -68,7 +71,8 @@
                 android:gravity="center"
                 android:text="KG"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/repColumn"
@@ -82,7 +86,8 @@
                 android:gravity="center"
                 android:text="WIEDERH."
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/setCount"
@@ -93,7 +98,8 @@
                 android:layout_gravity="center"
                 android:text="1"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <TextView
                 android:id="@+id/previousText"
@@ -104,7 +110,8 @@
                 android:layout_gravity="center"
                 android:text=""
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/textColorPrimary"/>
 
             <EditText
                 android:id="@+id/weightText"
@@ -116,12 +123,13 @@
                 android:layout_row="1"
                 android:layout_column="2"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_element_background_beige"
+                android:background="@drawable/rounded_element_background"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:inputType="number"
                 android:textAlignment="center"
-                android:layout_marginHorizontal="8dip"/>
+                android:layout_marginHorizontal="8dip"
+                android:textColor="@color/textColorPrimary"/>
 
             <EditText
                 android:id="@+id/repText"
@@ -133,12 +141,13 @@
                 android:layout_row="1"
                 android:layout_column="3"
                 android:layout_gravity="center"
-                android:background="@drawable/rounded_element_background_beige"
+                android:background="@drawable/rounded_element_background"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:inputType="number"
-                android:layout_marginHorizontal="8dip"/>
+                android:layout_marginHorizontal="8dip"
+                android:textColor="@color/textColorPrimary"/>
 
         </GridLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

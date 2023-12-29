@@ -9,6 +9,7 @@ import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -47,7 +48,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                // Der Dark Mode Status ist undefiniert
+                break;
+        }
+
         context = getBaseContext();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();

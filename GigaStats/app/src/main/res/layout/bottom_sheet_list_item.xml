@@ -17,7 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="0dp"
+        android:background="@color/cardBackground">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/headerConstraintLayout"
@@ -57,7 +58,7 @@
                 android:maxWidth="64dp"
                 android:minWidth="64dp"
                 android:text="1000"
-                android:textColor="@color/softerBlack"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -76,7 +77,7 @@
                 android:maxWidth="64dp"
                 android:minWidth="64dp"
                 android:text="1000"
-                android:textColor="@color/softerBlack"
+                android:textColor="@color/textColorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

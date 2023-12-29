@@ -15,9 +15,9 @@
         android:id="@+id/expandableListView"
         android:scrollbars="vertical"
         tools:listitem="@layout/list_group_exercise"
-        android:divider="@android:color/transparent"
-        android:background="@color/eggshellWhite"
+        android:divider="@color/itemDivider"
         android:dividerHeight="10sp"
-        android:groupIndicator="@null"/>
+        android:groupIndicator="@null"
+        style="@style/backgroundScreen"/>
 
 </LinearLayout>

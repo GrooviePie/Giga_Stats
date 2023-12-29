@@ -14,28 +14,26 @@
     <color name="dividerGray">#BFBFBF</color>
     <color name="fadedBlack">#39000000</color>
     <color name="textColorLight">#DE000000</color>
-    <color name="dialogShape">#FFFFFFFF</color>
-    <color name="dialogTitle">@color/pastelGreen</color>
-    <color name="divider">@color/eggshellWhite</color>
-    <color name="itemDivider">@color/eggshellWhite</color>
-    <color name="textColorPrimary">#DE000000</color>
-    <color name="exerciseIcon">@color/softerBlack</color>
-    <color name="cardBackground">@color/white</color>
-    <color name="header">@color/pastelGreen</color>
-    <color name="workoutExerciseList">@color/white</color>
-    <color name="createExerciseEdit">@color/eggshellWhite</color>
-    <color name="setsBackground">@color/white</color>
-    <color name="runningWorkoutName">@color/pastelGreen</color>
 
     <!-- Dark Theme Colors -->
     <color name="dark">#313233</color>
     <color name="darker">#2B2B2B</color>
     <color name="lightText">#EBEBEB</color>
+    <color name="dialogShape">@color/darker</color>
+    <color name="dialogTitle">@color/dark</color>
+    <color name="divider">#434445</color>
+    <color name="itemDivider">@color/darker</color>
+    <color name="textColorPrimary">#EBEBEB</color>
+    <color name="exerciseIcon">@color/fadedPastelGreen</color>
+    <color name="cardBackground">@color/dark</color>
+    <color name="header">@color/fadedPastelGreen</color>
+    <color name="workoutExerciseList">@color/darker</color>
+    <color name="createExerciseEdit">@color/dark</color>
+    <color name="setsBackground">@color/dark</color>
+    <color name="runningWorkoutName">#EBEBEB</color>
 
     <!-- Both -->
     <color name="softRed">#EB817F</color>
     <color name="pastelGreen">#8AA6A3</color>
     <color name="fadedPastelGreen">#508AA6A3</color>
-
-    <!-- og color = 2D88EB -->
 </resources>

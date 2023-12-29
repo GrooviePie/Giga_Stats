@@ -79,13 +79,14 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
             startTimer();
             updateRunningWorkoutExercisesList();
 
+            startWorkout.setClickable(false);
+            startWorkout.setVisibility(View.INVISIBLE);
             endWorkout.setVisibility(View.VISIBLE);
         });
 
         //Dieser Button erscheint erst wenn auf Start gedrückt wurde
         endWorkout.setOnClickListener(view12 -> {
             showConfirmationDialog();  //Dialog zum Beenden des Workouts
-            stopTimer();
         });
 
 
@@ -102,12 +103,19 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Workout beenden");
+
+        View dialogView = inflater.inflate(R.layout.dialog_layout_delete_entity, null);
+
+        builder.setView(dialogView);
         builder.setCustomTitle(titleView);
 
-        builder.setMessage("Möchten Sie das Workout wirklich beenden?");
+        TextView delDialogTextView = dialogView.findViewById(R.id.delDialogTextView);
+        delDialogTextView.setText("Möchten Sie das Workout wirklich beenden?");
+
         builder.setPositiveButton("Ja", (dialog, which) -> {
             // Hier können Sie den Dialog für die Gesamtstatistik aufrufen
             insertSets(workoutExercises);
+            stopTimer();
             showTotalStatsDialog();
             setCancelable(true);
         });
@@ -226,6 +234,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         // TODO: Statistik evtl Durchschnitt Gewicht und Reps pro Exercise auflisten
         //       unter Workout bearbeiten alle bereits zum Workout gehörigen Exercises hervorheben (Logik auch so im Hintergrund umsetzen; momentan wird das Workout gelöscht und ein neues angelegt)
         //       NightMode erstellen und erkennen lassen
+        //       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
 
         ArrayList<Sets> setList = new ArrayList<>();
 

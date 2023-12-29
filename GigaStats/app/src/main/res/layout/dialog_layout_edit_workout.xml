@@ -13,6 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:backgroundTint="@color/fadedPastelGreen"
+        android:text="@string/app_name"
+        android:textColor="@color/textColorPrimary"
         android:textSize="23sp"
         android:textStyle="bold"/>
 
@@ -27,7 +30,7 @@
         android:gravity="left"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textColor="@color/softerBlack"/>
+        android:textColor="@color/textColorPrimary"/>
 
     <LinearLayout
         android:id="@+id/addedExercisesLayout"
@@ -51,7 +54,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerViewWorkoutAdd"
-                tools:listitem="@layout/edit_workout_list_item"/>
+                tools:listitem="@layout/dialog_layout_add_exercise_list"
+                android:background="@color/workoutExerciseList"/>
 
         </androidx.cardview.widget.CardView>
 

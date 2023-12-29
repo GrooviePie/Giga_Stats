@@ -350,9 +350,13 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Workout löschen");
+
+        View dialogView = inflater.inflate(R.layout.dialog_layout_delete_entity, null);
+        builder.setView(dialogView);
         builder.setCustomTitle(titleView);
 
-        builder.setMessage("Möchten Sie das Workout wirklich löschen?");
+        TextView delDialogTextView = dialogView.findViewById(R.id.delDialogTextView);
+        delDialogTextView.setText("Möchten Sie das Workout wirklich löschen?");
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
             CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {

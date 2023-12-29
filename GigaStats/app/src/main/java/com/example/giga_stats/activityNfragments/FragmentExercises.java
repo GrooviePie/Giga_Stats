@@ -282,8 +282,8 @@ public class FragmentExercises extends Fragment {
         final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
         // Konfiguration des Spinners
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, R.layout.spinner_preview_item);
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_item);
         categorySpinner.setAdapter(categoryAdapter);
 
 
@@ -362,8 +362,8 @@ public class FragmentExercises extends Fragment {
         final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
         // Konfiguration des Spinners
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, android.R.layout.simple_spinner_item);
-        categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, R.layout.spinner_preview_item);
+        categoryAdapter.setDropDownViewResource(R.layout.spinner_item);
         categorySpinner.setAdapter(categoryAdapter);
 
         // Abfrage der Übung aus der Datenbank in einem Hintergrund-Thread
@@ -476,9 +476,13 @@ public class FragmentExercises extends Fragment {
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Übung löschen");
+
+        View dialogView = inflater.inflate(R.layout.dialog_layout_delete_entity, null);
+        builder.setView(dialogView);
         builder.setCustomTitle(titleView);
 
-        builder.setMessage("Möchten Sie diese Übung wirklich löschen?");
+        TextView delDialogTextView = dialogView.findViewById(R.id.delDialogTextView);
+        delDialogTextView.setText("Möchten Sie die Übung wirklich löschen?");
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
             dialog.dismiss();

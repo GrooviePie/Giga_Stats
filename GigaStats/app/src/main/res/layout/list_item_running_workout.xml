@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:background="@color/cardBackground">
 
         <ImageView
             android:id="@+id/runningImageInsert"
@@ -28,7 +29,7 @@
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:contentDescription="TODO"
-            android:src="@drawable/ic_bottommenu_workouts_24_black"
+            style="@style/workoutIcon"
             tools:ignore="ContentDescription,HardcodedText"/>
 
         <TextView
@@ -37,9 +38,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:gravity="center"
+            android:text="@string/app_name"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:textColor="@color/pastelGreen"/>
+            android:textColor="@color/runningWorkoutName"/>
 
         <TextView
             android:id="@+id/runningWorkoutId"
