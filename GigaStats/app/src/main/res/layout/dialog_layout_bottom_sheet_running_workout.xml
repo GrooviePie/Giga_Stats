@@ -17,7 +17,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/pastelGreen">
+            android:background="@color/dialogTitle">
 
             <TextView
                 android:id="@+id/bottomSheetExerciseNameTextView"

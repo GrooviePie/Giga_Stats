@@ -1,7 +1,6 @@
 package com.example.giga_stats.activityNfragments;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -18,6 +17,7 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.DB.DTO.SetAverage;
 import com.example.giga_stats.DB.DTO.SetDetails;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.Sets;
@@ -29,11 +29,13 @@ import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import org.json.JSONArray;
+
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
@@ -50,6 +52,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     private RecyclerView recyclerViewBottomSheet;
     private Context context;
     private HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise;
+    private HashMap<Integer, SetAverage> setAveragePerExercise;
     private WorkoutExercises workoutExercises;
 
     public FragmentRunningWorkoutBottomSheet(Workout workout) {
@@ -70,6 +73,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
 
         appDatabase = MainActivity.getAppDatabase();
         context = getContext();
+
 
         //Workout wird gestartet
         startWorkout.setOnClickListener(view1 -> {
@@ -152,6 +156,8 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         titleTextView.setText("Stats");
         builder.setCustomTitle(titleView);
 
+        View dialogView = inflater.inflate(R.layout.dialog_layout_total_stats, null);
+
         // Hinzufügen der Glückwunschnachricht zur Nachricht des Dialogs
         String message = "Herzlichen Glückwunsch! Hier Ihre Statistik:\n";
 
@@ -217,13 +223,36 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkout(workout.getWorkout_id());
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
             if (workoutExercises != null) {
+                HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
                 this.workoutExercises = workoutExercises;
-                AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises, this);
+                for (int i = 0; i < workoutExercises.getExercises().size(); i++) {
+                    SetAverage setAverage = calculateSetAverages(workout.getWorkout_id(), workoutExercises.getExercises().get(i).getExercise_id());
+                    setAveragePerExercise.put(workoutExercises.getExercises().get(i).getExercise_id(), setAverage);
+                }
+                AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises, setAveragePerExercise, this);
                 recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
                 recyclerViewBottomSheet.setAdapter(adapter);
             }
             Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
         });
+    }
+
+    private SetAverage calculateSetAverages(int workout_id, int exercise_id) {
+        SetAverage setAverage = new SetAverage();
+        LiveData<List<Sets>> setsLiveData = appDatabase.setDao().getSetsForExerciseAndWorkout(workout_id, exercise_id);
+        setsLiveData.observe(this, sets -> {
+            if (sets != null && !sets.isEmpty()) {
+                double totalWeight = 0.0;
+                double totalReps = 0.0;
+                for (Sets set : sets) {
+                    totalWeight += set.getWeight();
+                    totalReps += set.getRepetitions();
+                }
+                setAverage.setAverageWeight(totalWeight / sets.size());
+                setAverage.setAverageReps(totalReps / sets.size());
+            }
+        });
+        return setAverage;
     }
 
     private void insertSets(WorkoutExercises workoutExercises) {
@@ -233,7 +262,6 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
 
         // TODO: Statistik evtl Durchschnitt Gewicht und Reps pro Exercise auflisten
         //       unter Workout bearbeiten alle bereits zum Workout gehörigen Exercises hervorheben (Logik auch so im Hintergrund umsetzen; momentan wird das Workout gelöscht und ein neues angelegt)
-        //       NightMode erstellen und erkennen lassen
         //       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
 
         ArrayList<Sets> setList = new ArrayList<>();
@@ -260,7 +288,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     }
 
     @Override
-    public void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise, WorkoutExercises workoutExercises) {
+    public void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise) {
         this.setDetailsPerExercise = setDetailsPerExercise;
         Log.d("CHAD", "FragmentBottomSheet: onDataChanged: setDetailsPerExercise: " + setDetailsPerExercise.toString());
     }

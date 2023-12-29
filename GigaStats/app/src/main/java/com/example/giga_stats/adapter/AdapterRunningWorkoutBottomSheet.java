@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.DB.DTO.SetData;
+import com.example.giga_stats.DB.DTO.SetAverage;
 import com.example.giga_stats.DB.DTO.SetDetails;
 import com.example.giga_stats.DB.ENTITY.Exercise;
 import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
@@ -21,6 +21,7 @@ import com.example.giga_stats.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<AdapterRunningWorkoutBottomSheet.ViewHolder> {
@@ -28,14 +29,17 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
     private Context context;
     private WorkoutExercises workoutWithExercises;
     private HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise;
+    private HashMap<Integer, SetAverage> setAveragePerExercise;
     private OnDataChangedListener listener;
 
-    public AdapterRunningWorkoutBottomSheet(Context context, WorkoutExercises workoutWithExercises, OnDataChangedListener listener) {
+    public AdapterRunningWorkoutBottomSheet(Context context, WorkoutExercises workoutWithExercises, HashMap<Integer, SetAverage> setAveragePerExercise, OnDataChangedListener listener) {
         this.context = context;
         this.workoutWithExercises = workoutWithExercises;
         setDetailsPerExercise = new HashMap<>();
         this.listener = listener;
+        this.setAveragePerExercise = setAveragePerExercise;
 
+        notifyDataSetChanged();
         initializeHashMaps();
     }
 
@@ -57,17 +61,17 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         holder.weightExerciseBottomSheet.setText(String.valueOf(exercise.getWeight()));
         holder.repExerciseBottomSheet.setText(String.valueOf(exercise.getRep()));
 
-        AdapterSets adapterSets = new AdapterSets(context, setDetailsPerExercise, position, exercise.getExercise_id());
+        AdapterSets adapterSets = new AdapterSets(context, setDetailsPerExercise, setAveragePerExercise, exercise.getExercise_id());
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
         holder.recyclerView.setAdapter(adapterSets);
 
         holder.addSetRowButton.setOnClickListener(view -> {
-            addNewSet(position, exercise);
+            addNewSet(exercise);
             updateData();
         });
 
         if(listener != null) {
-            listener.onDataChanged(setDetailsPerExercise, workoutWithExercises);
+            listener.onDataChanged(setDetailsPerExercise);
         }
     }
 
@@ -84,19 +88,25 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         }
     }
 
-    public void addNewSet(int pos, Exercise exercise) {
+    public void addNewSet(Exercise exercise) {
         SetDetails newSet = new SetDetails();
         newSet.setWeight(0);
         newSet.setReps(0);
         newSet.setSetCount(setDetailsPerExercise.get(exercise.getExercise_id()).size());
         newSet.setExercise(exercise);
         setDetailsPerExercise.get(exercise.getExercise_id()).add(newSet);
-        Log.d("CHAD", "addNewSet in AdapterRunningWorkoutBottomSheet newSet: " + newSet.toString());
+        Log.d("CHAD", "addNewSet in AdapterRunningWorkoutBottomSheet newSet: " + setDetailsPerExercise.toString());
     }
 
     @Override
     public int getItemCount() {
         return workoutWithExercises.getExercises().size();
+    }
+
+    public void updateData(WorkoutExercises workoutExercises, HashMap<Integer, SetAverage> setAveragePerExercise) {
+        this.workoutWithExercises = workoutExercises;
+        this.setAveragePerExercise = setAveragePerExercise;
+        updateData();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

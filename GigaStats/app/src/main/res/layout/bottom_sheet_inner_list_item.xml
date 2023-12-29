@@ -108,9 +108,13 @@
                 android:layout_row="1"
                 android:layout_column="1"
                 android:layout_gravity="center"
-                android:text=""
+                android:minWidth="120dip"
+                android:maxWidth="120dip"
+                android:minHeight="24dip"
+                android:text="ffdf"
                 android:textSize="16sp"
                 android:textStyle="bold"
+                android:textAlignment="center"
                 android:textColor="@color/textColorPrimary"/>
 
             <EditText
