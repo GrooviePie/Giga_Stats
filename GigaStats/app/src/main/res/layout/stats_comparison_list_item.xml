@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardViewExerciseListGroup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="6dip"
+    android:paddingHorizontal="12dip"
+    android:paddingVertical="12dip"
+    app:cardCornerRadius="20dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/totalStatsItem">
+
+        <TextView
+            android:id="@+id/statsExerciseName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dip"
+            android:paddingVertical="2dip"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/app_name"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="@drawable/element_divider_bottom_variant"/>
+
+        <TextView
+            android:id="@+id/statsPrevHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="6dip"
+            android:text="Vorher"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.436"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/statsPrevAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxWidth="100dip"
+            android:minWidth="100dip"
+            android:paddingHorizontal="6dip"
+            android:text="PrevAverage"
+            android:textAlignment="center"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.427"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statsPrevHeader" />
+
+        <TextView
+            android:id="@+id/statsCurrentHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:paddingHorizontal="6dip"
+            android:text="Jetzt"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/statsCurrentAverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:maxWidth="100dip"
+            android:minWidth="100dip"
+            android:paddingHorizontal="6dip"
+            android:text="CurrentAverage"
+            android:textAlignment="center"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.926"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/statsCurrentHeader" />
+
+        <TextView
+            android:id="@+id/statsEfficiencyHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="44dp"
+            android:paddingHorizontal="10dip"
+            android:paddingVertical="8dip"
+            android:text="Effizienz in % :"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/statsExerciseName"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/statsEfficiencyPercent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dip"
+            android:paddingHorizontal="6dip"
+            android:text="Efficiency %"
+            android:textColor="@color/pastelGreen"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.434"
+            app:layout_constraintStart_toEndOf="@+id/statsEfficiencyHeader"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.977" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

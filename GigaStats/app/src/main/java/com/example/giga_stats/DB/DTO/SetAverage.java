@@ -10,7 +10,8 @@ public class SetAverage {
     }
 
     public SetAverage() {
-
+        averageWeight = 0.0;
+        averageReps = 0.0;
     }
 
     public double getAverageWeight() {
@@ -27,5 +28,13 @@ public class SetAverage {
 
     public void setAverageReps(double averageReps) {
         this.averageReps = averageReps;
+    }
+
+    @Override
+    public String toString() {
+        return "SetAverage{" +
+                "averageWeight=" + averageWeight +
+                ", averageReps=" + averageReps +
+                '}';
     }
 }

@@ -43,19 +43,21 @@ public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<Adapt
         initializeHashMaps();
     }
 
-    public void updateData() {
-        notifyDataSetChanged();
-    }
+        public void updateData() {
+            notifyDataSetChanged();
+        }
 
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bottom_sheet_list_item, parent, false);
-        return new ViewHolder(view);
-    }
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            Log.d("CHAD", "AdapterRunningWorkoutBottomSheet: onCreateViewHolder() erreicht");
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.bottom_sheet_list_item, parent, false);
+            return new ViewHolder(view);
+        }
 
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            Log.d("CHAD", "AdapterRunningWorkoutBottomSheet: onBindViewHolder() erreicht");
         Exercise exercise = workoutWithExercises.getExercises().get(position);
         holder.nameExerciseBottomSheetTextView.setText(exercise.getName());
         holder.weightExerciseBottomSheet.setText(String.valueOf(exercise.getWeight()));

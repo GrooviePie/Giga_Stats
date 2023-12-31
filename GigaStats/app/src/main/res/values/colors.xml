@@ -17,6 +17,7 @@
     <color name="dialogShape">#FFFFFFFF</color>
     <color name="dialogTitle">@color/pastelGreen</color>
     <color name="divider">@color/eggshellWhite</color>
+    <color name="dividerVariant">@color/fadedPastelGreen</color>
     <color name="itemDivider">@color/eggshellWhite</color>
     <color name="textColorPrimary">#DE000000</color>
     <color name="exerciseIcon">@color/softerBlack</color>
@@ -26,6 +27,7 @@
     <color name="createExerciseEdit">@color/eggshellWhite</color>
     <color name="setsBackground">@color/white</color>
     <color name="runningWorkoutName">@color/pastelGreen</color>
+    <color name="totalStatsItem">@color/eggshellWhite</color>
 
     <!-- Dark Theme Colors -->
     <color name="dark">#313233</color>

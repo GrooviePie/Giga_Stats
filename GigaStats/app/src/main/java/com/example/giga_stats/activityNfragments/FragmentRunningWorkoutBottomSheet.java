@@ -17,6 +17,7 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.DB.DTO.ExerciseTotalStats;
 import com.example.giga_stats.DB.DTO.SetAverage;
 import com.example.giga_stats.DB.DTO.SetDetails;
 import com.example.giga_stats.DB.ENTITY.Exercise;
@@ -27,9 +28,8 @@ import com.example.giga_stats.DB.MANAGER.AppDatabase;
 import com.example.giga_stats.OnDataChangedListener;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
+import com.example.giga_stats.adapter.TotalStatsAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
-import org.json.JSONArray;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -38,7 +38,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+// TODO: Statistik evtl Durchschnitt Gewicht und Reps pro Exercise auflisten
+//       unter Workout bearbeiten alle bereits zum Workout gehörigen Exercises hervorheben (Logik auch so im Hintergrund umsetzen; momentan wird das Workout gelöscht und ein neues angelegt)
+//       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
 
 public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment implements OnDataChangedListener {
     private Workout workout;
@@ -52,7 +57,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     private RecyclerView recyclerViewBottomSheet;
     private Context context;
     private HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise;
-    private HashMap<Integer, SetAverage> setAveragePerExercise;
+    HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
     private WorkoutExercises workoutExercises;
 
     public FragmentRunningWorkoutBottomSheet(Workout workout) {
@@ -118,7 +123,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
             // Hier können Sie den Dialog für die Gesamtstatistik aufrufen
-            insertSets(workoutExercises);
+            persistSets();
             stopTimer();
             showTotalStatsDialog();
             setCancelable(true);
@@ -154,22 +159,41 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Stats");
-        builder.setCustomTitle(titleView);
 
         View dialogView = inflater.inflate(R.layout.dialog_layout_total_stats, null);
 
-        // Hinzufügen der Glückwunschnachricht zur Nachricht des Dialogs
-        String message = "Herzlichen Glückwunsch! Hier Ihre Statistik:\n";
+        builder.setCustomTitle(titleView);
+        builder.setView(dialogView);
 
         // Hinzufügen der Timer-Zeit zur Nachricht
-        message += "Verstrichene Zeit: " + timerTextView.getText() + "\n";
+        String message = "Verstrichene Zeit: " + timerTextView.getText();
 
-        builder.setMessage(message);
+        TextView timerStatsTextView = dialogView.findViewById(R.id.timerStatsTextView);
+        timerStatsTextView.setText(message);
 
-        // Fügt einen "Ja"-Button zum Dialog hinzu
+        HashMap<Integer, SetAverage> setAveragePerExerciseCurr = new HashMap<>();
+        HashMap<Integer, List<Sets>> setsMap = convertSetDetailsToSetsMap();
+        List<ExerciseTotalStats> statsList = new ArrayList<>();
+
+        setsMap.forEach((key, value) -> {
+            SetAverage setAvgCurr = calculateSetAverages(value);
+            setAveragePerExerciseCurr.put(key, setAvgCurr);
+        });
+
+        for (Exercise ex : workoutExercises.getExercises()) {
+            SetAverage oldSetAvg = new SetAverage(setAveragePerExercise.get(ex.getExercise_id()).getAverageWeight(), setAveragePerExercise.get(ex.getExercise_id()).getAverageReps());
+            SetAverage currSetAvg = new SetAverage(setAveragePerExerciseCurr.get(ex.getExercise_id()).getAverageWeight(), setAveragePerExerciseCurr.get(ex.getExercise_id()).getAverageReps());
+
+            statsList.add(new ExerciseTotalStats(ex.getName(), oldSetAvg, currSetAvg, calculateEfficiency(oldSetAvg, currSetAvg)));
+        }
+
+        RecyclerView recyclerView = dialogView.findViewById(R.id.statsRecyclerView);
+        TotalStatsAdapter adapter = new TotalStatsAdapter(statsList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(adapter);
+
+        // Fügt einen "OK"-Button zum Dialog hinzu
         builder.setPositiveButton("OK", (dialog, which) -> {
-            // Hier können Sie die Logik für die Anzeige der Gesamtstatistik implementieren
-            // Schließen Sie das Bottom Sheet
             dismiss();
         });
 
@@ -223,50 +247,71 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkout(workout.getWorkout_id());
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
             if (workoutExercises != null) {
-                HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
                 this.workoutExercises = workoutExercises;
-                for (int i = 0; i < workoutExercises.getExercises().size(); i++) {
-                    SetAverage setAverage = calculateSetAverages(workout.getWorkout_id(), workoutExercises.getExercises().get(i).getExercise_id());
-                    setAveragePerExercise.put(workoutExercises.getExercises().get(i).getExercise_id(), setAverage);
+                for (Exercise exercise : workoutExercises.getExercises()) {
+                    fetchSetsAndCalculateAverages(workout.getWorkout_id(), exercise.getExercise_id(), workoutExercises);
                 }
-                AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises, setAveragePerExercise, this);
-                recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
-                recyclerViewBottomSheet.setAdapter(adapter);
+            } else {
+                Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
             }
-            Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutExercises = null");
         });
     }
 
-    private SetAverage calculateSetAverages(int workout_id, int exercise_id) {
-        SetAverage setAverage = new SetAverage();
-        LiveData<List<Sets>> setsLiveData = appDatabase.setDao().getSetsForExerciseAndWorkout(workout_id, exercise_id);
-        setsLiveData.observe(this, sets -> {
+    private void fetchSetsAndCalculateAverages(int workoutId, int exerciseId, WorkoutExercises workoutExercises) {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            List<Sets> sets = appDatabase.setDao().getSetsForExerciseAndWorkout(workoutId, exerciseId);
             if (sets != null && !sets.isEmpty()) {
-                double totalWeight = 0.0;
-                double totalReps = 0.0;
-                for (Sets set : sets) {
-                    totalWeight += set.getWeight();
-                    totalReps += set.getRepetitions();
-                }
-                setAverage.setAverageWeight(totalWeight / sets.size());
-                setAverage.setAverageReps(totalReps / sets.size());
+                SetAverage average = calculateSetAverages(sets);
+                setAveragePerExercise.put(exerciseId, average);
+                Log.d("CHAD", "fetchSetsAndCalculateAverages: setAveragePerExercise: " + setAveragePerExercise.toString());
+            } else {
+                setAveragePerExercise.put(exerciseId, new SetAverage());
             }
         });
-        return setAverage;
+
+        future.thenRunAsync(() -> {
+            AdapterRunningWorkoutBottomSheet adapter = new AdapterRunningWorkoutBottomSheet(context, workoutExercises, setAveragePerExercise, this);
+            recyclerViewBottomSheet.setLayoutManager(new LinearLayoutManager(context));
+            recyclerViewBottomSheet.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }, ContextCompat.getMainExecutor(context));
     }
 
-    private void insertSets(WorkoutExercises workoutExercises) {
+    private SetAverage calculateSetAverages(List<Sets> sets) {
+        double totalWeight = 0.0;
+        double totalReps = 0.0;
+        for (Sets set : sets) {
+            totalWeight += set.getWeight();
+            totalReps += set.getRepetitions();
+        }
+        return new SetAverage(totalWeight / sets.size(), totalReps / sets.size());
+    }
+
+    private void persistSets() {
+        HashMap<Integer, List<Sets>> setsMap = convertSetDetailsToSetsMap();
+
+        setsMap.forEach((key, value) -> {
+            List<Sets> setList = value;
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                for (Sets set : setList) {
+                    appDatabase.setDao().insertSet(set);
+                }
+            });
+
+            future.join();
+        });
+    }
+
+    private HashMap<Integer, List<Sets>> convertSetDetailsToSetsMap() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
         String dateString = format.format(calendar.getTime());
 
-        // TODO: Statistik evtl Durchschnitt Gewicht und Reps pro Exercise auflisten
-        //       unter Workout bearbeiten alle bereits zum Workout gehörigen Exercises hervorheben (Logik auch so im Hintergrund umsetzen; momentan wird das Workout gelöscht und ein neues angelegt)
-        //       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
-
-        ArrayList<Sets> setList = new ArrayList<>();
+        HashMap<Integer, List<Sets>> setsMap = new HashMap<>();
 
         for (Exercise ex : workoutExercises.getExercises()) {
+            List<Sets> setList = new ArrayList<>();
+
             for (SetDetails e : setDetailsPerExercise.get(ex.getExercise_id())) {
                 Sets set = new Sets();
                 set.setWorkout_id(workoutExercises.getWorkout().getWorkout_id());
@@ -274,22 +319,36 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
                 set.setWeight(e.getWeight());
                 set.setRepetitions(e.getReps());
                 set.setDate(dateString);
+
                 setList.add(set);
             }
+            setsMap.put(ex.getExercise_id(), setList);
+        }
+        return setsMap;
+    }
+
+    private double calculateEfficiency(SetAverage oldSetAvg, SetAverage currSetAvg) {
+        double weightEfficiency = 0.0;
+        if (oldSetAvg.getAverageWeight() != 0) { // to avoid division by zero
+            weightEfficiency = ((currSetAvg.getAverageWeight() - oldSetAvg.getAverageWeight()) / oldSetAvg.getAverageWeight()) * 100;
         }
 
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-            for (Sets set : setList) {
-                appDatabase.setDao().insertSet(set);
-            }
-        });
+        double repsEfficiency = 0.0;
+        if (oldSetAvg.getAverageReps() != 0) { // to avoid division by zero
+            repsEfficiency = ((currSetAvg.getAverageReps() - oldSetAvg.getAverageReps()) / oldSetAvg.getAverageReps()) * 100;
+        }
 
-        future.join();
+        return (weightEfficiency + repsEfficiency) / 2;
     }
 
     @Override
     public void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise) {
         this.setDetailsPerExercise = setDetailsPerExercise;
         Log.d("CHAD", "FragmentBottomSheet: onDataChanged: setDetailsPerExercise: " + setDetailsPerExercise.toString());
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

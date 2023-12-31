@@ -15,6 +15,6 @@ public interface SetsDAO {
     void insertSet(Sets set);
 
     @Query("SELECT * FROM Sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
-    LiveData<List<Sets>> getSetsForExerciseAndWorkout(long workoutId, long exerciseId);
+    List<Sets> getSetsForExerciseAndWorkout(long workoutId, long exerciseId);
 
 }

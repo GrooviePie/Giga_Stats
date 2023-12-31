@@ -19,7 +19,7 @@ import com.example.giga_stats.DB.ENTITY.WorkoutExerciseCrossRef;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseCrossRef.class, Sets.class}, version = 9)
+@Database(entities = {Exercise.class, Workout.class, WorkoutExerciseCrossRef.class, Sets.class}, version = 10)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ExerciseDAO exerciseDao();
     public abstract WorkoutDAO workoutDao();
