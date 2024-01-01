@@ -1,10 +1,14 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/white</item>
         <item name="android:statusBarColor">@color/dark</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Override color for normal state icons -->
+        <item name="colorControlNormal">@color/menu_color_state_list</item>
+        <!-- Override color for activated state icons if necessary -->
+        <item name="colorControlActivated">@color/menu_color_state_list</item>
     </style>
 
     <style name="Theme.GigaStats" parent="Base.Theme.GigaStats" />
@@ -51,7 +55,7 @@
     </style>
 
     <style name="workoutIcon">
-        <item name="android:src">@drawable/ic_bottommenu_workouts_24_light</item>
+        <item name="android:src">@drawable/ic_bottommenu_workouts_24</item>
     </style>
 
     <style name="titleBar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

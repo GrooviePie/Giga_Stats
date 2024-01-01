@@ -5,6 +5,10 @@
         <item name="colorPrimary">@color/white</item>
         <item name="android:statusBarColor">@color/pastelGreen</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Override color for normal state icons -->
+        <item name="colorControlNormal">@color/menu_color_state_list</item>
+        <!-- Override color for activated state icons if necessary -->
+        <item name="colorControlActivated">@color/menu_color_state_list</item>
     </style>
 
     <style name="Theme.GigaStats" parent="Base.Theme.GigaStats" />
@@ -51,7 +55,7 @@
     </style>
 
     <style name="workoutIcon">
-        <item name="android:src">@drawable/ic_bottommenu_workouts_24_black</item>
+        <item name="android:src">@drawable/ic_bottommenu_workouts_24</item>
     </style>
 
     <style name="titleBar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">

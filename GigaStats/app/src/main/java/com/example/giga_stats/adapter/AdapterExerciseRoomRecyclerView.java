@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.DB.ENTITY.Exercise;
+import com.example.giga_stats.database.entities.Exercise;
 import com.example.giga_stats.R;
 
 import java.util.List;

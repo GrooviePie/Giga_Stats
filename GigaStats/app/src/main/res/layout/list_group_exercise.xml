@@ -19,12 +19,12 @@
             android:layout_height="45dp"
             android:layout_centerVertical="true"
             android:id="@+id/listImageExercise"
-            android:src="@drawable/baseline_fitness_center_24"
+            android:src="@drawable/ic_bottommenu_exercises_24"
             android:scaleType="centerCrop"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="4dp"
             android:layout_marginStart="14dp"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"/>
+            />
 
         <LinearLayout
             android:id="@+id/linearLayoutExercise"

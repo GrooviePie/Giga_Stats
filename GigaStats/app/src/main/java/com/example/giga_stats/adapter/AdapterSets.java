@@ -11,9 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.DB.DTO.SetAverage;
-import com.example.giga_stats.DB.DTO.SetDetails;
-import com.example.giga_stats.OnDataChangedListener;
+import com.example.giga_stats.database.dto.SetAverage;
+import com.example.giga_stats.database.dto.SetDetails;
 import com.example.giga_stats.R;
 
 import java.util.ArrayList;

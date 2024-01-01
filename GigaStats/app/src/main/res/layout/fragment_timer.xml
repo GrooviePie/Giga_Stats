@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/eggshellWhite"
     android:orientation="vertical"
-    tools:context=".activityNfragments.FragmentTimer"
+    tools:context=".fragments.FragmentTimer"
     android:backgroundTint="@color/itemDivider">
 
 
@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         style="@style/backgroundScreen">
 
-        <com.example.giga_stats.activityNfragments.FragmentTimerRoundProgressBar
+        <com.example.giga_stats.fragments.FragmentTimerRoundProgressBar
             android:id="@+id/workoutProgressBar"
             android:layout_width="300dp"
             android:layout_height="300dp"

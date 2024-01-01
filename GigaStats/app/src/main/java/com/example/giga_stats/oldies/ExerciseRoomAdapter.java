@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import com.example.giga_stats.DB.ENTITY.Exercise;
+import com.example.giga_stats.database.entities.Exercise;
 import com.example.giga_stats.R;
 
 public class ExerciseRoomAdapter extends BaseAdapter {

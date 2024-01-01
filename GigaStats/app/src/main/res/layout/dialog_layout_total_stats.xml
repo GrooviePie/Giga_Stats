@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/stats_comparison_list_item" />
+        tools:listitem="@layout/list_item_stats_comparison" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

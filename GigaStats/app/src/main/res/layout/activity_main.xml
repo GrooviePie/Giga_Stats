@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     style="@style/backgroundScreen"
-    tools:context=".activityNfragments.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <!-- Toolbar hinzufügen -->
     <androidx.appcompat.widget.Toolbar
@@ -64,7 +64,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:menu="@menu/menu_bottom_nav"
+        app:itemIconTint="@color/menu_color_state_list"
+        app:itemTextColor="@color/menu_color_state_list"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

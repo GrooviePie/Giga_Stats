@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/pastelGreen"
-    tools:context=".activityNfragments.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <item
         android:id="@+id/option_menu_add_exercises"

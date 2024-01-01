@@ -9,15 +9,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.lifecycle.LiveData;
 
-import com.example.giga_stats.DB.ENTITY.WorkoutExercises;
 import com.example.giga_stats.R;
-import com.example.giga_stats.DB.ENTITY.Workout;
-import com.example.giga_stats.activityNfragments.FragmentRunningWorkoutBottomSheet;
-
-import java.util.List;
+import com.example.giga_stats.database.entities.Workout;
+import com.example.giga_stats.fragments.FragmentRunningWorkoutBottomSheet;
 
 public class AdapterRunningWorkout extends BaseAdapter {
 

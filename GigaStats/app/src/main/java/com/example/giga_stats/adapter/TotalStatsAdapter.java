@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.DB.DTO.ExerciseTotalStats;
+import com.example.giga_stats.database.dto.ExerciseTotalStats;
 import com.example.giga_stats.R;
 
 import java.util.List;
@@ -25,7 +25,7 @@ public class TotalStatsAdapter extends RecyclerView.Adapter<TotalStatsAdapter.St
     @NonNull
     @Override
     public StatsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.stats_comparison_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_stats_comparison, parent, false);
         return new StatsViewHolder(view);
     }
 

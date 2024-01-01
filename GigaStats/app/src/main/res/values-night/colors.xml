@@ -33,6 +33,10 @@
     <color name="setsBackground">@color/dark</color>
     <color name="runningWorkoutName">#EBEBEB</color>
     <color name="totalStatsItem">@color/dark</color>
+    <color name="menuItemBottomSelected">@color/pastelGreen</color>
+    <color name="menuItemBottomUnselected">#66EBEBEB</color>
+    <color name="roundedBackgroundVariant2">@color/darker</color>
+
 
     <!-- Both -->
     <color name="softRed">#EB817F</color>
