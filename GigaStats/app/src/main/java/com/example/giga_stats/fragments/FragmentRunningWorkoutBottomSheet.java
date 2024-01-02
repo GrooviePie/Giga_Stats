@@ -239,7 +239,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     //=================================================HILFSMETHODEN======================================================================
 
     private void updateRunningWorkoutExercisesList() {
-        LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkout(workout.getWorkout_id());
+        LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkoutLD(workout.getWorkout_id());
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
             if (workoutExercises != null) {
                 this.workoutExercises = workoutExercises;

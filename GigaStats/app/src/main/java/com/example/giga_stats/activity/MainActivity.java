@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 // TODO:
-//       unter Workout bearbeiten alle bereits zum Workout gehörigen Exercises hervorheben (Logik auch so im Hintergrund umsetzen; momentan wird das Workout gelöscht und ein neues angelegt)
 //       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
 
 public class MainActivity extends AppCompatActivity {

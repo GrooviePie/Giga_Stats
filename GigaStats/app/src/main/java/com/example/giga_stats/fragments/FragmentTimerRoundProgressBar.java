@@ -12,7 +12,7 @@ import com.example.giga_stats.R;
 public class FragmentTimerRoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;
-    private int color = R.color.light_blue_400; // Blau
+    private int color = R.color.pastelGreen; // Blau
     private int backgroundColor = 0x22000000; // Hintergrundfarbe
     private int padding = 20; // Abstand von den Rändern
 

@@ -16,9 +16,11 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -27,7 +29,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
+import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
+import com.example.giga_stats.database.dto.SetAverage;
 import com.example.giga_stats.database.entities.Exercise;
+import com.example.giga_stats.database.entities.Sets;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExerciseCrossRef;
 import com.example.giga_stats.database.entities.WorkoutExercises;
@@ -37,6 +42,7 @@ import com.example.giga_stats.adapter.AdapterExerciseRoomRecyclerView;
 import com.example.giga_stats.adapter.AdapterWorkoutRoomExpandableList;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -54,7 +60,8 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     int index;
     private Context context;
     private AppDatabase appDatabase;
-    private List<Exercise> selectedAddExercises = new ArrayList<>();
+    private List<Exercise> selectedExercises = new ArrayList<>();
+    private List<Integer> alrSelectedExercises = new ArrayList<>();
 
     public FragmentWorkouts() {
         // Required empty public constructor
@@ -233,24 +240,29 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
         builder.setPositiveButton("Hinzufügen", (dialog, which) -> {
             String workoutName = editTextWorkoutName.getText().toString();
-            Workout newWorkout = new Workout(workoutName);
+            if(!workoutName.isEmpty()) {
+                Workout newWorkout = new Workout(workoutName);
 
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                int workoutId = (int) appDatabase.workoutDao().insertWorkout(newWorkout);
-                for(Exercise e : selectedAddExercises){
-                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, e.getExercise_id()));
-                }
-            });
+                CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                    int workoutId = (int) appDatabase.workoutDao().insertWorkout(newWorkout);
+                    for (Exercise exercise : selectedExercises) {
+                        appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, exercise.getExercise_id()));
+                    }
+                });
 
-            future.thenRun(()-> {
-                selectedAddExercises.clear();
-                updateWorkoutsList();
-                dialog.dismiss();
-            });
+                future.thenRun(() -> {
+                    selectedExercises.clear();
+                    updateWorkoutsList();
+                    dialog.dismiss();
+                });
+            } else {
+            Toast.makeText(requireContext(), "Bitte füllen Sie das Namensfeld aus.", Toast.LENGTH_SHORT).show();
+        }
         });
 
+
         builder.setNegativeButton("Abbrechen", (dialog, which) -> {
-            selectedAddExercises.clear();
+            selectedExercises.clear();
             dialog.dismiss();
         });
 
@@ -274,10 +286,8 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
 
     private void openEditWorkoutsDialog(int workoutId) {
-        //TODO: Edit Dialog Logik schreiben
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-        // Custom Titel aufblähen und setzen
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
@@ -293,9 +303,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         CompletableFuture<Void> future1 = CompletableFuture.runAsync(() -> selectedWorkout.set(appDatabase.workoutDao().getWorkoutById(workoutId)));
 
         future1.join();
+        int currentWorkoutId = selectedWorkout.get().getWorkout_id();
         String currentWorkoutName = selectedWorkout.get().getName();
         editTextWorkoutName.setText(currentWorkoutName);
 
+        addSelectedExercises(currentWorkoutId);
         readExercisesToAdd(dialogView);
 
         builder.setPositiveButton("Speichern", (dialog, which) -> {
@@ -307,20 +319,20 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
                 appDatabase.workoutDao().updateWorkout(newWorkout);
                 appDatabase.workoutExerciseCrossRefDao().deleteRefsById(workoutId);
 
-                for(Exercise e : selectedAddExercises){
-                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, e.getExercise_id()));
+                for (Exercise exercise : selectedExercises) {
+                    appDatabase.exerciseDao().insertCrossRef(new WorkoutExerciseCrossRef(workoutId, exercise.getExercise_id()));
                 }
             });
 
-            future.thenRun(()-> {
-                selectedAddExercises.clear();
+            future.thenRun(() -> {
+                selectedExercises.clear();
                 updateWorkoutsList();
                 dialog.dismiss();
             });
         });
 
         builder.setNegativeButton("Abbrechen", (dialog, which) -> {
-            selectedAddExercises.clear();
+            selectedExercises.clear();
             dialog.dismiss();
         });
 
@@ -343,7 +355,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     }
 
     private void openDeleteWorkoutsDialog(int workoutId) {
-        //TODO: Delete Dialog schreiben
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -393,7 +404,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
-        //TODO: Tutorial schreiben für Fragment "Workouts"
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -446,26 +456,45 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         });
     }
 
-    private  void readExercisesToAdd(View dialogView){
-        Log.d("CHAD","WorkoutFragment -- readExercisesToAdd() aufgerufen");
+    private void readExercisesToAdd(View dialogView) {
+        Log.d("CHAD", "WorkoutFragment -- readExercisesToAdd() aufgerufen");
 
         recyclerView = dialogView.findViewById(R.id.recyclerViewWorkoutAdd);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Exercise> exercises = new ArrayList<>();
-
         appDatabase.exerciseDao().getAllExercises().observe(requireActivity(), exerciseList -> {
             if (exerciseList != null) {
-                for(Exercise e : exerciseList) {
-                    exercises.add(e);
-                }
-                Log.d("CHAD", "Exercises: " + exercises);
-                AdapterExerciseRoomRecyclerView adapter = new AdapterExerciseRoomRecyclerView(context, exercises, this);
+                AdapterExerciseRoomRecyclerView adapter = new AdapterExerciseRoomRecyclerView(context, exerciseList, selectedExercises, this);
                 recyclerView.setAdapter(adapter);
                 Log.d("CHAD", "Adapter der RecyclerView gesetzt");
             }
         });
+    }
+
+    private void addSelectedExercises(int workout_id) {
+//        LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkoutLD(workout_id);
+//        workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
+//            if (workoutExercises != null) {
+//                for (Exercise exercise : workoutExercises.getExercises()) {
+//                    this.alrSelectedExercises.add(exercise);
+//                }
+//            } else {
+//                Log.d("CHAD", "" +
+//                        "FragmentWorkouts - addSelectedExercises(" + workout_id + ") -> selectedAddExercises: " + alrSelectedExercises.toString());
+//            }
+//        });
+
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+            WorkoutExercises workoutExercises = appDatabase.workoutDao().getExercisesForWorkout(workout_id);
+            for (Exercise e : workoutExercises.getExercises()) {
+                this.alrSelectedExercises.add(e.getExercise_id());
+            }
+        });
+
+        future.join();
+        Log.d("CHAD", "alrSelectedExercises: " + alrSelectedExercises.toString());
+
     }
 
     private MenuInflater getMenuInflater() {
@@ -477,7 +506,12 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
     @Override
     public void onItemClick(Exercise exercise) {
-        selectedAddExercises.add(exercise);
+        if (!selectedExercises.contains(exercise)) {
+            selectedExercises.add(exercise);
+        } else {
+            selectedExercises.remove(exercise);
+        }
+
         Log.d("CHAD", "Exercise: " + exercise.getName().toString() + "zu selectedExercises hinzugefügt");
     }
 }

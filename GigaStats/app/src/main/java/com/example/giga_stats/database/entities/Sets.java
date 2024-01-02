@@ -1,9 +1,13 @@
 package com.example.giga_stats.database.entities;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(foreignKeys = @ForeignKey(entity = Workout.class,
+        parentColumns = "workout_id",
+        childColumns = "workout_id",
+        onDelete = ForeignKey.CASCADE))
 public class Sets {
     @PrimaryKey(autoGenerate = true)
     private long set_id;

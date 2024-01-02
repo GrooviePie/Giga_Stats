@@ -5,11 +5,11 @@
     android:id="@+id/cardViewExerciseListGroup"
     android:paddingVertical="12dip"
     android:paddingHorizontal="12dip"
-    app:cardCornerRadius="20dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/exerciseItemView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/element_divider_bottom">

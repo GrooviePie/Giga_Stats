@@ -39,4 +39,11 @@ public interface ExerciseDAO {
     @Query("SELECT * FROM exercises WHERE exercise_id = :id")
     Exercise getExerciseById(int id);
 
+    @Query("SELECT * FROM WorkoutExerciseCrossRef WHERE exercise_id = :exerciseId LIMIT 1")
+    WorkoutExerciseCrossRef findWorkoutForExercise(int exerciseId);
+
+    default boolean canDeleteExercise(int exerciseId) {
+        return findWorkoutForExercise(exerciseId) == null;
+    }
+
 }

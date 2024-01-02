@@ -441,7 +441,9 @@ public class FragmentExercises extends Fragment {
                         updateExerciseList();
                     }
                 }.execute(updatedExercise);
-            }
+            } else {
+            Toast.makeText(requireContext(), "Bitte füllen Sie alle Felder aus.", Toast.LENGTH_SHORT).show();
+        }
         });
 
         builder.setNegativeButton("Abbrechen", (dialog, which) -> dialog.dismiss());
@@ -484,7 +486,14 @@ public class FragmentExercises extends Fragment {
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
             dialog.dismiss();
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> appDatabase.exerciseDao().deleteExerciseById(exercise_id));
+            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+                boolean deletable = appDatabase.exerciseDao().canDeleteExercise(exercise_id);
+                if(deletable){
+                    appDatabase.exerciseDao().deleteExerciseById(exercise_id);
+                } else {
+                    showDeletionFailedMessage();
+                }
+            });
 
             future.thenRun(() -> updateExerciseList());
         });
@@ -560,6 +569,12 @@ public class FragmentExercises extends Fragment {
             AdapterExerciseRoomExpandableList adapter = new AdapterExerciseRoomExpandableList(context, exercises);
             expandableListView.setAdapter(adapter);
 
+        });
+    }
+
+    private void showDeletionFailedMessage() {
+        getActivity().runOnUiThread(() -> {
+            Toast.makeText(getContext(), "Löschen nicht möglich: Übung gehört zu einem Workout.", Toast.LENGTH_LONG).show();
         });
     }
 

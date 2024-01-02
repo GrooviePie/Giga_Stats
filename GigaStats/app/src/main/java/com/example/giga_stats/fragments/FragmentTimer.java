@@ -365,7 +365,7 @@ public class FragmentTimer extends Fragment {
         workoutDurationInMillis = workoutTemp;
         restDurationInMillis = restTemp;
         currentTime.setText(formatTime(workoutDurationInMillis/1000));
-        workoutProgressBar.setColor(R.color.light_blue_400); // Setzen Sie die Farbe der gefüllten Fläche auf Blau
+        workoutProgressBar.setColor(R.color.pastelGreen);
         workoutProgressBar.setProgress(100);
     }
 
