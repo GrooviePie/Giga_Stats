@@ -44,7 +44,8 @@
             android:text="TextView"
             android:textAlignment="center"
             android:textColor="@color/textColorPrimary"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:visibility="invisible" />
 
     </RelativeLayout>
 
@@ -86,6 +87,25 @@
         android:paddingBottom="16dip"
         android:progress="20"
         android:progressTint="@color/pastelGreen" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Start / Pause"
+        android:background="@color/totalStatsItem"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"/>
+
+
+    <Button
+        android:id="@+id/stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Stop"
+        android:background="@color/totalStatsItem"
+        android:paddingTop="16dip"
+        android:paddingBottom="16dip"/>
 
 
 </LinearLayout>

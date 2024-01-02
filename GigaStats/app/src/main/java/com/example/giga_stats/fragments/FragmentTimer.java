@@ -44,6 +44,7 @@ public class FragmentTimer extends Fragment {
     private long remainingWorkoutTime = 0;
     private long remainingRestTime = 0;
 
+
     public FragmentTimer() {
         // Required empty public constructor
     }
@@ -69,8 +70,28 @@ public class FragmentTimer extends Fragment {
         currentTime.setText(formatTime(workoutDurationInMillis/1000));
         workoutProgressBar = view.findViewById(R.id.workoutProgressBar);
         workoutProgressBar.setMax(100); // Setzen Sie den maximalen Wert
-        workoutProgressBar.setBackgroundColor(getResources().getColor(R.color.pastelGreen)); // Setzen Sie die Hintergrundfarbe
+        workoutProgressBar.setBackgroundColor(getResources().getColor(R.color.dividerGray)); // Setzen Sie die Hintergrundfarbe
         workoutProgressBar.setProgress(100);
+        Button playButton = view.findViewById(R.id.play);
+        Button stopButton = view.findViewById(R.id.stop);
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle Play button click
+                handlePlayButtonClick();
+            }
+        });
+
+        stopButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle Stop button click
+                handleStopButtonClick();
+            }
+        });
+
+
 
         workoutSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -147,6 +168,20 @@ public class FragmentTimer extends Fragment {
             return super.onOptionsItemSelected(item);
         }
     }
+
+    private void handlePlayButtonClick() {
+        if (isWorkoutRunning || isRestRunning) {
+            pauseWorkoutTimer();
+        } else {
+            startWorkoutTimer(workoutDurationInMillis);
+        }
+    }
+
+    private void handleStopButtonClick() {
+        stopTimers();
+    }
+
+
 
     /* //TODO: Hier ist die alte Optionsbar
     @Override
@@ -246,12 +281,14 @@ public class FragmentTimer extends Fragment {
                     currentTime.setText(formatTime(seconds));
                     remainingWorkoutTime = millisUntilFinished; // Speichere die verbleibende Zeit
                     updateProgressbar();
+                    currentTime.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onFinish() {
                     isWorkoutRunning = false;
                     startRestTimer();
+                    currentTime.setVisibility(View.VISIBLE);
                 }
             }.start();
         }
@@ -264,12 +301,15 @@ public class FragmentTimer extends Fragment {
                     currentTime.setText(formatTime(seconds));
                     remainingWorkoutTime = millisUntilFinished; // Speichere die verbleibende Zeit
                     updateProgressbar();
+                    currentTime.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onFinish() {
                     isWorkoutRunning = false;
                     startRestTimer();
+                    currentTime.setVisibility(View.VISIBLE);
+
                 }
             }.start();
         }
@@ -285,15 +325,17 @@ public class FragmentTimer extends Fragment {
             int progress = (int) ((double) remainingWorkoutTime / workoutDurationInMillis * 100);
 
             // Aktualisieren Sie die ProgressBar
-            workoutProgressBar.setColor(0xFF00FF00); // Setzen Sie die Farbe der gefüllten Fläche auf Grün
+            workoutProgressBar.setColor(getResources().getColor(R.color.light_blue_600)); // Setzen Sie die Farbe der gefüllten Fläche auf Grün
             workoutProgressBar.setProgress(progress);
+            Log.d("CHAD", "update Progressbar aufgerufen" + progress);
         }
         else if (isRestRunning){
             // Berechnen Sie den Fortschritt basierend auf der verbleibenden Zeit
             int progress = (int) ((double) remainingRestTime / restDurationInMillis * 100);
 
             // Aktualisieren Sie die ProgressBar
-            workoutProgressBar.setColor(0xFFE27602); // Setzen Sie die Farbe der gefüllten Fläche auf Orange
+            workoutProgressBar.setColor(getResources().getColor(R.color.softRed)); // Setzen Sie die Farbe der gefüllten Fläche auf Orange
+            Log.d("CHAD", "Rest is running");
             workoutProgressBar.setProgress(progress);
         }
 
@@ -358,6 +400,7 @@ public class FragmentTimer extends Fragment {
         if (restTimer != null) {
             restTimer.cancel();
         }
+        currentTime.setVisibility(View.INVISIBLE);
         isWorkoutPaused = false;
         isRestPaused = false;
         isRestRunning = false;
@@ -367,11 +410,6 @@ public class FragmentTimer extends Fragment {
         currentTime.setText(formatTime(workoutDurationInMillis/1000));
         workoutProgressBar.setColor(R.color.pastelGreen);
         workoutProgressBar.setProgress(100);
-    }
-
-    private void restartWorkoutTimer() {
-        stopTimers();
-        startWorkoutTimer(workoutDurationInMillis);
     }
 
 
