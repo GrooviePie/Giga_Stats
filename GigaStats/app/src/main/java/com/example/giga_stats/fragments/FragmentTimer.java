@@ -345,21 +345,21 @@ public class FragmentTimer extends Fragment {
         remainingWorkoutTime = workoutDurationInMillis;
         isRestRunning = true;
         if (!isRestPaused){
-        restTimer = new CountDownTimer(restDurationInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long seconds = millisUntilFinished / 1000;
-                currentTime.setText(formatTime(seconds));
-                remainingRestTime = millisUntilFinished;
-                updateProgressbar();
-            }
+            restTimer = new CountDownTimer(restDurationInMillis, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    long seconds = millisUntilFinished / 1000;
+                    currentTime.setText(formatTime(seconds));
+                    remainingRestTime = millisUntilFinished;
+                    updateProgressbar();
+                }
 
-            @Override
-            public void onFinish() {
-                isWorkoutPaused = false;
-                startWorkoutTimer(remainingWorkoutTime); // Starte den Workout-Timer mit der verbleibenden Zeit
-            }
-        }.start();}
+                @Override
+                public void onFinish() {
+                    isWorkoutPaused = false;
+                    startWorkoutTimer(remainingWorkoutTime); // Starte den Workout-Timer mit der verbleibenden Zeit
+                }
+            }.start();}
         else if (isRestPaused){
             restTimer = new CountDownTimer(remainingRestTime, 1000) {
                 @Override
