@@ -3,7 +3,12 @@
     <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/pastelGreen</item>
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Override color for normal state icons -->
+        <item name="colorControlNormal">@color/menu_color_state_list</item>
+        <!-- Override color for activated state icons if necessary -->
+        <item name="colorControlActivated">@color/menu_color_state_list</item>
     </style>
 
     <style name="Theme.GigaStats" parent="Base.Theme.GigaStats" />
@@ -24,5 +29,45 @@
         <item name="android:background">@drawable/shape_bottom_sheet</item>
         <item name="behavior_peekHeight">300dp</item>
     </style>
+
+    <style name="backgroundScreen">
+        <item name="android:background">@color/eggshellWhite</item>
+    </style>
+
+    <style name="textPrimaryColor">
+        <item name="android:textColor">@color/textColorLight</item>
+    </style>
+
+    <style name="textAccentColor">
+        <item name="android:textColor">@color/pastelGreen</item>
+    </style>
+
+    <style name="bottomNav">
+        <item name="android:background">@color/pastelGreen</item>
+    </style>
+
+    <style name="backgroundListElement">
+        <item name="android:background">@color/eggshellWhite</item>
+    </style>
+
+    <style name="listItemWorkout">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="workoutIcon">
+        <item name="android:src">@drawable/ic_bottommenu_workouts_24</item>
+    </style>
+
+    <style name="titleBar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:background">@color/eggshellWhite</item>
+    </style>
+
+    <style name="exerciseIcon">
+        <item name="android:src">@drawable/weight_lifting</item>
+    </style>
+
 
 </resources>

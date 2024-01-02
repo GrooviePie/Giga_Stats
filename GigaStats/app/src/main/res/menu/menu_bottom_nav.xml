@@ -6,30 +6,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Statistiken"
-        android:icon="@drawable/ic_bottommenu_statistics_24_black"/>
+        android:icon="@drawable/ic_bottommenu_statistics_24_menu" />
     <item
         android:id="@+id/TIMER_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Timer"
-        android:icon="@drawable/ic_bottommenu_timer_24_black"/>
+        android:icon="@drawable/ic_bottommenu_timer_24_menu" />
     <item
         android:id="@+id/START_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Workout beginnen"
-        android:icon="@drawable/ic_bottommenu_runningworkouts_24_black"/>
+        android:icon="@drawable/ic_bottommenu_runningworkouts_24_menu" />
     <item
         android:id="@+id/EXERCISES_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Übungen"
-        android:icon="@drawable/ic_bottommenu_exercises_24_black"
-        />
+        android:icon="@drawable/ic_bottommenu_exercises_24_menu" />
     <item
         android:id="@+id/WORKOUT_BUTTONMENU_BUTTON"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Workouts"
-        android:icon="@drawable/ic_bottommenu_workouts_24_black"/>
+        android:icon="@drawable/ic_bottommenu_workouts_24_menu"/>
 </menu>

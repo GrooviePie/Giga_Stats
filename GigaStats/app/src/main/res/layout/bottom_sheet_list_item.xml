@@ -9,42 +9,96 @@
     android:layout_marginVertical="4dp"
     android:layout_marginHorizontal="4dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
+    app:cardElevation="2dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:background="@color/cardBackground">
 
-        <TextView
-            android:id="@+id/nameExerciseBottomSheet"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerConstraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Exercise"
-            android:gravity="left"
-            android:textColor="@color/textHighlightColor"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:layout_marginStart="20dp"
-            android:background="@drawable/element_divider"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/element_divider_bottom"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.054"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/nameExerciseBottomSheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:gravity="left"
+                android:maxWidth="148dp"
+                android:minWidth="148dp"
+                android:paddingVertical="6dip"
+                android:text="Exercise"
+                android:textColor="@color/pastelGreen"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/repsExerciseBottomSheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/rounded_element_background_faded"
+                android:gravity="center"
+                android:maxWidth="64dp"
+                android:minWidth="64dp"
+                android:text="1000"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/weightExerciseBottomSheet"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/weightExerciseBottomSheet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="fill"
+                android:layout_marginEnd="84dp"
+                android:background="@drawable/rounded_element_background_faded"
+                android:gravity="center"
+                android:maxWidth="64dp"
+                android:minWidth="64dp"
+                android:text="1000"
+                android:textColor="@color/textColorPrimary"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/setRecyclerView"
             android:layout_width="345dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
+            android:layout_marginTop="12dip"
             android:layout_marginEnd="5dp"
+            android:background="@drawable/element_divider_bottom"
+            android:paddingBottom="12dip"
             app:layout_constraintBottom_toTopOf="@+id/addNewRowButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameExerciseBottomSheet"
+            app:layout_constraintTop_toBottomOf="@+id/headerConstraintLayout"
             tools:listitem="@layout/bottom_sheet_inner_list_item" />
 
         <LinearLayout
@@ -60,19 +114,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="invisible" />
-
         </LinearLayout>
 
         <Button
             android:id="@+id/addNewRowButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/listBackground"
-            android:text="Set hinzufügen"
-            android:textColor="@color/textHighlightColor"
+            android:layout_height="32dip"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/rounded_element_background"
+            android:drawableRight="@drawable/ic_toolbar_add_24_white"
+            android:gravity="center"
+            android:text="Set"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/setRecyclerView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

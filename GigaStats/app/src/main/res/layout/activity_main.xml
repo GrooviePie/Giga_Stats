@@ -4,24 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/transparent"
-    tools:context=".activityNfragments.MainActivity">
+    style="@style/backgroundScreen"
+    tools:context=".activity.MainActivity">
 
     <!-- Toolbar hinzufügen -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/actionAndMenuBar"
-        app:titleTextAppearance="@style/ToolbarTitleTextAppearance"
+        app:title="@string/app_name"
+        app:titleTextAppearance="@style/titleBar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
-        android:background="@android:color/transparent"
+        style="@style/backgroundScreen"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -60,12 +59,14 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/actionAndMenuBar"
+        style="@style/bottomNav"
         app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_bottom_nav" />
+        app:menu="@menu/menu_bottom_nav"
+        app:itemIconTint="@color/menu_color_state_list"
+        app:itemTextColor="@color/menu_color_state_list"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

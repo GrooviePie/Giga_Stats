@@ -3,11 +3,44 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="lavender">#8692F7</color>
-    <color name="listBackground">#edede9</color>
-    <color name="actionAndMenuBar">#2D88EB</color>
-    <color name="textHighlightColor">#888AEB</color>
     <color name="light_blue_400">#FF29B6F6</color>
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
+
+    <!-- Light Theme Colors -->
+    <color name="eggshellWhite">#edede9</color>
+    <color name="softerBlack">#2E2E2E</color>
+    <color name="dividerGray">#BFBFBF</color>
+    <color name="fadedBlack">#39000000</color>
+    <color name="textColorLight">#DE000000</color>
+    <color name="dialogShape">#FFFFFFFF</color>
+    <color name="dialogTitle">@color/pastelGreen</color>
+    <color name="divider">@color/eggshellWhite</color>
+    <color name="dividerVariant">@color/fadedPastelGreen</color>
+    <color name="itemDivider">@color/eggshellWhite</color>
+    <color name="textColorPrimary">#DE000000</color>
+    <color name="exerciseIcon">@color/softerBlack</color>
+    <color name="cardBackground">@color/white</color>
+    <color name="header">@color/pastelGreen</color>
+    <color name="workoutExerciseList">@color/white</color>
+    <color name="createExerciseEdit">@color/eggshellWhite</color>
+    <color name="setsBackground">@color/white</color>
+    <color name="runningWorkoutName">@color/pastelGreen</color>
+    <color name="totalStatsItem">@color/eggshellWhite</color>
+    <color name="menuItemBottomSelected">@color/white</color>
+    <color name="menuItemBottomUnselected">@color/softerBlack</color>
+    <color name="roundedBackgroundVariant2">@color/eggshellWhite</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="dark">#313233</color>
+    <color name="darker">#2B2B2B</color>
+    <color name="lightText">#EBEBEB</color>
+
+    <!-- Both -->
+    <color name="softRed">#EB817F</color>
+    <color name="pastelGreen">#8AA6A3</color>
+    <color name="fadedPastelGreen">#508AA6A3</color>
+
+    <!-- og color = 2D88EB -->
 </resources>

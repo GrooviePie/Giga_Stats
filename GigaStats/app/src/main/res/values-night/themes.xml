@@ -1,7 +1,72 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Base.Theme.GigaStats" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="android:statusBarColor">@color/dark</item>
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+        <!-- Override color for normal state icons -->
+        <item name="colorControlNormal">@color/menu_color_state_list</item>
+        <!-- Override color for activated state icons if necessary -->
+        <item name="colorControlActivated">@color/menu_color_state_list</item>
     </style>
+
+    <style name="Theme.GigaStats" parent="Base.Theme.GigaStats" />
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent = "Theme.Design.Light.BottomSheetDialog" >
+        <item name="bottomSheetStyle">@style/AppModelStyle</item>
+    </style>
+
+
+    <style name="AppModelStyle"
+        parent = "Widget.Design.BottomSheet.Modal" >
+        <item name="android:background">@drawable/shape_bottom_sheet</item>
+        <item name="behavior_peekHeight">300dp</item>
+    </style>
+
+    <style name="backgroundScreen">
+        <item name="android:background">@color/darker</item>
+    </style>
+
+    <style name="textPrimaryColor">
+        <item name="android:textColor">@color/lightText</item>
+    </style>
+
+    <style name="listItemWorkout">
+        <item name="android:background">@color/dark</item>
+    </style>
+
+    <style name="textAccentColor">
+        <item name="android:textColor">@color/pastelGreen</item>
+    </style>
+
+    <style name="bottomNav">
+        <item name="android:background">@color/dark</item>
+    </style>
+
+    <style name="backgroundListElement">
+        <item name="android:background">@color/darker</item>
+    </style>
+
+    <style name="workoutIcon">
+        <item name="android:src">@drawable/ic_bottommenu_workouts_24</item>
+    </style>
+
+    <style name="titleBar" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/lightText</item>
+        <item name="android:background">@color/darker</item>
+    </style>
+
+    <style name="exerciseIcon">
+        <item name="android:src">@drawable/baseline_fitness_center_24</item>
+    </style>
+
 </resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="lavender">#8692F7</color>
+    <color name="light_blue_400">#FF29B6F6</color>
+    <color name="light_blue_600">#FF039BE5</color>
+    <color name="gray_400">#FFBDBDBD</color>
+    <color name="gray_600">#FF757575</color>
+
+    <!-- Light Theme Colors -->
+    <color name="eggshellWhite">#edede9</color>
+    <color name="softerBlack">#2E2E2E</color>
+    <color name="dividerGray">#BFBFBF</color>
+    <color name="fadedBlack">#39000000</color>
+    <color name="textColorLight">#DE000000</color>
+
+    <!-- Dark Theme Colors -->
+    <color name="dark">#313233</color>
+    <color name="darker">#2B2B2B</color>
+    <color name="lightText">#EBEBEB</color>
+    <color name="dialogShape">@color/darker</color>
+    <color name="dialogTitle">@color/dark</color>
+    <color name="divider">#434445</color>
+    <color name="dividerVariant">@color/divider</color>
+    <color name="itemDivider">@color/darker</color>
+    <color name="textColorPrimary">#EBEBEB</color>
+    <color name="exerciseIcon">@color/fadedPastelGreen</color>
+    <color name="cardBackground">@color/dark</color>
+    <color name="header">@color/fadedPastelGreen</color>
+    <color name="workoutExerciseList">@color/darker</color>
+    <color name="createExerciseEdit">@color/dark</color>
+    <color name="setsBackground">@color/dark</color>
+    <color name="runningWorkoutName">#EBEBEB</color>
+    <color name="totalStatsItem">@color/dark</color>
+    <color name="menuItemBottomSelected">@color/pastelGreen</color>
+    <color name="menuItemBottomUnselected">#66EBEBEB</color>
+    <color name="roundedBackgroundVariant2">@color/darker</color>
+
+
+    <!-- Both -->
+    <color name="softRed">#EB817F</color>
+    <color name="pastelGreen">#8AA6A3</color>
+    <color name="fadedPastelGreen">#508AA6A3</color>
+</resources>

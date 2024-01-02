@@ -1,18 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activityNfragments.MainActivity">
+    android:background="@color/pastelGreen"
+    tools:context=".activity.MainActivity">
 
     <item
         android:id="@+id/option_menu_add_exercises"
-        android:icon="@drawable/ic_toolbar_add_24_white"
+        android:icon="@drawable/baseline_add_24_green"
         android:title="@string/bung_hinzuf_gen"
-        app:showAsAction="always" />
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/option_menu_tutorial_exercises"
-        android:icon="@drawable/ic_toolbar_questionmark_24_white"
+        android:icon="@drawable/baseline_question_mark_24_green"
         android:title="Tutorial"
-        app:showAsAction="always" />/>
+        app:showAsAction="always"/>
 
 </menu>

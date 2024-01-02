@@ -9,17 +9,33 @@
     android:layout_marginVertical="10dp"
     android:layout_marginStart="12dp"
     android:layout_marginEnd="12dp"
-    app:cardCornerRadius="20dp"
-    app:cardElevation="8dp">
+    app:cardCornerRadius="6dip">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        style="@style/listItemWorkout">
+
+        <ImageView
+            android:id="@+id/runningImageInsert"
+            android:layout_width="58dip"
+            android:layout_height="58dip"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/element_divider_right"
+            android:contentDescription="TODO"
+            android:paddingRight="12dip"
+            style="@style/workoutIcon"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.046"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription,HardcodedText" />
 
         <LinearLayout
             android:id="@+id/linearLayoutExercise"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="66dip"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:orientation="horizontal"
@@ -32,8 +48,11 @@
                 android:id="@+id/nameWorkout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                style="@style/textPrimaryColor"
                 android:textSize="26sp"
-                android:textStyle="bold" />
+                android:text="test"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/idWorkout"

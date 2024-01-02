@@ -5,13 +5,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayoutWorkoutAdd"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/element_divider_bottom">
 
     <EditText
         android:id="@+id/editTextWorkoutName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:backgroundTint="@color/fadedPastelGreen"
+        android:text="@string/app_name"
+        android:textColor="@color/textColorPrimary"
         android:textSize="23sp"
         android:textStyle="bold"/>
 
@@ -19,9 +23,14 @@
         android:id="@+id/textViewAddExercise"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Edit Exercises"
-        android:gravity="center"
-        android:textSize="18sp"/>
+        android:text="Übungen auswählen"
+        android:paddingTop="12dip"
+        android:paddingBottom="4dip"
+        android:paddingLeft="12dip"
+        android:gravity="left"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/textColorPrimary"/>
 
     <LinearLayout
         android:id="@+id/addedExercisesLayout"
@@ -45,17 +54,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/recyclerViewWorkoutAdd"
-                tools:listitem="@layout/list_group_exercise"
-                />
+                tools:listitem="@layout/dialog_layout_add_exercise_list"
+                android:background="@color/workoutExerciseList"/>
 
         </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="*Durch das Speichern der Änderungen werden alle Statistiken bezüglich dieses Workouts entfernt*"
+            android:paddingTop="12dip"
+            android:paddingBottom="4dip"
+            android:paddingLeft="12dip"
+            android:gravity="left"
+            android:textSize="10sp"
+            android:textColor="@color/softRed"/>
 
-    <!--    <Button-->
-    <!--        android:id="@+id/buttonSaveWorkout"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:text="Save Workout" />-->
+    </LinearLayout>
 
 </LinearLayout>
