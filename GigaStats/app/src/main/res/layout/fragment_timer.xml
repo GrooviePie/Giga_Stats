@@ -7,14 +7,17 @@
     android:background="@color/eggshellWhite"
     android:orientation="vertical"
     tools:context=".fragments.FragmentTimer"
-    android:backgroundTint="@color/itemDivider">
+    android:backgroundTint="@color/itemDivider"
+    android:layout_gravity="center">
 
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        style="@style/backgroundScreen">
+        style="@style/backgroundScreen"
+        android:layout_marginTop="32dip"
+        android:layout_marginBottom="52dip">
 
         <com.example.giga_stats.fragments.FragmentTimerRoundProgressBar
             android:id="@+id/workoutProgressBar"
@@ -24,30 +27,61 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/currentTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/workoutProgressBar"
-            android:layout_alignTop="@+id/workoutProgressBar"
-            android:layout_alignEnd="@+id/workoutProgressBar"
-            android:layout_alignBottom="@+id/workoutProgressBar"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="130dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="130dp"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="24sp"
-            android:visibility="invisible" />
+            android:textColor="@color/pastelGreen"
+            android:textSize="32sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/workoutProgressBar"
+            app:layout_constraintEnd_toEndOf="@+id/workoutProgressBar"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintStart_toStartOf="@+id/workoutProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/workoutProgressBar"
+            app:layout_constraintVertical_bias="0.319" />
 
-    </RelativeLayout>
+        <ImageButton
+            android:id="@+id/play"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_below="@+id/currentTime"
+            android:background="@android:color/transparent"
+            android:paddingTop="16dip"
+            android:paddingBottom="16dip"
+            android:src="@drawable/baseline_play_arrow_24"
+            app:layout_constraintBottom_toBottomOf="@+id/workoutProgressBar"
+            app:layout_constraintEnd_toStartOf="@+id/stop"
+            app:layout_constraintHorizontal_bias="0.818"
+            app:layout_constraintStart_toStartOf="@+id/workoutProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/workoutProgressBar"
+            app:layout_constraintVertical_bias="0.67" />
+
+        <ImageButton
+            android:id="@+id/stop"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_below="@+id/play"
+            android:background="@android:color/transparent"
+            android:paddingTop="16dip"
+            android:paddingBottom="16dip"
+            android:src="@drawable/baseline_stop_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/workoutProgressBar"
+            app:layout_constraintHorizontal_bias="0.621"
+            app:layout_constraintStart_toStartOf="@+id/workoutProgressBar"
+            app:layout_constraintTop_toTopOf="@+id/workoutProgressBar"
+            app:layout_constraintVertical_bias="0.67" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/workoutTimeTextView"
@@ -87,25 +121,6 @@
         android:paddingBottom="16dip"
         android:progress="20"
         android:progressTint="@color/pastelGreen" />
-
-    <Button
-        android:id="@+id/play"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Start / Pause"
-        android:background="@color/totalStatsItem"
-        android:paddingTop="16dip"
-        android:paddingBottom="16dip"/>
-
-
-    <Button
-        android:id="@+id/stop"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Stop"
-        android:background="@color/totalStatsItem"
-        android:paddingTop="16dip"
-        android:paddingBottom="16dip"/>
 
 
 </LinearLayout>

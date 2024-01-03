@@ -36,6 +36,10 @@
     <color name="menuItemBottomSelected">@color/pastelGreen</color>
     <color name="menuItemBottomUnselected">#66EBEBEB</color>
     <color name="roundedBackgroundVariant2">@color/darker</color>
+    <color name="timerButton">@color/white</color>
+    <color name="timerBackground">@color/darker</color>
+    <color name="restTimer">@color/white</color>
+
 
 
     <!-- Both -->

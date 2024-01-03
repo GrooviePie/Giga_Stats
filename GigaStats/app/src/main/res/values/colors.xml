@@ -31,6 +31,9 @@
     <color name="menuItemBottomSelected">@color/white</color>
     <color name="menuItemBottomUnselected">@color/softerBlack</color>
     <color name="roundedBackgroundVariant2">@color/eggshellWhite</color>
+    <color name="timerButton">@color/softerBlack</color>
+    <color name="timerBackground">@color/eggshellWhite</color>
+    <color name="restTimer">@color/softerBlack</color>
 
     <!-- Dark Theme Colors -->
     <color name="dark">#313233</color>
