@@ -91,7 +91,8 @@
         android:paddingTop="16dip"
         android:text="Übungszeit: 01:00"
         android:textColor="@color/textColorPrimary"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold"/>
 
     <SeekBar
         android:id="@+id/workoutSeekBar"
@@ -110,7 +111,8 @@
         android:layout_gravity="center_horizontal"
         android:text="Pausenzeit: 00:20"
         android:textColor="@color/textColorPrimary"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold"/>
 
     <SeekBar
         android:id="@+id/restSeekBar"
@@ -120,7 +122,7 @@
         android:paddingTop="16dip"
         android:paddingBottom="16dip"
         android:progress="20"
-        android:progressTint="@color/pastelGreen" />
+        android:progressTint="@color/softRed" />
 
 
 </LinearLayout>
