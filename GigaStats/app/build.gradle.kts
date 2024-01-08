@@ -44,6 +44,11 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("androidx.room:room-runtime:2.4.0")
     implementation("androidx.room:room-common:2.5.2")
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\giber\\AppData\\Local\\Android\\Sdk\\platforms\\android-33",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf()
+    )))
     annotationProcessor ("androidx.room:room-compiler:2.4.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

@@ -1,3 +1,14 @@
+/**
+ * Der AdapterExerciseRoomRecyclerView ist ein RecyclerView-Adapter, der für die Anzeige von
+ * Übungen in einem RecyclerView in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse ermöglicht die Anzeige von Übungsdaten und deren Auswahl in einem RecyclerView.
+ * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte
+ * MyViewHolder-Klasse für die einzelnen Listenelemente.
+ *
+ * @version 1.0
+ */
+
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -17,8 +28,12 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
+
 public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<AdapterExerciseRoomRecyclerView.MyViewHolder> {
 
+    /**
+     * Das Interface OnItemClickListener wird verwendet, um auf Klickereignisse in der RecyclerView zu reagieren.
+     */
     public interface OnItemClickListener {
         void onItemClick(Exercise exercise);
     }
@@ -28,6 +43,14 @@ public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<Adapte
     private OnItemClickListener listener;
     private Context context;
 
+    /**
+     * Konstruktor für den AdapterExerciseRoomRecyclerView.
+     *
+     * @param context           Der Kontext, in dem der Adapter erstellt wird.
+     * @param exerciseList      Die Liste von Übungen, die im RecyclerView angezeigt werden sollen.
+     * @param selectedExercises Die Liste von ausgewählten Übungen.
+     * @param listener          Der Listener für Klickereignisse auf die Übungselemente.
+     */
     public AdapterExerciseRoomRecyclerView(Context context, List<Exercise> exerciseList, List<Exercise> selectedExercises, OnItemClickListener listener) {
         this.exerciseList = exerciseList;
         this.selectedExercises = selectedExercises;
@@ -36,6 +59,13 @@ public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<Adapte
 
     }
 
+    /**
+     * Erstellt und gibt einen MyViewHolder zurück, der die Layoutinflation für jedes Element in der RecyclerView handhabt.
+     *
+     * @param parent   Die übergeordnete Ansicht, in die die neue Ansicht eingefügt wird.
+     * @param viewType Der Ansichtstyp des neuen Ansichtselements.
+     * @return Ein MyViewHolder, der die Ansicht für jedes Element in der RecyclerView repräsentiert.
+     */
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,6 +74,12 @@ public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<Adapte
         return new MyViewHolder(itemView);
     }
 
+    /**
+     * Bindet die Daten an die Ansichtselemente jedes Elements in der RecyclerView.
+     *
+     * @param holder   Der MyViewHolder, der das aktuelle Ansichtselement repräsentiert.
+     * @param position Die Position des aktuellen Elements in der RecyclerView-Liste.
+     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Exercise exercise = exerciseList.get(position);
@@ -65,18 +101,30 @@ public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<Adapte
         });
     }
 
-
+    /**
+     * Gibt die Anzahl der Elemente in der RecyclerView zurück.
+     *
+     * @return Die Anzahl der Elemente in der RecyclerView.
+     */
     @Override
     public int getItemCount() {
         return exerciseList.size();
     }
 
+    /**
+     * Die MyViewHolder-Klasse repräsentiert die Ansichtselemente jedes Elements in der RecyclerView.
+     */
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView nameTextView;
         public TextView categoryTextView;
         public TextView idTextView;
         public LinearLayout exerciseBox;
 
+        /**
+         * Konstruktor für den MyViewHolder.
+         *
+         * @param view Die Ansicht, die die Layoutelemente für jedes Element repräsentiert.
+         */
         public MyViewHolder(@NonNull View view){
             super(view);
             nameTextView = (TextView) view.findViewById(R.id.nameExerciseAddDialog);

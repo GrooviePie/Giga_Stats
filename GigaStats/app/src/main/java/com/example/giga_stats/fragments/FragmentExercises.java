@@ -1,3 +1,11 @@
+/**
+ * Ein Fragment für die Anzeige und Verwaltung von Übungen.
+ *
+ * Dieses Fragment ermöglicht Benutzern das Hinzufügen, Bearbeiten und Löschen von Übungen.
+ * Es zeigt eine Liste von Übungen in einer erweiterbaren ListView an und bietet Optionen für Kontextmenüs und ein Optionsmenü.
+ *
+ * @version 1.0
+ */
 package com.example.giga_stats.fragments;
 
 import android.annotation.SuppressLint;
@@ -38,10 +46,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+
 public class FragmentExercises extends Fragment {
 
-
-    //TODO: Hardcoded Texte bearbeiten
 
     private ExpandableListView expandableListView;
     private String[] context_menu_item;
@@ -49,15 +56,32 @@ public class FragmentExercises extends Fragment {
     private Context context;
     private AppDatabase appDatabase;
 
+    /**
+     * Konstruktor für das FragmentExercises.
+     * Initialisiert die notwendigen Komponenten.
+     */
     public FragmentExercises() {
-        // Required empty public constructor
+        /// Erforderlicher leerer öffentlicher Konstruktor
     }
 
+    /**
+     * Setzt die Datenbankreferenz für das Fragment.
+     *
+     * @param appDatabase Die Referenz zur App-Datenbank.
+     */
     public void setAppDatabase(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
 
+
+
     //=====================================================LEBENSZYKLUS==========================================================================
+
+    /**
+     * Wird aufgerufen, wenn das Fragment erstellt wird.
+     *
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,13 +91,19 @@ public class FragmentExercises extends Fragment {
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
-        // Initialisieren Sie die, bevor Sie den Adapter setzen
-        expandableListView = new ExpandableListView(getContext());
+        expandableListView = new ExpandableListView(getContext()); // // Initialisierung, bevor Sie der Adapter gesetzt wird
 
         setHasOptionsMenu(true); // Optionsmenü erstellen
     }
 
-
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche für das Fragment zu erstellen oder zu ändern.
+     *
+     * @param inflater           Der LayoutInflater zum Aufblasen des Layouts.
+     * @param container          Die ViewGroup, in der das Fragment platziert wird.
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     * @return Die erstellte Benutzeroberfläche.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE EXERCISE - onCreateView() in ExerciseFragment.java aufgerufen");
@@ -87,27 +117,40 @@ public class FragmentExercises extends Fragment {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
 
-        // Registrieren Sie den ListView für LongClick-Ereignisse
+        // Registrierung der ListView für LongClick-Ereignisse
         registerForContextMenu(expandableListView);
 
         return rootView;
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     */
     @Override
     public void onResume() {
         super.onResume();
         Log.d("CHAD", "LIFE EXERCISES: onResume(): Das Fragment tritt in den Vordergrund");
-        // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
+        // ... Aktionen bei Wiederaufnahme des Fragments
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment in den Hintergrund wechselt.
+     */
     @Override
     public void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE EXERCISES: onPause(): Das Fragment wechselt in den Hintergrund");
-        // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
+        // ... Aktionen beim Wechsel des Fragments in den Hintergrund
     }
 
     //=====================================================OPTIONSMENÜ==========================================================================
+
+    /**
+     * Erstellt das Optionsmenü für das Fragment.
+     *
+     * @param menu     Das Menü, in dem die Elemente platziert werden sollen.
+     * @param inflater Der Menüinflater, der verwendet wird, um das Menü aufzublasen.
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         Log.d("CHAD", "onCreateOptionsMenu() in ExerciseFragment.java aufgerufen JUUUUUUUUUUUUUUUHUUUUUUUUUUUU");
@@ -115,6 +158,12 @@ public class FragmentExercises extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Behandelt die Auswahl von Elementen im Optionsmenü.
+     *
+     * @param item Das ausgewählte Menüelement.
+     * @return true, wenn die Auswahl erfolgreich behandelt wurde, andernfalls false.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -132,6 +181,11 @@ public class FragmentExercises extends Fragment {
         }
     }
 
+    /**
+     * Wird aufgerufen, um das Optionsmenü vorzubereiten.
+     *
+     * @param menu Das vorzubereitende Menü.
+     */
     @Override
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -142,8 +196,17 @@ public class FragmentExercises extends Fragment {
         }
     }
 
+
+
     //=====================================================KONTEXTMENÜ==========================================================================
 
+    /**
+     * Wird aufgerufen, um das Kontextmenü für ein Element im ExpandableListView zu erstellen.
+     *
+     * @param menu     Das zu erstellende Kontextmenü.
+     * @param v        Die Ansicht, auf die das Kontextmenü angewendet wird.
+     * @param menuInfo Zusätzliche Informationen über das ausgewählte Element.
+     */
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -168,53 +231,12 @@ public class FragmentExercises extends Fragment {
         }
     }
 
-
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//        int itemId = item.getItemId();
-//        Log.d("CHAD", "Item Id: " + itemId);
-//
-//        if (index >= 0) {
-//
-//            int id = (int) expandableListView.getExpandableListAdapter().getGroupId(index);
-//
-////            AtomicReference<Exercise> selectedExercise = new AtomicReference<>();
-////            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> selectedExercise.set(appDatabase.exerciseDao().getExerciseById(id)));
-////
-////            future.join();
-//
-//            LiveData<Exercise> exerciseLiveData = appDatabase.exerciseDao().getExerciseById(id);
-//
-//            Observer<Exercise> exerciseObserver = new Observer<Exercise>() {
-//                @Override
-//                public void onChanged(Exercise existingExercise) {
-//                    if (existingExercise != null) {
-//                        int exercise_id = existingExercise.getExercise_id();
-//                        Log.d("CHAD", "Exercise Item mit der ID: " + exercise_id);
-//
-//                        if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
-//                            Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt");
-//                            openEditExerciseDialog(exercise_id);
-//                        } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
-//                            Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt");
-//                            openDeleteExerciseDialog(exercise_id);
-//                        }
-//
-//                        // Entfernen des Observers, um zu verhindern, dass der Dialog erneut geöffnet wird
-//                        exerciseLiveData.removeObserver(this);
-//                    }
-//                }
-//            };
-//
-//            // LiveData beobachten
-//            exerciseLiveData.observe(this, exerciseObserver);
-//            return true;
-//        } else {
-//            return super.onContextItemSelected(item);
-//        }
-//
-//    }
-
+    /**
+     * Behandelt die Auswahl von Elementen im Kontextmenü.
+     *
+     * @param item Das ausgewählte Kontextmenüelement.
+     * @return true, wenn die Auswahl erfolgreich behandelt wurde, andernfalls false.
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -253,14 +275,19 @@ public class FragmentExercises extends Fragment {
         }
     }
 
+
+
     //=====================================================DIALOGE==========================================================================
 
+    /**
+     * Öffnet einen Dialog zur Hinzufügung einer neuen Übung.
+     */
     private void openAddExerciseDialog() {
         Log.d("CHAD", "openAddExerciseDialog() in ExercisesFragment aufgerufen");
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-        // Custom Titel aufblähen und setzen
+        //  Titel aufblähen und setzen
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
@@ -268,7 +295,7 @@ public class FragmentExercises extends Fragment {
         builder.setCustomTitle(titleView);
 
         // Inflate des benutzerdefinierten Layouts
-        //LayoutInflater inflater2 = requireActivity().getLayoutInflater();
+        // LayoutInflater inflater2 = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
         builder.setView(dialogView);
 
@@ -335,7 +362,11 @@ public class FragmentExercises extends Fragment {
         negativeButton.setTextSize(14);
     }
 
-
+    /**
+     * Öffnet einen Dialog zur Bearbeitung einer vorhandenen Übung.
+     *
+     * @param exercise_id Die ID der zu bearbeitenden Übung.
+     */
     @SuppressLint("StaticFieldLeak")
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -348,7 +379,7 @@ public class FragmentExercises extends Fragment {
         builder.setCustomTitle(titleView);
 
         // Inflate des benutzerdefinierten Layouts
-        //LayoutInflater inflater2 = requireActivity().getLayoutInflater();
+        // LayoutInflater inflater2 = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
         builder.setView(dialogView);
 
@@ -468,7 +499,11 @@ public class FragmentExercises extends Fragment {
 
     }
 
-
+    /**
+     * Öffnet einen Dialog zur Bestätigung der Löschung einer Übung.
+     *
+     * @param exercise_id Die ID der zu löschenden Übung.
+     */
     private void openDeleteExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -519,10 +554,11 @@ public class FragmentExercises extends Fragment {
 
     }
 
-
+    /**
+     * Öffnet einen Dialog mit einem Tutorial für das Übungsfragment.
+     */
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
-        //TODO: Tutorial schreiben für Fragment "Übungen"
         String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -559,8 +595,13 @@ public class FragmentExercises extends Fragment {
         positiveButton.setTextColor(green);
     }
 
+
+
     //=====================================================HILFSMETHODEN==========================================================================
 
+    /**
+     * Aktualisiert die Liste der Übungen im ExpandableListView.
+     */
     private void updateExerciseList() {
         LiveData<List<Exercise>> exercisesLiveData = appDatabase.exerciseDao().getAllExercises();
 
@@ -572,12 +613,20 @@ public class FragmentExercises extends Fragment {
         });
     }
 
+    /**
+     * Zeigt eine Meldung an, dass das Löschen einer Übung fehlgeschlagen ist.
+     */
     private void showDeletionFailedMessage() {
         getActivity().runOnUiThread(() -> {
             Toast.makeText(getContext(), "Löschen nicht möglich: Übung gehört zu einem Workout.", Toast.LENGTH_LONG).show();
         });
     }
 
+    /**
+     * Gibt den Menüinflater für das Fragment zurück.
+     *
+     * @return Der Menüinflater für das Fragment.
+     */
     private MenuInflater getMenuInflater() {
         if (getActivity() != null) {
             return getActivity().getMenuInflater();
