@@ -160,13 +160,13 @@ public class FragmentRunningWorkout extends Fragment {
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         //TODO: Tutorial schreiben für Fragment "Workout beginnen"
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+        String textContent = "Um ein Workout zu starten tippen Sie einfach auf das entsprechende Workout und anschließend auf \"starten\". Jetzt können sie das Fenster nach oben ziehen um es groß zu machen und anschließend ihre Trainingsdaten eintragen. Sie können den Übungen über den Button \"Set +\" weitere Sets hinzufügen. Wenn sie fertig sind mit dem Workout drücken sie \"Beenden\".";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
-        titleTextView.setText("Tutorial Homepage");
+        titleTextView.setText("Tutorial Workout starten");
         builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen

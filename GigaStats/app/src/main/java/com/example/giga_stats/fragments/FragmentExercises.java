@@ -523,7 +523,7 @@ public class FragmentExercises extends Fragment {
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         //TODO: Tutorial schreiben für Fragment "Übungen"
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+        String textContent = "Um eine Übung anzulegen drücken Sie den \"+\" Button. Anschließend weisen Sie der Übung eine Kategorie zu und geben Ihr einen Namen. Dann können sie die gewünschte Wiedeholungsanzahl und das Gewicht eingeben. Falls sie möchten können sie eine Kurzbeschreibung hinzufügen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 

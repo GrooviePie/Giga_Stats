@@ -255,14 +255,14 @@ public class FragmentTimer extends Fragment {
 
 
     private void openTutorialDialog() {
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+        String textContent = "Über die beiden Regler \"Übungszeit\" und \"Pausenzeit\" stellen sie den gewünschten Trainingszyklus ein. Anschließend können sie den Play-Button betätigen um den Timer zu starten.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
-        titleTextView.setText("Tutorial Übungen");
+        titleTextView.setText("Tutorial Timer");
         builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
