@@ -1,6 +1,3 @@
-/**
- * Eine runde Fortschrittsleiste für das Fragment FragmentTimer, die in einem View dargestellt wird.
- */
 package com.example.giga_stats.fragments;
 
 import android.content.Context;
@@ -12,7 +9,9 @@ import android.view.View;
 
 import com.example.giga_stats.R;
 
-
+/**
+ * Eine runde Fortschrittsleiste für das Fragment FragmentTimer, die in einem View dargestellt wird.
+ */
 public class FragmentTimerRoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;

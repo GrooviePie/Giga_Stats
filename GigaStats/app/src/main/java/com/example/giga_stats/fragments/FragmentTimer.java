@@ -1,6 +1,3 @@
-/**
- * Ein Fragment zur Anzeige und Steuerung eines Timer für Workout- und Pausenintervalle.
- */
 package com.example.giga_stats.fragments;
 
 import android.os.Bundle;
@@ -24,7 +21,9 @@ import android.widget.TextView;
 
 import com.example.giga_stats.R;
 
-
+/**
+ * Ein Fragment zur Anzeige und Steuerung eines Timer für Workout- und Pausenintervalle.
+ */
 public class FragmentTimer extends Fragment {
     private CountDownTimer workoutTimer;
     private CountDownTimer restTimer;

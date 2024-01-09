@@ -1,13 +1,12 @@
+package com.example.giga_stats.database.dto;
+
+import com.example.giga_stats.database.entities.Exercise;
+
 /**
  * Die Klasse SetDetails repräsentiert die Details eines Sets in der Giga Stats-Anwendung.
  *
  * @version 1.0
  */
-package com.example.giga_stats.database.dto;
-
-import com.example.giga_stats.database.entities.Exercise;
-
-
 public class SetDetails {
     private int setCount;
     private Exercise exercise;

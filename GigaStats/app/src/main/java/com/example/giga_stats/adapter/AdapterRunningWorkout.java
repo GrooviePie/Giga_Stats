@@ -1,13 +1,3 @@
-/**
- * Der AdapterRunningWorkout ist ein BaseAdapter, der für die Anzeige von laufenden Workouts
- * in einer ListView in der Giga Stats-Anwendung verwendet wird.
- *
- * Diese Klasse ermöglicht die Anzeige von Workouts und öffnet ein Bottom Sheet, wenn ein Element
- * in der Liste angeklickt wird.
- *
- * @version 1.0
- */
-
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -24,7 +14,15 @@ import com.example.giga_stats.R;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.fragments.FragmentRunningWorkoutBottomSheet;
 
-
+/**
+ * Der AdapterRunningWorkout ist ein BaseAdapter, der für die Anzeige von laufenden Workouts
+ * in einer ListView in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse ermöglicht die Anzeige von Workouts und öffnet ein Bottom Sheet, wenn ein Element
+ * in der Liste angeklickt wird.
+ *
+ * @version 1.0
+ */
 public class AdapterRunningWorkout extends BaseAdapter {
 
     Context context;

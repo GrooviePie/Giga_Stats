@@ -1,15 +1,14 @@
-/**
- * Die Klasse Workout repräsentiert ein Workout in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.entities;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
+/**
+ * Die Klasse Workout repräsentiert ein Workout in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Entity(tableName = "workouts")
 public class Workout {
 

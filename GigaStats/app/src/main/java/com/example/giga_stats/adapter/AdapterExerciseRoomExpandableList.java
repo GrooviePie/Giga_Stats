@@ -1,13 +1,3 @@
-/**
- * Der AdapterExerciseRoomExpandableList ist ein ExpandableListAdapter, der für die Anzeige von
- * Übungen in einer ExpandableListView in der Giga Stats-Anwendung verwendet wird.
- *
- * Diese Klasse stellt Methoden bereit, um die Gruppen- und Kind-Elemente für die Anzeige zu verwalten.
- * Sie erweitert die BaseExpandableListAdapter-Klasse.
- *
- * @version 1.0
- */
-
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -22,6 +12,15 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
+/**
+ * Der AdapterExerciseRoomExpandableList ist ein ExpandableListAdapter, der für die Anzeige von
+ * Übungen in einer ExpandableListView in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse stellt Methoden bereit, um die Gruppen- und Kind-Elemente für die Anzeige zu verwalten.
+ * Sie erweitert die BaseExpandableListAdapter-Klasse.
+ *
+ * @version 1.0
+ */
 public class AdapterExerciseRoomExpandableList extends BaseExpandableListAdapter {
 
     private Context context;

@@ -1,10 +1,3 @@
-/**
- * Die Klasse TotalStatsAdapter ist ein RecyclerView-Adapter, der dazu dient, die Gesamtstatistiken für einzelne Übungen in der Giga Stats-Anwendung anzuzeigen.
- *
- * Dieser Adapter ermöglicht die Anzeige von Übungsstatistiken, einschließlich des Übungsnamens, des vorherigen Durchschnitts, des aktuellen Durchschnitts und der Effizienz, in einer RecyclerView. Er implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte ViewHolder-Klasse für die einzelnen Listenelemente.
- *
- * @version 1.0
- */
 package com.example.giga_stats.adapter;
 
 import android.view.LayoutInflater;
@@ -21,7 +14,13 @@ import com.example.giga_stats.R;
 import java.util.List;
 import java.util.Locale;
 
-
+/**
+ * Die Klasse TotalStatsAdapter ist ein RecyclerView-Adapter, der dazu dient, die Gesamtstatistiken für einzelne Übungen in der Giga Stats-Anwendung anzuzeigen.
+ *
+ * Dieser Adapter ermöglicht die Anzeige von Übungsstatistiken, einschließlich des Übungsnamens, des vorherigen Durchschnitts, des aktuellen Durchschnitts und der Effizienz, in einer RecyclerView. Er implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte ViewHolder-Klasse für die einzelnen Listenelemente.
+ *
+ * @version 1.0
+ */
 public class TotalStatsAdapter extends RecyclerView.Adapter<TotalStatsAdapter.StatsViewHolder> {
 
     private List<ExerciseTotalStats> exerciseStatsList;

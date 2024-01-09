@@ -1,14 +1,3 @@
-/**
- * Der AdapterRunningWorkoutBottomSheet ist ein RecyclerView-Adapter, der für die Anzeige von
- * laufenden Workouts im Bottom Sheet in der Giga Stats-Anwendung verwendet wird.
- *
- * Diese Klasse ermöglicht die Anzeige von Übungsdetails, Sets und Durchschnittswerten im Bottom Sheet.
- * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte
- * ViewHolder-Klasse für die einzelnen Listenelemente.
- *
- * @version 1.0
- */
-
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -33,6 +22,16 @@ import com.example.giga_stats.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Der AdapterRunningWorkoutBottomSheet ist ein RecyclerView-Adapter, der für die Anzeige von
+ * laufenden Workouts im Bottom Sheet in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse ermöglicht die Anzeige von Übungsdetails, Sets und Durchschnittswerten im Bottom Sheet.
+ * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte
+ * ViewHolder-Klasse für die einzelnen Listenelemente.
+ *
+ * @version 1.0
+ */
 public class AdapterRunningWorkoutBottomSheet extends RecyclerView.Adapter<AdapterRunningWorkoutBottomSheet.ViewHolder> {
 
     private Context context;

@@ -1,6 +1,3 @@
-/**
- * Ein BottomSheetDialogFragment zur Anzeige von laufenden Workouts und deren Statistiken.
- */
 package com.example.giga_stats.fragments;
 
 import android.content.Context;
@@ -43,7 +40,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
-
+/**
+ * Ein BottomSheetDialogFragment zur Anzeige von laufenden Workouts und deren Statistiken.
+ */
 public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment implements OnDataChangedListener {
     private Workout workout;
     private TextView startWorkout;

@@ -1,7 +1,3 @@
-/**
- * Fragment für die Verwaltung von Workouts und Übungen.
- */
-
 package com.example.giga_stats.fragments;
 
 import android.content.Context;
@@ -51,6 +47,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Fragment für die Verwaltung von Workouts und Übungen.
+ */
 
 public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRecyclerView.OnItemClickListener {
 

@@ -1,6 +1,3 @@
-/**
- * Ein Fragment zur Anzeige und Verwaltung von laufenden Workouts.
- */
 package com.example.giga_stats.fragments;
 
 import android.content.Context;
@@ -35,7 +32,9 @@ import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 
 import java.util.List;
 
-
+/**
+ * Ein Fragment zur Anzeige und Verwaltung von laufenden Workouts.
+ */
 public class FragmentRunningWorkout extends Fragment {
 
     private String[] context_menu_item;

@@ -1,11 +1,10 @@
+package com.example.giga_stats.database.dto;
+
 /**
  * Die Klasse SetAverage repräsentiert die durchschnittlichen Werte eines Sets in der Giga Stats-Anwendung.
  *
  * @version 1.0
  */
-package com.example.giga_stats.database.dto;
-
-
 public class SetAverage {
     double averageWeight;
     double averageReps;

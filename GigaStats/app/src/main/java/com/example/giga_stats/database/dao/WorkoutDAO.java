@@ -1,8 +1,3 @@
-/**
- * Das Interface WorkoutDAO definiert die Datenbankzugriffsmethoden für die Tabelle "workouts" in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.dao;
 
 import androidx.lifecycle.LiveData;
@@ -18,7 +13,11 @@ import com.example.giga_stats.database.entities.WorkoutExercises;
 
 import java.util.List;
 
-
+/**
+ * Das Interface WorkoutDAO definiert die Datenbankzugriffsmethoden für die Tabelle "workouts" in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Dao
 public interface WorkoutDAO {
     /**

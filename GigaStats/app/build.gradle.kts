@@ -46,8 +46,8 @@ dependencies {
     implementation("androidx.room:room-common:2.5.2")
     implementation(fileTree(mapOf(
         "dir" to "C:\\Users\\giber\\AppData\\Local\\Android\\Sdk\\platforms\\android-33",
-        "include" to listOf("*.aar", "*.jar"),
-        "exclude" to listOf()
+        "include" to listOf("*.aar", "*.jar")
+
     )))
     annotationProcessor ("androidx.room:room-compiler:2.4.0")
     testImplementation("junit:junit:4.13.2")
@@ -55,6 +55,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.google.android.material:material:1.4.0") // Für die TabLayout-Integration
+
 
 }
 

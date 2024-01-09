@@ -1,8 +1,3 @@
-/**
- * Die Klasse Exercise repräsentiert eine Übung in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.entities;
 
 import androidx.annotation.Nullable;
@@ -10,7 +5,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-
+/**
+ * Die Klasse Exercise repräsentiert eine Übung in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Entity(tableName = "exercises")
 public class Exercise {
     @PrimaryKey(autoGenerate = true)

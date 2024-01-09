@@ -1,8 +1,3 @@
-/**
- * Das Interface WorkoutExerciseCrossRefDAO definiert die Datenbankzugriffsmethoden für die Tabelle "WorkoutExerciseCrossRef" in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.dao;
 
 import androidx.lifecycle.LiveData;
@@ -13,7 +8,11 @@ import androidx.room.Transaction;
 import com.example.giga_stats.database.entities.WorkoutExercises;
 
 import java.util.List;
-
+/**
+ * Das Interface WorkoutExerciseCrossRefDAO definiert die Datenbankzugriffsmethoden für die Tabelle "WorkoutExerciseCrossRef" in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Dao
 public interface WorkoutExerciseCrossRefDAO {
     /**

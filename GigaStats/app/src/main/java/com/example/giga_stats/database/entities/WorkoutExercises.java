@@ -1,9 +1,3 @@
-/**
- * Die Klasse WorkoutExercises repräsentiert eine relationale Ansicht (Relation) zwischen Workouts und Exercises in der Giga Stats-Anwendung.
- * Sie enthält ein eingebettetes Workout-Objekt und eine Liste von Exercises, die mit dem Workout verknüpft sind.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.entities;
 
 import androidx.room.Embedded;
@@ -12,7 +6,12 @@ import androidx.room.Relation;
 
 import java.util.List;
 
-
+/**
+ * Die Klasse WorkoutExercises repräsentiert eine relationale Ansicht (Relation) zwischen Workouts und Exercises in der Giga Stats-Anwendung.
+ * Sie enthält ein eingebettetes Workout-Objekt und eine Liste von Exercises, die mit dem Workout verknüpft sind.
+ *
+ * @version 1.0
+ */
 public class WorkoutExercises {
     @Embedded
     private Workout workout;

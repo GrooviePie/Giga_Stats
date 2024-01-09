@@ -1,15 +1,15 @@
-/**
- * Die Klasse Sets repräsentiert einen Satz in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
+
 package com.example.giga_stats.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-
+/**
+ * Die Klasse Sets repräsentiert einen Satz in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Entity(foreignKeys = @ForeignKey(entity = Workout.class,
         parentColumns = "workout_id",
         childColumns = "workout_id",

@@ -1,12 +1,11 @@
+package com.example.giga_stats.database.entities;
+
+import androidx.room.Entity;
 /**
  * Die Klasse WorkoutExerciseCrossRef repräsentiert die Verbindungstabelle zwischen Workouts und Exercises in der Giga Stats-Anwendung.
  *
  * @version 1.0
  */
-package com.example.giga_stats.database.entities;
-
-import androidx.room.Entity;
-
 @Entity(primaryKeys = {"workout_id", "exercise_id"})
 public class WorkoutExerciseCrossRef {
     public int workout_id;

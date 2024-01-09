@@ -1,10 +1,3 @@
-/**
- * Die Klasse AdapterSwipePager ist ein FragmentStateAdapter, der dazu dient, Fragmente innerhalb eines ViewPager2 in der Giga Stats-Anwendung zu verwalten.
- *
- * Diese Klasse erweitert FragmentStateAdapter und stellt die notwendigen Methoden bereit, um den Lebenszyklus von Fragmenten in einem ViewPager2 zu verwalten.
- *
- * @version 1.0
- */
 package com.example.giga_stats.adapter;
 
 import androidx.annotation.NonNull;
@@ -14,7 +7,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import java.util.List;
 
-
+/**
+ * Die Klasse AdapterSwipePager ist ein FragmentStateAdapter, der dazu dient, Fragmente innerhalb eines ViewPager2 in der Giga Stats-Anwendung zu verwalten.
+ *
+ * Diese Klasse erweitert FragmentStateAdapter und stellt die notwendigen Methoden bereit, um den Lebenszyklus von Fragmenten in einem ViewPager2 zu verwalten.
+ *
+ * @version 1.0
+ */
 public class AdapterSwipePager extends FragmentStateAdapter {
 
     private List<Fragment> fragments;

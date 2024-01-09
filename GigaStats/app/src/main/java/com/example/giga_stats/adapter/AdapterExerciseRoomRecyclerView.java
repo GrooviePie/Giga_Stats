@@ -1,14 +1,3 @@
-/**
- * Der AdapterExerciseRoomRecyclerView ist ein RecyclerView-Adapter, der für die Anzeige von
- * Übungen in einem RecyclerView in der Giga Stats-Anwendung verwendet wird.
- *
- * Diese Klasse ermöglicht die Anzeige von Übungsdaten und deren Auswahl in einem RecyclerView.
- * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte
- * MyViewHolder-Klasse für die einzelnen Listenelemente.
- *
- * @version 1.0
- */
-
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -28,7 +17,16 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
-
+/**
+ * Der AdapterExerciseRoomRecyclerView ist ein RecyclerView-Adapter, der für die Anzeige von
+ * Übungen in einem RecyclerView in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse ermöglicht die Anzeige von Übungsdaten und deren Auswahl in einem RecyclerView.
+ * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte
+ * MyViewHolder-Klasse für die einzelnen Listenelemente.
+ *
+ * @version 1.0
+ */
 public class AdapterExerciseRoomRecyclerView extends RecyclerView.Adapter<AdapterExerciseRoomRecyclerView.MyViewHolder> {
 
     /**

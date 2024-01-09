@@ -1,12 +1,3 @@
-/**
- * Der AdapterSets ist ein RecyclerView-Adapter, der für die Anzeige von Sets im Bottom Sheet in der Giga Stats-Anwendung verwendet wird.
- *
- * Diese Klasse ermöglicht die Anzeige von Set-Details, darunter Set-Nummer, Gewicht, Wiederholungen und Durchschnittswerte.
- * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte ViewHolder-Klasse für die einzelnen Listenelemente.
- *
- * @version 1.0
- */
-
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -27,7 +18,14 @@ import com.example.giga_stats.R;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * Der AdapterSets ist ein RecyclerView-Adapter, der für die Anzeige von Sets im Bottom Sheet in der Giga Stats-Anwendung verwendet wird.
+ *
+ * Diese Klasse ermöglicht die Anzeige von Set-Details, darunter Set-Nummer, Gewicht, Wiederholungen und Durchschnittswerte.
+ * Sie implementiert die notwendigen Methoden von RecyclerView.Adapter und verwendet eine benutzerdefinierte ViewHolder-Klasse für die einzelnen Listenelemente.
+ *
+ * @version 1.0
+ */
 public class AdapterSets extends RecyclerView.Adapter<AdapterSets.ViewHolder> {
 
     private Context context;

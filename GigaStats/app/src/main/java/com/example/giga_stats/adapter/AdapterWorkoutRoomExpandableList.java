@@ -1,10 +1,3 @@
-/**
- * Die Klasse AdapterWorkoutRoomExpandableList ist ein BaseExpandableListAdapter, der dazu dient, Workouts und zugehörige Übungen in einer ExpandableListView in der Giga Stats-Anwendung anzuzeigen.
- *
- * Dieser Adapter ermöglicht die Anzeige von Workouts und deren zugehörigen Übungen in einer ExpandableListView. Er erweitert BaseExpandableListAdapter und implementiert die notwendigen Methoden für die Verwaltung von Gruppen und Kindern in der ExpandableListView.
- *
- * @version 1.0
- */
 package com.example.giga_stats.adapter;
 
 import android.content.Context;
@@ -20,7 +13,13 @@ import com.example.giga_stats.R;
 
 import java.util.List;
 
-
+/**
+ * Die Klasse AdapterWorkoutRoomExpandableList ist ein BaseExpandableListAdapter, der dazu dient, Workouts und zugehörige Übungen in einer ExpandableListView in der Giga Stats-Anwendung anzuzeigen.
+ *
+ * Dieser Adapter ermöglicht die Anzeige von Workouts und deren zugehörigen Übungen in einer ExpandableListView. Er erweitert BaseExpandableListAdapter und implementiert die notwendigen Methoden für die Verwaltung von Gruppen und Kindern in der ExpandableListView.
+ *
+ * @version 1.0
+ */
 public class AdapterWorkoutRoomExpandableList extends BaseExpandableListAdapter {
     private Context context;
     private List <WorkoutExercises> workoutExercises;

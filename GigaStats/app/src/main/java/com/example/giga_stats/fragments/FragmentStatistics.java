@@ -1,6 +1,3 @@
-/**
- * Ein Fragment zur Anzeige von Statistiken.
- */
 package com.example.giga_stats.fragments;
 
 import android.os.Bundle;
@@ -25,7 +22,9 @@ import android.widget.TextView;
 import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.R;
 
-
+/**
+ * Ein Fragment zur Anzeige von Statistiken.
+ */
 public class FragmentStatistics extends Fragment {
     private AppDatabase appDatabase;
 

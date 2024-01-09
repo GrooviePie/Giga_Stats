@@ -1,11 +1,3 @@
-/**
- * Ein Fragment für die Anzeige und Verwaltung von Übungen.
- *
- * Dieses Fragment ermöglicht Benutzern das Hinzufügen, Bearbeiten und Löschen von Übungen.
- * Es zeigt eine Liste von Übungen in einer erweiterbaren ListView an und bietet Optionen für Kontextmenüs und ein Optionsmenü.
- *
- * @version 1.0
- */
 package com.example.giga_stats.fragments;
 
 import android.annotation.SuppressLint;
@@ -46,7 +38,14 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
-
+/**
+ * Ein Fragment für die Anzeige und Verwaltung von Übungen.
+ *
+ * Dieses Fragment ermöglicht Benutzern das Hinzufügen, Bearbeiten und Löschen von Übungen.
+ * Es zeigt eine Liste von Übungen in einer erweiterbaren ListView an und bietet Optionen für Kontextmenüs und ein Optionsmenü.
+ *
+ * @version 1.0
+ */
 public class FragmentExercises extends Fragment {
 
 

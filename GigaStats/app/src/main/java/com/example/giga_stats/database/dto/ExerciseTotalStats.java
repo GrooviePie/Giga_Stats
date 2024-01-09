@@ -1,11 +1,10 @@
+package com.example.giga_stats.database.dto;
+
 /**
  * Die Klasse ExerciseTotalStats repräsentiert die gesamten Statistiken einer Übung in der Giga Stats-Anwendung.
  *
  * @version 1.0
  */
-package com.example.giga_stats.database.dto;
-
-
 public class ExerciseTotalStats {
 
     private String exerciseName;

@@ -1,8 +1,3 @@
-/**
- * Das Interface SetsDAO definiert die Datenbankzugriffsmethoden für die Tabelle "Sets" in der Giga Stats-Anwendung.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.dao;
 
 import androidx.room.Dao;
@@ -12,7 +7,11 @@ import androidx.room.Query;
 import com.example.giga_stats.database.entities.Sets;
 
 import java.util.List;
-
+/**
+ * Das Interface SetsDAO definiert die Datenbankzugriffsmethoden für die Tabelle "Sets" in der Giga Stats-Anwendung.
+ *
+ * @version 1.0
+ */
 @Dao
 public interface SetsDAO {
     /**

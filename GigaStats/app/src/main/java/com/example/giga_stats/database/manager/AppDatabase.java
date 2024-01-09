@@ -1,10 +1,3 @@
-/**
- * Die Klasse AppDatabase repräsentiert die Room-Datenbank der Giga Stats-Anwendung.
- * Sie enthält DAOs für die Entitäten Exercise, Workout, WorkoutExerciseCrossRef und Sets.
- * Die Datenbank wird durch die Annotation @Database definiert und erbt von RoomDatabase.
- *
- * @version 1.0
- */
 package com.example.giga_stats.database.manager;
 
 import android.content.Context;
@@ -26,7 +19,13 @@ import com.example.giga_stats.database.entities.WorkoutExerciseCrossRef;
 
 import java.util.concurrent.Executors;
 
-
+/**
+ * Die Klasse AppDatabase repräsentiert die Room-Datenbank der Giga Stats-Anwendung.
+ * Sie enthält DAOs für die Entitäten Exercise, Workout, WorkoutExerciseCrossRef und Sets.
+ * Die Datenbank wird durch die Annotation @Database definiert und erbt von RoomDatabase.
+ *
+ * @version 1.0
+ */
 @Database(entities = {Exercise.class, Workout.class, WorkoutExerciseCrossRef.class, Sets.class}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
 
