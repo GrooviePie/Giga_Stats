@@ -1,3 +1,4 @@
+import java.util.regex.Pattern.compile
 
 
 plugins {
@@ -18,6 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
 
     buildTypes {
         release {
@@ -50,7 +52,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
-    implementation ("com.google.android.material:material:1.4.0") // Für die TabLayout-Integration
+    implementation("com.github.AnyChart:AnyChart-Android:1.1.5")
 
 }
 
