@@ -124,14 +124,14 @@ public class FragmentStatistics extends Fragment {
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         //TODO: Tutorial schreiben für Fragment "Statistics"
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+        String textContent = "Hier werden in Zukunft die Statistiken der Benutzer angezeigt.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
-        titleTextView.setText("Tutorial Übungen");
+        titleTextView.setText("Tutorial Statistik");
         builder.setCustomTitle(titleView);
 
         // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen

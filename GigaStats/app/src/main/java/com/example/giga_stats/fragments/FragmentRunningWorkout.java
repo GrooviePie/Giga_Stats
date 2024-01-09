@@ -224,14 +224,14 @@ public class FragmentRunningWorkout extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für das Fragment "Workout beginnen".
      */
     private void openTutorialDialog() {
-        // Der Textinhalt anzeiogen
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+      
+        String textContent = "Um ein Workout zu starten tippen Sie einfach auf das entsprechende Workout und anschließend auf \"starten\". Jetzt können sie das Fenster nach oben ziehen um es groß zu machen und anschließend ihre Trainingsdaten eintragen. Sie können den Übungen über den Button \"Set +\" weitere Sets hinzufügen. Wenn sie fertig sind mit dem Workout drücken sie \"Beenden\".";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
-        titleTextView.setText("Tutorial Homepage");
+        titleTextView.setText("Tutorial Workout starten");
         builder.setCustomTitle(titleView);
 
         // Erstellet eine TextView, um den Textinhalt anzuzeigen

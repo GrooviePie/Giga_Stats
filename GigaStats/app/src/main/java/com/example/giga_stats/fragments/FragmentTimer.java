@@ -1,10 +1,16 @@
 package com.example.giga_stats.fragments;
 
+import android.graphics.drawable.AnimatedVectorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.vectordrawable.graphics.drawable.AnimatedVectorDrawableCompat;
+
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -37,12 +44,14 @@ public class FragmentTimer extends Fragment {
     private boolean isRestRunning = false;
     private boolean isWorkoutPaused = false;
     private boolean isRestPaused = false;
+    private boolean isPlayPressed = false;
     private long workoutDurationInMillis = 60000; // Workout-Dauer in Millisekunden (hier 60 Sekunden)
     private long workoutTemp = workoutDurationInMillis; //Dient als temporäre Variable um Änderungen während der Laufzeit des Timers zu speichern
     private long restDurationInMillis = 20000;    // Pause-Dauer in Millisekunden (hier 30 Sekunden)
     private long restTemp = restDurationInMillis; //Dient als temporäre Variable um Änderungen während der Laufzeit des Timers zu speichern
     private long remainingWorkoutTime = 0;
     private long remainingRestTime = 0;
+    AnimatedVectorDrawable avd2;
 
 
     /**
@@ -84,28 +93,47 @@ public class FragmentTimer extends Fragment {
         workoutTimeTextView = view.findViewById(R.id.workoutTimeTextView);
         restTimeTextView = view.findViewById(R.id.restTimeTextView);
         currentTime = view.findViewById(R.id.currentTime);
-        currentTime.setText(formatTime(workoutDurationInMillis/1000));
+        currentTime.setText(formatTime(workoutDurationInMillis / 1000));
         workoutProgressBar = view.findViewById(R.id.workoutProgressBar);
         workoutProgressBar.setMax(100); // Setzen Sie den maximalen Wert
-        workoutProgressBar.setBackgroundColor(getResources().getColor(R.color.dividerGray)); // Setzen Sie die Hintergrundfarbe
+        workoutProgressBar.setBackgroundColor(getResources().getColor(R.color.timerBackground)); // Setzen Sie die Hintergrundfarbe
         workoutProgressBar.setProgress(100);
-        Button playButton = view.findViewById(R.id.play);
-        Button stopButton = view.findViewById(R.id.stop);
+        ImageButton playButton = view.findViewById(R.id.play);
+        ImageButton stopButton = view.findViewById(R.id.stop);
 
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handlePlayButtonClick();
+        playButton.setOnClickListener(view1 -> {
+            // Handle Play button click
+            handlePlayButtonClick();
+
+            if (!isPlayPressed) {
+                playButton.setImageDrawable(getResources().getDrawable(R.drawable.avd_play_to_pause));
+                Drawable drawable = playButton.getDrawable();
+                avd2 = (AnimatedVectorDrawable) drawable;
+                avd2.start();
+
+            } else {
+                playButton.setImageDrawable(getResources().getDrawable(R.drawable.avd_pause_to_play));
+                Drawable drawable = playButton.getDrawable();
+                avd2 = (AnimatedVectorDrawable) drawable;
+                avd2.start();
+
             }
+
+            isPlayPressed = !isPlayPressed;
         });
 
-        stopButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                handleStopButtonClick();
+        stopButton.setOnClickListener(v -> {
+            // Handle Stop button click
+            handleStopButtonClick();
+
+            playButton.setImageDrawable(getResources().getDrawable(R.drawable.avd_pause_to_play));
+            Drawable drawable = playButton.getDrawable();
+            avd2 = (AnimatedVectorDrawable) drawable;
+            avd2.start();
+            if (isPlayPressed) {
+                isPlayPressed = !isPlayPressed;
             }
         });
-
 
 
         workoutSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -114,17 +142,19 @@ public class FragmentTimer extends Fragment {
                 // workoutDurationInMillis nur beim Start oder Neustart aktualisieren
                 workoutTimeTextView.setText("Übungszeit: " + formatTime(progress));
                 workoutTemp = progress * 1000;
-                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                if (!isRestPaused && !isWorkoutPaused && !isWorkoutRunning && !isRestRunning) {
                     currentTime.setText(formatTime(workoutDurationInMillis / 1000));
                     workoutDurationInMillis = progress * 1000;
                 }
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         restSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -132,16 +162,18 @@ public class FragmentTimer extends Fragment {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 restTemp = progress * 1000;
                 restTimeTextView.setText("Pausenzeit: " + formatTime(progress));
-                if (!isRestPaused&&!isWorkoutPaused&&!isWorkoutRunning&&!isRestRunning) {
+                if (!isRestPaused && !isWorkoutPaused && !isWorkoutRunning && !isRestRunning) {
                     restDurationInMillis = progress * 1000;
                 }
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         return view;
@@ -241,14 +273,14 @@ public class FragmentTimer extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für den Timer.
      */
     private void openTutorialDialog() {
-        String textContent = "Hier ist der Tutorial-Text, den du anzeigen möchtest.";
+        String textContent = "Über die beiden Regler \"Übungszeit\" und \"Pausenzeit\" stellen sie den gewünschten Trainingszyklus ein. Anschließend können sie den Play-Button betätigen um den Timer zu starten.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
-        titleTextView.setText("Tutorial Übungen");
+        titleTextView.setText("Tutorial Timer");
         builder.setCustomTitle(titleView);
 
         // Erstellet ein TextView, um den Textinhalt anzuzeigen
@@ -279,6 +311,7 @@ public class FragmentTimer extends Fragment {
 
 
 
+
     //=====================================================TIMERFUNKTIONEN==========================================================================
 
     /**
@@ -286,12 +319,15 @@ public class FragmentTimer extends Fragment {
      *
      * @param initialTime Die anfängliche Zeit für den Timer.
      */
+
     private void startWorkoutTimer(long initialTime) {
+        currentTime.setTextColor(getResources().getColor(R.color.pastelGreen));
+
         if (isWorkoutRunning) {
             return;
         }
 
-        if (!isWorkoutPaused&&!isRestPaused) {
+        if (!isWorkoutPaused && !isRestPaused) {
             isWorkoutRunning = true;
             workoutTimer = new CountDownTimer(initialTime, 1000) {
                 @Override
@@ -310,8 +346,7 @@ public class FragmentTimer extends Fragment {
                     currentTime.setVisibility(View.VISIBLE);
                 }
             }.start();
-        }
-        else if (isWorkoutPaused&&!isRestPaused){
+        } else if (isWorkoutPaused && !isRestPaused) {
             isWorkoutRunning = true;
             workoutTimer = new CountDownTimer(remainingWorkoutTime, 1000) {
                 @Override
@@ -331,11 +366,11 @@ public class FragmentTimer extends Fragment {
 
                 }
             }.start();
-        }
-        else if (isRestPaused){
+        } else if (isRestPaused) {
             startRestTimer();
         }
     }
+
 
     /**
      * Aktualisiert die ProgressBar basierend auf dem aktuellen Fortschritt.
@@ -346,19 +381,22 @@ public class FragmentTimer extends Fragment {
             // Berechnet den Fortschritt basierend auf der verbleibenden Zeit
             int progress = (int) ((double) remainingWorkoutTime / workoutDurationInMillis * 100);
 
-            // Aktualisiert die ProgressBar
-            workoutProgressBar.setColor(getResources().getColor(R.color.light_blue_600)); // Setzen Sie die Farbe der gefüllten Fläche auf Grün
+            // Aktualisieren Sie die ProgressBar
+            workoutProgressBar.setColor(getResources().getColor(R.color.pastelGreen)); // Setzen Sie die Farbe der gefüllten Fläche auf Grün
             workoutProgressBar.setProgress(progress);
             Log.d("CHAD", "update Progressbar aufgerufen" + progress);
-        }
-        else if (isRestRunning){
-            // Berechnet den Fortschritt basierend auf der verbleibenden Zeit
+        } else if (isRestRunning) {
+            // Berechnen Sie den Fortschritt basierend auf der verbleibenden Zeit
+
             int progress = (int) ((double) remainingRestTime / restDurationInMillis * 100);
 
             // Aktualisiert die ProgressBar
             workoutProgressBar.setColor(getResources().getColor(R.color.softRed)); // Setzen Sie die Farbe der gefüllten Fläche auf Orange
             Log.d("CHAD", "Rest is running");
             workoutProgressBar.setProgress(progress);
+        } else {
+            workoutProgressBar.setColor(R.color.timerBackground);
+            workoutProgressBar.setProgress(100);
         }
 
     }
@@ -367,25 +405,27 @@ public class FragmentTimer extends Fragment {
      * Startet den Rest-Timer.
      */
     private void startRestTimer() {
+        currentTime.setTextColor(getResources().getColor(R.color.restTimer));
+
         remainingWorkoutTime = workoutDurationInMillis;
         isRestRunning = true;
-        if (!isRestPaused){
-        restTimer = new CountDownTimer(restDurationInMillis, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                long seconds = millisUntilFinished / 1000;
-                currentTime.setText(formatTime(seconds));
-                remainingRestTime = millisUntilFinished;
-                updateProgressbar();
-            }
+        if (!isRestPaused) {
+            restTimer = new CountDownTimer(restDurationInMillis, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    long seconds = millisUntilFinished / 1000;
+                    currentTime.setText(formatTime(seconds));
+                    remainingRestTime = millisUntilFinished;
+                    updateProgressbar();
+                }
 
-            @Override
-            public void onFinish() {
-                isWorkoutPaused = false;
-                startWorkoutTimer(remainingWorkoutTime); // Starte den Workout-Timer mit der verbleibenden Zeit
-            }
-        }.start();}
-        else if (isRestPaused){
+                @Override
+                public void onFinish() {
+                    isWorkoutPaused = false;
+                    startWorkoutTimer(remainingWorkoutTime); // Starte den Workout-Timer mit der verbleibenden Zeit
+                }
+            }.start();
+        } else if (isRestPaused) {
             restTimer = new CountDownTimer(remainingRestTime, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -413,8 +453,7 @@ public class FragmentTimer extends Fragment {
             isWorkoutRunning = false;
             isWorkoutPaused = true;
             workoutTimer.cancel();
-        }
-        else if (isRestRunning){
+        } else if (isRestRunning) {
             isRestRunning = false;
             isRestPaused = true;
             restTimer.cancel();
@@ -438,10 +477,10 @@ public class FragmentTimer extends Fragment {
         isWorkoutRunning = false;
         workoutDurationInMillis = workoutTemp;
         restDurationInMillis = restTemp;
-        currentTime.setText(formatTime(workoutDurationInMillis/1000));
-        workoutProgressBar.setColor(R.color.pastelGreen);
-        workoutProgressBar.setProgress(100);
+        currentTime.setText(formatTime(workoutDurationInMillis / 1000));
+        updateProgressbar();
     }
+
 
     /**
      * Formatieren der Zeit in das HH:MM-Format.
