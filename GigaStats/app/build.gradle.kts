@@ -53,6 +53,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.github.AnyChart:AnyChart-Android:1.1.5")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
 }
 
