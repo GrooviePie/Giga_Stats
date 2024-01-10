@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.example.giga_stats.R;
 
+/**
+ * Eine runde Fortschrittsleiste für das Fragment FragmentTimer, die in einem View dargestellt wird.
+ */
 public class FragmentTimerRoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;
@@ -16,18 +19,41 @@ public class FragmentTimerRoundProgressBar extends View {
     private int backgroundColor = getResources().getColor(R.color.timerBackground); // Hintergrundfarbe
     private int padding = 20; // Abstand von den Rändern
 
+    /**
+     * Standardkonstruktor für die runde Fortschrittsleiste.
+     *
+     * @param context Der Kontext, in dem die Fortschrittsleiste erstellt wird.
+     */
     public FragmentTimerRoundProgressBar(Context context) {
         super(context);
     }
 
+    /**
+     * Konstruktor für die runde Fortschrittsleiste mit Attributen.
+     *
+     * @param context Der Kontext, in dem die Fortschrittsleiste erstellt wird.
+     * @param attrs   Die Attribute des XML-Elements, das die Fortschrittsleiste definiert.
+     */
     public FragmentTimerRoundProgressBar(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Konstruktor für die runde Fortschrittsleiste mit Attributen und Stilen.
+     *
+     * @param context      Der Kontext, in dem die Fortschrittsleiste erstellt wird.
+     * @param attrs        Die Attribute des XML-Elements, das die Fortschrittsleiste definiert.
+     * @param defStyleAttr Der Stil des XML-Elements, das die Fortschrittsleiste definiert.
+     */
     public FragmentTimerRoundProgressBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
+    /**
+     * Wird aufgerufen, um die Fortschrittsleiste zu zeichnen.
+     *
+     * @param canvas Der Canvas, auf dem die Fortschrittsleiste gezeichnet wird.
+     */
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
@@ -62,19 +88,39 @@ public class FragmentTimerRoundProgressBar extends View {
         canvas.drawArc(backgroundRect, -90, angle, false, foregroundPaint);
     }
 
+    /**
+     * Setzt den maximalen Wert der Fortschrittsleiste.
+     *
+     * @param max Der maximale Wert der Fortschrittsleiste.
+     */
     public void setMax(int max) {
         this.max = max;
     }
 
+    /**
+     * Setzt den Fortschritt der Fortschrittsleiste und aktualisiert die Ansicht.
+     *
+     * @param progress Der Fortschritt der Fortschrittsleiste.
+     */
     public void setProgress(int progress) {
         this.progress = progress;
         invalidate();
     }
 
+    /**
+     * Setzt die Farbe des Fortschrittsbalkens.
+     *
+     * @param color Die Farbe des Fortschrittsbalkens.
+     */
     public void setColor(int color) {
         this.color = color;
     }
 
+    /**
+     * Setzt die Hintergrundfarbe der Fortschrittsleiste.
+     *
+     * @param backgroundColor Die Hintergrundfarbe der Fortschrittsleiste.
+     */
     public void setBackgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
     }

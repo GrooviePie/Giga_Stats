@@ -40,6 +40,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Ein BottomSheetDialogFragment zur Anzeige von laufenden Workouts und deren Statistiken.
+ */
 public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment implements OnDataChangedListener {
     private Workout workout;
     private TextView startWorkout;
@@ -55,10 +58,23 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
     private WorkoutExercises workoutExercises;
 
+    /**
+     * Konstruktor für das FragmentRunningWorkoutBottomSheet.
+     *
+     * @param workout Das aktuelle Workout, das angezeigt wird.
+     */
     public FragmentRunningWorkoutBottomSheet(Workout workout) {
         this.workout = workout;
     }
 
+    /**
+     * Wird aufgerufen, um die Benutzeroberfläche des Fragments zu erstellen oder zu ändern.
+     *
+     * @param inflater           Der LayoutInflater zum Aufblasen des Layouts.
+     * @param container          Die ViewGroup, in der das Fragment platziert wird.
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     * @return Die erstellte Benutzeroberfläche.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_layout_bottom_sheet_running_workout, container, false);
@@ -99,7 +115,9 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
 
     //=====================================================DIALOGE==========================================================================
 
-    //Dialog zum Beenden des Workouts
+    /**
+     * Zeigt einen Bestätigungsdialog zum Beenden des Workouts an.
+     */
     private void showConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -147,6 +165,9 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         negativeButton.setTextSize(14);
     }
 
+    /**
+     * Zeigt einen Dialog mit den Gesamtstatistiken des Workouts an.
+     */
     private void showTotalStatsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -208,36 +229,53 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     }
 
 
+
     //=====================================================TIMER==========================================================================
 
+    /**
+     * Stoppt den Timer für das Workout.
+     */
     private void stopTimer() {
         // Beende den Timer
         timerHandler.removeCallbacks(timerRunnable);
     }
 
+    /**
+     * Startet den Timer für das Workout.
+     */
     private void startTimer() {
         // Starte den Timer, der alle 1 Sekunde aktualisiert wird
         timerHandler.postDelayed(timerRunnable, 1000);
     }
-
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            // Aktualisiere den Timer und starte erneut
+            // Aktualisiert den Timer und startet ihn erneut
             seconds++;
             timerTextView.setText(formatTimer(seconds));
             startTimer();
         }
     };
 
+    /**
+     * Formatieren der Timer-Anzeige in Minuten und Sekunden.
+     *
+     * @param seconds Die vergangenen Sekunden.
+     * @return Das formatierte Zeitformat (MM:SS).
+     */
     private String formatTimer(int seconds) {
         int minutes = seconds / 60;
         int remainingSeconds = seconds % 60;
         return String.format("%02d:%02d", minutes, remainingSeconds);
     }
 
+
+
     //=================================================HILFSMETHODEN======================================================================
 
+    /**
+     * Aktualisiert die Liste der laufenden Workout-Übungen.
+     */
     private void updateRunningWorkoutExercisesList() {
         LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkoutLD(workout.getWorkout_id());
         workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
@@ -252,6 +290,13 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         });
     }
 
+    /**
+     * Holt die Details der Sätze für eine Übung ab und berechnet die Durchschnittswerte.
+     *
+     * @param workoutId        Die ID des Workouts.
+     * @param exerciseId       Die ID der Übung.
+     * @param workoutExercises Die Daten der laufenden Workout-Übungen.
+     */
     private void fetchSetsAndCalculateAverages(int workoutId, int exerciseId, WorkoutExercises workoutExercises) {
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             List<Sets> sets = appDatabase.setDao().getSetsForExerciseAndWorkout(workoutId, exerciseId);
@@ -272,6 +317,12 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         }, ContextCompat.getMainExecutor(context));
     }
 
+    /**
+     * Berechnet die Durchschnittswerte für eine Liste von Sets.
+     *
+     * @param sets Die Liste der Sets.
+     * @return Die Durchschnittswerte.
+     */
     private SetAverage calculateSetAverages(List<Sets> sets) {
         double totalWeight = 0.0;
         double totalReps = 0.0;
@@ -282,6 +333,9 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         return new SetAverage(totalWeight / sets.size(), totalReps / sets.size());
     }
 
+    /**
+     * Speichert die Sets in der Datenbank.
+     */
     private void persistSets() {
         HashMap<Integer, List<Sets>> setsMap = convertSetDetailsToSetsMap();
 
@@ -297,6 +351,11 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         });
     }
 
+    /**
+     * Konvertiert SetDetails in eine Map von Sets für jede Übung.
+     *
+     * @return Die Map von Sets.
+     */
     private HashMap<Integer, List<Sets>> convertSetDetailsToSetsMap() {
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
@@ -322,6 +381,13 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         return setsMap;
     }
 
+    /**
+     * Berechnet die Effizienz zwischen alten und aktuellen Durchschnittswerten.
+     *
+     * @param oldSetAvg Die alten Durchschnittswerte.
+     * @param currSetAvg Die aktuellen Durchschnittswerte.
+     * @return Die berechnete Effizienz.
+     */
     private double calculateEfficiency(SetAverage oldSetAvg, SetAverage currSetAvg) {
         double weightEfficiency = 0.0;
         if (oldSetAvg.getAverageWeight() != 0) { // to avoid division by zero
@@ -336,12 +402,20 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         return (weightEfficiency + repsEfficiency) / 2;
     }
 
+    /**
+     * Wird aufgerufen, wenn sich die Daten geändert haben.
+     *
+     * @param setDetailsPerExercise Die Set-Details pro Übung.
+     */
     @Override
     public void onDataChanged(HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise) {
         this.setDetailsPerExercise = setDetailsPerExercise;
         Log.d("CHAD", "FragmentBottomSheet: onDataChanged: setDetailsPerExercise: " + setDetailsPerExercise.toString());
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment zerstört wird.
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();

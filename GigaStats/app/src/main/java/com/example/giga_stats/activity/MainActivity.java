@@ -1,10 +1,18 @@
+/**
+ * Die Klasse `MainActivity` dient als Hauptzugriffspunkt für die Giga Stats-Anwendung.
+ * Sie umfasst die Einrichtung der Benutzeroberfläche, der Navigation und der Lebenszyklusereignisse.
+ *
+ * @author Jens Müller, Artur Gibert und Joshua Reumann
+ * @version 1.0
+ * @since 08.01.2024
+ */
+
 package com.example.giga_stats.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-//import androidx.fragment.app.FragmentManager;
 import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -28,9 +36,11 @@ import com.google.android.material.tabs.TabLayoutMediator;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO:
-//       Datenbank überarbeiten (sinnvolle CASCADE-Beziehungen einrichten)
 
+/**
+ * Die Klasse `MainActivity` dient als Hauptzugriffspunkt für die Giga Stats-Anwendung.
+ * Sie umfasst die Einrichtung der Benutzeroberfläche, der Navigation und der Lebenszyklusereignisse.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
@@ -45,18 +55,34 @@ public class MainActivity extends AppCompatActivity {
     static Context context;
     private int position = 2;
 
+    /**
+     * Standardkonstruktor für die Klasse `MainActivity`.
+     */
     public MainActivity() {
     }
 
+    /**
+     * Gibt die Instanz der `AppDatabase` für Datenbankoperationen zurück.
+     *
+     * @return Die Instanz der `AppDatabase`.
+     */
     public static AppDatabase getAppDatabase() {
         return AppDatabase.getDatabase(context);
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität gestartet wird. Zuständig für die Initialisierung der
+     * Benutzeroberfläche, der Datenbank und die Einrichtung der Navigation.
+     *
+     * @param savedInstanceState Wenn die Aktivität neu initialisiert wird, nachdem sie zuvor
+     *                           geschlossen wurde, enthält dieses Bundle die Daten, die sie zuletzt
+     *                           in {@link #onSaveInstanceState} bereitgestellt hat.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        // Einrichten des Nachtmodus basierend auf der Systemkonfiguration
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
@@ -73,20 +99,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         context = getBaseContext();
-
+        // Initialisieren der Room-Datenbank
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
-        // Initialisieren Sie die Toolbar und setzen Sie sie als Aktionsleiste
+        // Initialisieren der Toolbar und als ActionBar festlegen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
+        // Initialisieren der UI-Komponenten
         viewPager2 = findViewById(R.id.viewPager2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
 
-        // Initialisiere die Instanzvariablen für die Fragmente
+        // Initialisieren der Fragmente
         fragmentStatistics = new FragmentStatistics();
         fragmentStatistics.setAppDatabase(appDatabase);
         fragmentTimer = new FragmentTimer();
@@ -105,16 +132,18 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(fragmentExercises);
         fragments.add(fragmentWorkouts);
 
+        // Einrichten des ViewPagers und Anhängen des Adapters
         AdapterSwipePager pagerAdapter = new AdapterSwipePager(this, fragments);
         viewPager2.setAdapter(pagerAdapter);
         viewPager2.setCurrentItem(2);// Startfragment wird gesetzt
-        // Set up the OnPageChangeCallback to detect swiping
+
+        // Einrichten des OnPageChangeCallback zum Erkennen von Wischvorgängen
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-                // Wechsle basierend auf der ausgewählten Position zu den entsprechenden Fragmenten
+                // Wechseln zu dem entsprechenden Fragment basierend auf der ausgewählten Position
                 switch (position) {
                     case 0:
                         viewPager2.setCurrentItem(0, true);
@@ -145,17 +174,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // TabLayout an ViewPager anhängen
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
 
 
-        // Set the "Start" button as selected
+        // Das "Start"-Symbol als ausgewählt markieren
         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
 
-        // Konfigurieren Sie die Bottom Navigation View
+        // Bottom Navigation View konfigurieren
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-
+            // Behandlung der Auswahl von Bottom Navigation Items
             if (itemId == R.id.STATS_BUTTONMENU_BUTTON) {
                 if (isCurrentFragment(fragmentStatistics)) {
                     viewPager2.setCurrentItem(0, true);
@@ -191,41 +221,65 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Überprüft, ob das übergebene Fragment das aktuelle Fragment ist.
+     *
+     * @param fragment Das zu überprüfende Fragment.
+     * @return `true`, wenn das Fragment das aktuelle Fragment ist oder `currentFragment` `null` ist.
+     *         Ansonsten `false`.
+     */
     private boolean isCurrentFragment(Fragment fragment) {
         return currentFragment == null || !currentFragment.getClass().equals(fragment.getClass());
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität gestartet wird. Zeigt an, dass die Aktivität bald vollständig sichtbar wird.
+     */
     @Override
     protected void onStart() {
         super.onStart();
         Log.d("CHAD", "LIFE MAIN: onStart(): Die Activity wird bald komplett sichtbar");
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität wieder aufgenommen wird. Zeigt an, dass die Aktivität komplett sichtbar und aktiv ist.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         Log.d("CHAD", "LIFE MAIN: onResume(): Die Activity ist komplett sichtbar und aktiv");
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität pausiert wird. Zeigt an, dass eine andere Aktivität jetzt im Fokus ist.
+     */
     @Override
     protected void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE MAIN: onPause(): Eine andere Activity ist jetzt im Fokus");
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität gestoppt wird. Zeigt an, dass die Aktivität vollständig nicht mehr sichtbar ist.
+     */
     @Override
     protected void onStop() {
         super.onStop();
         Log.d("CHAD", "LIFE MAIN: onStop(): Activity ist vollständig nicht mehr sichtbar");
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität neu gestartet wird. Zeigt an, dass die Aktivität erneut gestartet wird.
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
         Log.d("CHAD", "LIFE MAIN: onRestart(): Die Activity wird erneut gestartet");
     }
 
+    /**
+     * Wird aufgerufen, wenn die Aktivität zerstört wird. Zeigt an, dass dies der letzte Aufruf der Aktivität vor der Zerstörung ist.
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

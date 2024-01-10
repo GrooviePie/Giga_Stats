@@ -19,15 +19,52 @@ import com.example.giga_stats.database.entities.WorkoutExerciseCrossRef;
 
 import java.util.concurrent.Executors;
 
+/**
+ * Die Klasse AppDatabase repräsentiert die Room-Datenbank der Giga Stats-Anwendung.
+ * Sie enthält DAOs für die Entitäten Exercise, Workout, WorkoutExerciseCrossRef und Sets.
+ * Die Datenbank wird durch die Annotation @Database definiert und erbt von RoomDatabase.
+ *
+ * @version 1.0
+ */
 @Database(entities = {Exercise.class, Workout.class, WorkoutExerciseCrossRef.class, Sets.class}, version = 11)
 public abstract class AppDatabase extends RoomDatabase {
-    public abstract ExerciseDAO exerciseDao();
-    public abstract WorkoutDAO workoutDao();
-    public abstract WorkoutExerciseCrossRefDAO workoutExerciseCrossRefDao();
-    public abstract SetsDAO setDao();
 
     private static AppDatabase instance;
 
+    /**
+     * Gibt das DAO-Objekt für die Entität Exercise zurück.
+     *
+     * @return Das ExerciseDAO-Objekt.
+     */
+    public abstract ExerciseDAO exerciseDao();
+
+    /**
+     * Gibt das DAO-Objekt für die Entität Workout zurück.
+     *
+     * @return Das WorkoutDAO-Objekt.
+     */
+    public abstract WorkoutDAO workoutDao();
+
+    /**
+     * Gibt das DAO-Objekt für die Entität WorkoutExerciseCrossRef zurück.
+     *
+     * @return Das WorkoutExerciseCrossRefDAO-Objekt.
+     */
+    public abstract WorkoutExerciseCrossRefDAO workoutExerciseCrossRefDao();
+
+    /**
+     * Gibt das DAO-Objekt für die Entität Sets zurück.
+     *
+     * @return Das SetsDAO-Objekt.
+     */
+    public abstract SetsDAO setDao();
+
+    /**
+     * Gibt eine Instanz der Datenbank zurück. Wenn keine Instanz vorhanden ist, wird eine neue erstellt.
+     *
+     * @param context Der Anwendungskontext.
+     * @return Die Datenbankinstanz.
+     */
     public static AppDatabase getDatabase(final Context context) {
         if (instance == null) {
             synchronized (AppDatabase.class) {
