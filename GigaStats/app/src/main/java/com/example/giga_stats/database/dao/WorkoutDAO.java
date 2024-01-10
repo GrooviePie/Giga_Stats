@@ -70,12 +70,22 @@ public interface WorkoutDAO {
     @Query("SELECT * FROM workouts WHERE workout_id = :id")
     Workout getWorkoutById(long id);
 
+
+    @Transaction
+    @Query("SELECT * FROM workouts")
+    LiveData<List<WorkoutExercises>> getWorkoutExercisesLD();
+  
+    @Transaction
+    @Query("SELECT * FROM workouts")
+    List<WorkoutExercises> getWorkoutExercises();
+
     /**
      * Gibt eine LiveData-Repräsentation von WorkoutExercises für ein bestimmtes Workout zurück.
      *
      * @param workout_id Die ID des Workouts.
      * @return LiveData-Repräsentation von WorkoutExercises für das angegebene Workout.
      */
+
     @Transaction
     @Query("SELECT * FROM workouts WHERE workout_id = :workout_id")
     LiveData<WorkoutExercises> getExercisesForWorkoutLD(int workout_id);

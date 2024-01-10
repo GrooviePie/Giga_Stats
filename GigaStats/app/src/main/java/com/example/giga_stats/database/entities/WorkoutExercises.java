@@ -5,6 +5,7 @@ import androidx.room.Junction;
 import androidx.room.Relation;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Die Klasse WorkoutExercises repräsentiert eine relationale Ansicht (Relation) zwischen Workouts und Exercises in der Giga Stats-Anwendung.
@@ -58,5 +59,18 @@ public class WorkoutExercises {
      */
     public void setExercises(List<Exercise> exercises) {
         this.exercises = exercises;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        WorkoutExercises that = (WorkoutExercises) o;
+        return Objects.equals(workout, that.workout) && Objects.equals(exercises, that.exercises);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workout, exercises);
     }
 }

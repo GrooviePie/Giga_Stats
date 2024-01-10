@@ -55,7 +55,7 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
     private RecyclerView recyclerViewBottomSheet;
     private Context context;
     private HashMap<Integer, ArrayList<SetDetails>> setDetailsPerExercise;
-    HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
+    private HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
     private WorkoutExercises workoutExercises;
 
     /**
