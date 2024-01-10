@@ -4,6 +4,7 @@ package com.example.giga_stats.fragments;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -37,26 +38,36 @@ import com.example.giga_stats.R;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * FragmentStatistics ist ein Fragment, das für die Anzeige von Statistiken zu Workouts und Übungen zuständig ist.
+ * Es verwendet RecyclerView zur Darstellung der Daten und AnyChart für die Visualisierung der Statistiken.
+ */
 public class FragmentStatistics extends Fragment {
     private AppDatabase appDatabase;
-    private List<WorkoutExercises> workoutsWithExercises = new ArrayList<>();
-    private List<WorkoutAveragesPerExercise> workoutAverages = new ArrayList<>();
-    private List<WorkoutEfficiencyPerExercise> workoutEfficiencies = new ArrayList<>();
+    private final List<WorkoutExercises> workoutsWithExercises = Collections.synchronizedList(new ArrayList<>());
+    private final List<WorkoutEfficiencyPerExercise> workoutEfficiencies = Collections.synchronizedList(new ArrayList<>());
+    private final List<WorkoutAveragesPerExercise> workoutAverages = new ArrayList<>();
     private RecyclerView statisticsRecyclerView;
     private Context context;
     private SwipeRefreshLayout swipeRefreshLayout;
 
 
-    //private boolean isFragmentInitialized = false; // Flagge, um zu überprüfen, ob das Fragment bereits initialisiert wurde
-
+    /**
+     * Standardkonstruktor für FragmentStatistics.
+     */
     public FragmentStatistics() {
-        // Required empty public constructor
     }
 
+    /**
+     * Setzt die Datenbankinstanz für das Fragment.
+     *
+     * @param appDatabase Die Instanz der App-Datenbank.
+     */
     public void setAppDatabase(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
@@ -65,8 +76,7 @@ public class FragmentStatistics extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CHAD", "onCreate() in StatisticsFragment.java aufgerufen");
-        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
-
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -79,11 +89,10 @@ public class FragmentStatistics extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE EXERCISES: onPause(): Das Fragment wechselt in den Hintergrund");
-        // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {// Überprüfen, ob das Fragment bereits initialisiert wurde
+    public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_option_statistics, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -101,12 +110,11 @@ public class FragmentStatistics extends Fragment {
         }
     }
 
-    public void onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
-            // Konfigurieren Sie die Toolbar nach Bedarf
-            toolbar.setTitle("Statistiken"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitle("Statistiken");
         }
     }
 
@@ -125,20 +133,12 @@ public class FragmentStatistics extends Fragment {
         }
 
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                // Rufen Sie hier Ihre Methode zum Laden der Daten auf
-                updateStatisticsList();
-            }
-        });
+        swipeRefreshLayout.setOnRefreshListener(this::updateStatisticsList);
 
         return view;
     }
 
     private void openTutorialDialog() {
-        // Der Textinhalt, den du anzeigen möchtest
-        //TODO: Tutorial schreiben für Fragment "Statistics"
         String textContent = "Hier werden in Zukunft die Statistiken der Benutzer angezeigt.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
@@ -149,11 +149,9 @@ public class FragmentStatistics extends Fragment {
         titleTextView.setText("Tutorial Statistik");
         builder.setCustomTitle(titleView);
 
-        // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
 
-        // Fügen Sie das TextView zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(textView);
@@ -177,45 +175,21 @@ public class FragmentStatistics extends Fragment {
 
     //============================================HILFSMETHODEN=================================================
 
-    public void updateStatisticsList(){
-//        LiveData<List<WorkoutExercises>> workoutExercisesLiveDataList = appDatabase.workoutDao().getWorkoutExercises();
-//        workoutExercisesLiveDataList.observe(getViewLifecycleOwner(), workoutsWithExercises -> {
-//            if (workoutsWithExercises != null) {
-//                this.workoutsWithExercises = workoutsWithExercises;
-//
-//                for (WorkoutExercises we : workoutsWithExercises) {
-//                    WorkoutEfficiencyPerExercise workoutEfficiency = new WorkoutEfficiencyPerExercise();
-//                    workoutEfficiency.setWorkout(we.getWorkout());
-//
-//                    for (Exercise ex : we.getExercises()) {
-//                        fetchSetsAndCalculateAverages(we.getWorkout(), ex.getExercise_id());
-//                        HashMap<Integer, Double> efficiencyPerExercise = new HashMap<>();
-//
-//                        for (WorkoutAveragesPerExercise wape : workoutAverages) {
-//
-//                            wape.getSetAveragePerExercise().forEach((key, value) -> {
-//                                double efficiency = calculateEfficiency(ex, value);
-//                                efficiencyPerExercise.put(key, efficiency);
-//                            });
-//
-//                            workoutEfficiency.setEfficiencyPerExercise(efficiencyPerExercise);
-//                        }
-//                    }
-//                    workoutEfficiencies.add(workoutEfficiency);
-//                }
-//
-//                AdapterStatistics adapter = new AdapterStatistics(context, workoutsWithExercises, workoutEfficiencies);
-//                statisticsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-//                statisticsRecyclerView.setAdapter(adapter);
-//            } else {
-//                Log.d("CHAD", "FragmentRunningWorkoutBottomSheet - updateList() -> workoutsWithExercises = null");
-//            }
-//        });
-        CompletableFuture<Void> future = CompletableFuture.runAsync(()->{
+    /**
+     * Aktualisiert die Liste der Statistiken. Dieser Vorgang umfasst das Abrufen der neuesten Daten aus der Datenbank
+     * und deren Anzeige im RecyclerView.
+     */
+    public void updateStatisticsList() {
+        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             List<WorkoutExercises> workoutsWithExercises = appDatabase.workoutDao().getWorkoutExercises();
             if (workoutsWithExercises != null) {
-                this.workoutsWithExercises = workoutsWithExercises;
-
+                synchronized (this.workoutsWithExercises) {
+                    this.workoutsWithExercises.clear();
+                    this.workoutsWithExercises.addAll(workoutsWithExercises);
+                    synchronized (this.workoutEfficiencies) {
+                        this.workoutEfficiencies.clear();
+                    }
+                }
                 for (WorkoutExercises we : workoutsWithExercises) {
                     WorkoutEfficiencyPerExercise workoutEfficiency = new WorkoutEfficiencyPerExercise();
                     workoutEfficiency.setWorkout(we.getWorkout());
@@ -241,22 +215,25 @@ public class FragmentStatistics extends Fragment {
             }
         });
 
-        future.thenRunAsync(()->{
-
-            AdapterStatistics adapter = (AdapterStatistics) statisticsRecyclerView.getAdapter();
-
-            if (adapter != null) {
-                adapter.updateData(workoutsWithExercises, workoutEfficiencies);
-            } else {
-                adapter = new AdapterStatistics(getContext(), workoutsWithExercises, workoutEfficiencies);
-                statisticsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
-                statisticsRecyclerView.setAdapter(adapter);
+        future.thenRunAsync(() -> {
+            synchronized (this.workoutsWithExercises) {
+                synchronized (this.workoutEfficiencies) {
+                    AdapterStatistics adapter = new AdapterStatistics(context, workoutsWithExercises, workoutEfficiencies);
+                    statisticsRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+                    statisticsRecyclerView.setAdapter(adapter);
+                }
             }
-
+            statisticsRecyclerView.invalidate();
             swipeRefreshLayout.setRefreshing(false);
         }, ContextCompat.getMainExecutor(context));
     }
 
+    /**
+     * Berechnet die durchschnittlichen Werte für eine Menge von Sets.
+     *
+     * @param sets Eine Liste von Sets, für die der Durchschnitt berechnet werden soll.
+     * @return Ein Objekt der Klasse SetAverage, das die Durchschnittswerte enthält.
+     */
     private SetAverage calculateSetAverages(List<Sets> sets) {
         double totalWeight = 0.0;
         double totalReps = 0.0;
@@ -267,29 +244,38 @@ public class FragmentStatistics extends Fragment {
         return new SetAverage(totalWeight / sets.size(), totalReps / sets.size());
     }
 
+    /**
+     * Holt die Sets für eine spezifische Übung und ein Workout aus der Datenbank und berechnet deren Durchschnittswerte.
+     *
+     * @param workout    Das Workout-Objekt.
+     * @param exerciseId Die ID der Übung.
+     */
     private void fetchSetsAndCalculateAverages(Workout workout, int exerciseId) {
-//        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-            HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
-            WorkoutAveragesPerExercise workoutAverage = new WorkoutAveragesPerExercise();
-            List<Sets> sets = appDatabase.setDao().getSetsForExerciseAndWorkout(workout.getWorkout_id(), exerciseId);
+        HashMap<Integer, SetAverage> setAveragePerExercise = new HashMap<>();
+        WorkoutAveragesPerExercise workoutAverage = new WorkoutAveragesPerExercise();
+        List<Sets> sets = appDatabase.setDao().getSetsForExerciseAndWorkout(workout.getWorkout_id(), exerciseId);
 
-            if (sets != null && !sets.isEmpty()) {
-                SetAverage average = calculateSetAverages(sets);
-                setAveragePerExercise.put(exerciseId, average);
-            } else {
-                setAveragePerExercise.put(exerciseId, new SetAverage());
-            }
+        if (sets != null && !sets.isEmpty()) {
+            SetAverage average = calculateSetAverages(sets);
+            setAveragePerExercise.put(exerciseId, average);
+        } else {
+            setAveragePerExercise.put(exerciseId, new SetAverage());
+        }
 
-            workoutAverage.setWorkout(workout);
-            workoutAverage.setSetAveragePerExercise(setAveragePerExercise);
-            workoutAverages.add(workoutAverage);
+        workoutAverage.setWorkout(workout);
+        workoutAverage.setSetAveragePerExercise(setAveragePerExercise);
+        workoutAverages.add(workoutAverage);
 
-            Log.d("CHAD", "fetchSetsAndCalculateAverages: setAveragePerExercise: " + setAveragePerExercise.toString());
-//        });
-//
-//        future.join();
+        Log.d("CHAD", "fetchSetsAndCalculateAverages: setAveragePerExercise: " + setAveragePerExercise.toString());
     }
 
+    /**
+     * Berechnet die Effizienz basierend auf den durchschnittlichen Werten der Sets und den Zielwerten der Übung.
+     *
+     * @param exercise    Das Exercise-Objekt, für das die Effizienz berechnet werden soll.
+     * @param currSetAvg  Das SetAverage-Objekt, das die durchschnittlichen Werte der Sets enthält.
+     * @return Die berechnete Effizienz als double-Wert.
+     */
     private double calculateEfficiency(Exercise exercise, SetAverage currSetAvg) {
         double weightEfficiency = 0.0;
         if (exercise.getWeight() != 0) { // to avoid division by zero

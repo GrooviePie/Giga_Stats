@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.anychart.APIlib;
 import com.anychart.AnyChartView;
 import com.anychart.AnyChart;
 import com.anychart.chart.common.dataentry.DataEntry;
@@ -27,18 +28,26 @@ import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExercises;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+/**
+ * AdapterStatistics ist ein RecyclerView-Adapter, der für die Darstellung von Workout-Statistiken
+ * zuständig ist, einschließlich Übungen und deren Effizienz. Dieser Adapter verwendet AnyChart,
+ * um Daten in Form von Balkendiagrammen zu visualisieren.
+ */
 public class AdapterStatistics extends RecyclerView.Adapter<AdapterStatistics.ViewHolder> {
 
-    private Context context;
-    private List<WorkoutExercises> workoutsWithExercises;
-    private List<Exercise> exercises;
-    private HashMap<Integer, Double> efficiencyPerExercise;
-    private List<WorkoutEfficiencyPerExercise> workoutEfficiencies;
-    private Workout workout;
+    private final Context context;
+    private final List<WorkoutExercises> workoutsWithExercises;
+    private final List<WorkoutEfficiencyPerExercise> workoutEfficiencies;
 
+    /**
+     * Konstruktor für die AdapterStatistics-Klasse.
+     *
+     * @param context               Der Kontext der Anwendung.
+     * @param workoutsWithExercises Eine Liste von WorkoutExercises, die die Workouts und deren zugehörige Übungen darstellen.
+     * @param workoutEfficiencies   Eine Liste von WorkoutEfficiencyPerExercise, die die Effizienz jeder Übung darstellt.
+     */
     public AdapterStatistics(Context context, List<WorkoutExercises> workoutsWithExercises, List<WorkoutEfficiencyPerExercise> workoutEfficiencies){
         this.context = context;
         this.workoutsWithExercises = workoutsWithExercises;
@@ -54,44 +63,12 @@ public class AdapterStatistics extends RecyclerView.Adapter<AdapterStatistics.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        exercises = workoutsWithExercises.get(position).getExercises();
-        workout = workoutsWithExercises.get(position).getWorkout();
-        efficiencyPerExercise = workoutEfficiencies.get(position).getEfficiencyPerExercise();
+        Workout workout = workoutsWithExercises.get(position).getWorkout();
 
-        int strokeColor = ContextCompat.getColor(context, R.color.pastelGreen);
-        String hexStrokeColor = String.format("#%06X", (0xFFFFFF & strokeColor));
+        WorkoutExercises workoutExercises = workoutsWithExercises.get(position);
+        WorkoutEfficiencyPerExercise workoutEfficiency = workoutEfficiencies.get(position);
 
-        int fontColor = ContextCompat.getColor(context, R.color.textColorPrimary);
-        String hexFontColor = String.format("#%06X", (0xFFFFFF & fontColor));
-
-        List<DataEntry> dataEntries = new ArrayList<>();
-        for (Exercise ex : exercises) {
-            Double efficiency = efficiencyPerExercise.getOrDefault(ex.getExercise_id(), 0.0);
-            dataEntries.add(new ValueDataEntry(ex.getName(), efficiency));
-        }
-
-        Set set = Set.instantiate();
-        set.data(dataEntries);
-
-        Mapping seriesMapping = set.mapAs("{ x: 'x', value: 'value' }");
-
-        Bar series = holder.cartesian.bar(seriesMapping);
-        series.name("Effizienz");
-        series.tooltip()
-                .position("right")
-                .anchor(Anchor.LEFT_CENTER)
-                .offsetX(5d)
-                .offsetY(5d);
-
-        series.labels(true);
-        series.labels().position("center")
-                .fontColor(hexFontColor)
-                .format("{%Value}{decimalsCount:2}");
-
-        series.fill("transparent");
-        series.stroke(hexStrokeColor, 1, "solid", "round", "round");
-
-        holder.updateChartData(dataEntries, workout.getName());
+        holder.bindData(workoutExercises, workoutEfficiency, context, workout.getName());
     }
 
     @Override
@@ -104,27 +81,31 @@ public class AdapterStatistics extends RecyclerView.Adapter<AdapterStatistics.Vi
         return workoutsWithExercises.size();
     }
 
-    public void updateData(List<WorkoutExercises> workoutsWithExercises, List<WorkoutEfficiencyPerExercise> workoutEfficiencies) {
-        this.workoutsWithExercises = workoutsWithExercises;
-        this.workoutEfficiencies = workoutEfficiencies;
-        updateAdapter();
-    }
-
-    private void updateAdapter() {
-        notifyDataSetChanged();
-    }
-
+    /**
+     * ViewHolder-Klasse für AdapterStatistics. Verwaltet die Darstellung eines einzelnen Elements in der RecyclerView.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        AnyChartView statisticsBarChart;
-        Cartesian cartesian;
+        private final AnyChartView statisticsBarChart;
 
+        /**
+         * Konstruktor für ViewHolder.
+         *
+         * @param itemView Die Ansicht des einzelnen Elements in der RecyclerView.
+         */
         public ViewHolder(View itemView) {
             super(itemView);
-            statisticsBarChart = (AnyChartView) itemView.findViewById(R.id.statistics_anychart_barchart);
-            initCartesian(itemView.getContext());
+            statisticsBarChart = itemView.findViewById(R.id.statistics_anychart_barchart);
         }
 
-        private void initCartesian(Context context) {
+        /**
+         * Bindet Daten an den ViewHolder, um die Workout-Statistiken für jede Übung anzuzeigen.
+         *
+         * @param workoutExercises    Das WorkoutExercises-Objekt, das die Übungen für ein bestimmtes Workout enthält.
+         * @param workoutEfficiency   Das WorkoutEfficiencyPerExercise-Objekt, das die Effizienzinformationen für jede Übung enthält.
+         * @param context             Der Kontext der Anwendung.
+         * @param workoutName         Der Name des Workouts.
+         */
+        public void bindData(WorkoutExercises workoutExercises, WorkoutEfficiencyPerExercise workoutEfficiency, Context context, String workoutName) {
             int strokeColor = ContextCompat.getColor(context, R.color.pastelGreen);
             String hexStrokeColor = String.format("#%06X", (0xFFFFFF & strokeColor));
 
@@ -134,8 +115,9 @@ public class AdapterStatistics extends RecyclerView.Adapter<AdapterStatistics.Vi
             int fontColor = ContextCompat.getColor(context, R.color.textColorPrimary);
             String hexFontColor = String.format("#%06X", (0xFFFFFF & fontColor));
 
-            cartesian = AnyChart.bar();
-            cartesian.animation(true);
+            APIlib.getInstance().setActiveAnyChartView(statisticsBarChart);
+            Cartesian cartesian = AnyChart.bar();
+
             cartesian.title().fontColor(hexFontColor);
             cartesian.background(hexBackgroundColor);
             cartesian.tooltip().positionMode(TooltipPositionMode.POINT);
@@ -148,16 +130,37 @@ public class AdapterStatistics extends RecyclerView.Adapter<AdapterStatistics.Vi
             cartesian.yAxis(0).labels().fontColor(hexFontColor);
             cartesian.yScale().minimum(0);
             cartesian.yScale().maximum(100);
-        }
-
-        public void updateChartData(List<DataEntry> dataEntries, String workoutName) {
-            cartesian.data(dataEntries);
             cartesian.title(workoutName);
-            statisticsBarChart.setChart(cartesian);
-        }
 
-        public void updateView(View view){
-            statisticsBarChart = view.findViewById(R.id.statistics_anychart_barchart);
+            List<DataEntry> dataEntries = new ArrayList<>();
+            for (Exercise ex : workoutExercises.getExercises()) {
+                Double efficiency = workoutEfficiency.getEfficiencyPerExercise().get(ex.getExercise_id());
+                if (efficiency != null) {
+                    dataEntries.add(new ValueDataEntry(ex.getName(), efficiency));
+                }
+            }
+
+            Set set = Set.instantiate();
+            set.data(dataEntries);
+            Mapping seriesMapping = set.mapAs("{ x: 'x', value: 'value' }");
+
+            Bar series = cartesian.bar(seriesMapping);
+            series.name("Effizienz");
+            series.tooltip()
+                    .position("right")
+                    .anchor(Anchor.LEFT_CENTER)
+                    .offsetX(5d)
+                    .offsetY(5d);
+
+            series.labels(true);
+            series.labels().position("center")
+                    .fontColor(hexFontColor)
+                    .format("{%Value}{decimalsCount:2}");
+
+            series.fill("transparent");
+            series.stroke(hexStrokeColor, 1, "solid", "round", "round");
+
+            statisticsBarChart.setChart(cartesian);
         }
     }
 }
