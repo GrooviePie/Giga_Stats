@@ -1,5 +1,6 @@
 package com.example.giga_stats.database.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -15,5 +16,8 @@ public interface SetsDAO {
 
     @Query("SELECT * FROM Sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
     List<Sets> getSetsForExerciseAndWorkout(long workoutId, long exerciseId);
+
+    @Query("SELECT * FROM Sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
+    LiveData<List<Sets>> getSetsForExerciseAndWorkoutLD(long workoutId, long exerciseId);
 
 }

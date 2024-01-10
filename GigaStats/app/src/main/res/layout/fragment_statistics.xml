@@ -13,12 +13,15 @@
         android:orientation="vertical"
         tools:context=".fragments.FragmentStatistics">
 
-        <com.anychart.AnyChartView
-            android:id="@+id/statistics_anychart_barchart"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/statistics_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="250dip"
-            android:layout_margin="16dip"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/layout_statistics_item"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
