@@ -47,12 +47,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * Fragment für die Verwaltung von Workouts und Übungen.
+ */
+
 public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRecyclerView.OnItemClickListener {
-
-    //TODO: Fenster für Hinzufügen eines Workouts
-    //TODO: Fenster für Bearbeiten eines Workouts
-
-    //TODO: Hardcoded Texte bearbeiten
 
     private ExpandableListView expandableListView;
     private RecyclerView recyclerView;
@@ -63,15 +62,31 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     private List<Exercise> selectedExercises = new ArrayList<>();
     private List<Integer> alrSelectedExercises = new ArrayList<>();
 
+    /**
+     * Standardkonstruktor für das Fragment.
+     */
     public FragmentWorkouts() {
-        // Required empty public constructor
+        // Erforderlicher leerer Standardkonstruktor
     }
 
+    /**
+     * Setzt die Referenz zur App-Datenbank.
+     *
+     * @param appDatabase Die Referenz zur App-Datenbank.
+     */
     public void setAppDatabase(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
 
+
+
     //=====================================================LEBENSZYKLUS==========================================================================
+
+    /**
+     * Wird aufgerufen, wenn das Fragment erstellt wird.
+     *
+     * @param savedInstanceState Die zuvor gespeicherten Daten des Fragments.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +104,14 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
 
+    /**
+     * Erstellt die Benutzeroberfläche des Fragments.
+     *
+     * @param inflater           Der LayoutInflater, der verwendet wird, um XML in eine View zu konvertieren.
+     * @param container          Der Container, in den die fragment_layout-View eingefügt wird.
+     * @param savedInstanceState Die zuvor gespeicherten Daten des Fragments.
+     * @return Die erstellte View.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d("CHAD", "LIFE WORKOUTS - onCreateView() in WorkoutsFragment.java aufgerufen");
@@ -108,6 +131,9 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         return rootView;
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment wieder in den Vordergrund tritt.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -115,6 +141,9 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment pausiert wird.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -122,7 +151,16 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
     }
 
+
+
     //=====================================================OPTIONSMENÜ==========================================================================
+
+    /**
+     * Erstellt das Optionsmenü des Fragments.
+     *
+     * @param menu     Das Optionsmenü.
+     * @param inflater Der MenuInflater, der verwendet wird, um das Menü aufzublasen.
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         Log.d("CHAD", "onCreateOptionsMenu() in WorkoutsFragment.java aufgerufen YEAHYEAHYEAH");
@@ -130,6 +168,12 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Behandelt die Auswahl einer Option im Optionsmenü.
+     *
+     * @param item Die ausgewählte Option im Menü.
+     * @return true, wenn die Auswahl erfolgreich behandelt wurde, sonst false.
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         Log.d("CHAD", "onOptionsItemSelected() in WorkoutsFragment.java aufgerufen");
@@ -146,6 +190,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         }
     }
 
+    /**
+     * Vorbereitet das Optionsmenü, bevor es angezeigt wird.
+     *
+     * @param menu Das Optionsmenü.
+     */
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
@@ -156,8 +205,17 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         }
     }
 
+
+
     //=====================================================KONTEXTMENÜ==========================================================================
 
+    /**
+     * Erstellt das Kontextmenü, wenn es angefordert wird.
+     *
+     * @param menu     Das Kontextmenü.
+     * @param v        Die View, die das Kontextmenü ausgelöst hat.
+     * @param menuInfo Zusätzliche Informationen über das ausgelöste Kontextmenü.
+     */
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -182,6 +240,12 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         }
     }
 
+    /**
+     * Behandelt die Auswahl im Kontextmenü.
+     *
+     * @param item Die ausgewählte Option im Kontextmenü.
+     * @return true, wenn die Auswahl erfolgreich behandelt wurde, sonst false.
+     */
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -220,8 +284,13 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         }
     }
 
+
+
     //=====================================================DIALOGE==========================================================================
 
+    /**
+     * Öffnet einen Dialog zum Hinzufügen eines neuen Workouts.
+     */
     private void openAddWorkoutDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -284,7 +353,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         negativeButton.setTextSize(14);
     }
 
-
+    /**
+     * Öffnet einen Dialog zum Bearbeiten eines vorhandenen Workouts.
+     *
+     * @param workoutId Die ID des zu bearbeitenden Workouts.
+     */
     private void openEditWorkoutsDialog(int workoutId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -354,6 +427,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         negativeButton.setTextSize(14);
     }
 
+    /**
+     * Öffnet einen Dialog zum Löschen eines vorhandenen Workouts.
+     *
+     * @param workoutId Die ID des zu löschenden Workouts.
+     */
     private void openDeleteWorkoutsDialog(int workoutId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -402,6 +480,9 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     }
 
 
+    /**
+     * Öffnet einen Dialog für das Tutorial des Workouts.
+     */
     private void openTutorialDialog() {
         // Der Textinhalt, den du anzeigen möchtest
         String textContent = "Um ein Workout anzulegen drücken sie den \"+\" Button. Sie können dann dem Workout einen Namen geben und von Ihnen angelegte Übungen hinzufügen.";
@@ -444,6 +525,9 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
     //=====================================================HILFSMETHODEN==========================================================================
 
+    /**
+     * Aktualisiert die Liste der Workouts in der Benutzeroberfläche.
+     */
     private void updateWorkoutsList() {
         LiveData<List<WorkoutExercises>> workoutWithExercisesLiveData = appDatabase.workoutExerciseCrossRefDao().getWorkoutsWithExercises();
 
@@ -456,6 +540,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         });
     }
 
+    /**
+     * Liest die verfügbaren Übungen aus der Datenbank und zeigt sie im Dialog an.
+     *
+     * @param dialogView Die View des Dialogs.
+     */
     private void readExercisesToAdd(View dialogView) {
         Log.d("CHAD", "WorkoutFragment -- readExercisesToAdd() aufgerufen");
 
@@ -472,6 +561,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         });
     }
 
+    /**
+     * Fügt ausgewählte Übungen einem vorhandenen Workout hinzu.
+     *
+     * @param workout_id Die ID des Workouts, zu dem die Übungen hinzugefügt werden sollen.
+     */
     private void addSelectedExercises(int workout_id) {
 //        LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkoutLD(workout_id);
 //        workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
@@ -497,6 +591,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
     }
 
+    /**
+     * Gibt den MenuInflater zurück, der zum Aufblasen des Menüs verwendet wird.
+     *
+     * @return Der MenuInflater des übergeordneten Activity, wenn vorhanden, ansonsten null.
+     */
     private MenuInflater getMenuInflater() {
         if (getActivity() != null) {
             return getActivity().getMenuInflater();
@@ -504,6 +603,11 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         return null;
     }
 
+    /**
+     * Behandelt Klick-Ereignisse auf Übungen in der RecyclerView.
+     *
+     * @param exercise Die ausgewählte Übung.
+     */
     @Override
     public void onItemClick(Exercise exercise) {
         if (!selectedExercises.contains(exercise)) {

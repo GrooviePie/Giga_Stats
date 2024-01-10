@@ -28,10 +28,10 @@ import android.widget.TextView;
 
 import com.example.giga_stats.R;
 
+/**
+ * Ein Fragment zur Anzeige und Steuerung eines Timer für Workout- und Pausenintervalle.
+ */
 public class FragmentTimer extends Fragment {
-
-    //TODO: Bottons bauen
-
     private CountDownTimer workoutTimer;
     private CountDownTimer restTimer;
     private TextView workoutTimeTextView;
@@ -54,19 +54,36 @@ public class FragmentTimer extends Fragment {
     AnimatedVectorDrawable avd2;
 
 
+    /**
+     * Leerer Standardkonstruktor für das FragmentTimer.
+     */
     public FragmentTimer() {
-        // Required empty public constructor
+        // Erforderlicher leerer Standardkonstruktor
     }
+
 
 
     //=====================================================LEBENSZYKLUS==========================================================================
 
+    /**
+     * Wird aufgerufen, wenn das Fragment erstellt wird.
+     *
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
     }
 
+    /**
+     * Erstellt und gibt die Benutzeroberfläche des Fragments zurück.
+     *
+     * @param inflater           Der LayoutInflater zum Aufblasen des Layouts.
+     * @param container          Die ViewGroup, in der das Fragment platziert wird.
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     * @return Die erstellte Benutzeroberfläche.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_timer, container, false);
@@ -84,7 +101,6 @@ public class FragmentTimer extends Fragment {
         ImageButton playButton = view.findViewById(R.id.play);
         ImageButton stopButton = view.findViewById(R.id.stop);
 
-
         playButton.setOnClickListener(view1 -> {
             // Handle Play button click
             handlePlayButtonClick();
@@ -100,11 +116,11 @@ public class FragmentTimer extends Fragment {
                 Drawable drawable = playButton.getDrawable();
                 avd2 = (AnimatedVectorDrawable) drawable;
                 avd2.start();
+
             }
 
             isPlayPressed = !isPlayPressed;
         });
-
 
         stopButton.setOnClickListener(v -> {
             // Handle Stop button click
@@ -163,6 +179,9 @@ public class FragmentTimer extends Fragment {
         return view;
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment in den Vordergrund tritt.
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -170,6 +189,9 @@ public class FragmentTimer extends Fragment {
         // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment in den Hintergrund wechselt.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -178,15 +200,27 @@ public class FragmentTimer extends Fragment {
     }
 
 
+
     //=====================================================OPTIONSMENÜ==========================================================================
 
-
+    /**
+     * Erstellt das Optionsmenü für das Fragment.
+     *
+     * @param menu     Das Optionsmenü.
+     * @param inflater Der MenuInflater zum Aufblasen des Menüs.
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_option_timer, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Wird aufgerufen, wenn ein Menüelement ausgewählt wird.
+     *
+     * @param item Das ausgewählte Menüelement.
+     * @return True, wenn die Auswahl behandelt wurde, sonst false.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -198,6 +232,9 @@ public class FragmentTimer extends Fragment {
         }
     }
 
+    /**
+     * Behandelt den Klick auf den Abspiel-Button.
+     */
     private void handlePlayButtonClick() {
         if (isWorkoutRunning || isRestRunning) {
             pauseWorkoutTimer();
@@ -206,38 +243,19 @@ public class FragmentTimer extends Fragment {
         }
     }
 
+    /**
+     * Behandelt den Klick auf den Stop-Button.
+     */
     private void handleStopButtonClick() {
         stopTimers();
     }
 
 
-
-    /* //TODO: Hier ist die alte Optionsbar
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-        if (itemId == R.id.option_menu_play_timer) {
-            startWorkoutTimer(workoutDurationInMillis); // Starte den Timer mit der verbleibenden Zeit
-            return true;
-        } else if (itemId == R.id.option_menu_pause_timer) {
-            pauseWorkoutTimer();
-            return true;
-        } else if (itemId == R.id.option_menu_stop_timer) {
-            stopTimers();
-            return true;
-        } else if (itemId == R.id.option_menu_restart_timer) {
-            restartWorkoutTimer();
-            return true;
-        } else if (itemId == R.id.option_menu_tutorial_timer) {
-            openTutorialDialog();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
-    }
-
- */
-
+    /**
+     * Aktualisiert das Optionsmenü.
+     *
+     * @param menu Das Optionsmenü.
+     */
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
@@ -248,12 +266,12 @@ public class FragmentTimer extends Fragment {
     }
 
 
-    //=====================================================KONTEXTMENÜ==========================================================================
-
 
     //=====================================================DIALOGE==========================================================================
 
-
+    /**
+     * Öffnet einen Dialog mit einem Tutorial für den Timer.
+     */
     private void openTutorialDialog() {
         String textContent = "Über die beiden Regler \"Übungszeit\" und \"Pausenzeit\" stellen sie den gewünschten Trainingszyklus ein. Anschließend können sie den Play-Button betätigen um den Timer zu starten.";
 
@@ -265,11 +283,11 @@ public class FragmentTimer extends Fragment {
         titleTextView.setText("Tutorial Timer");
         builder.setCustomTitle(titleView);
 
-        // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
+        // Erstellet ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
 
-        // Fügen Sie das TextView zum Dialog hinzu
+        // Fügent das TextView zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(textView);
@@ -292,8 +310,15 @@ public class FragmentTimer extends Fragment {
     }
 
 
+
+
     //=====================================================TIMERFUNKTIONEN==========================================================================
 
+    /**
+     * Startet oder pausiert den Workout-Timer basierend auf dem aktuellen Status.
+     *
+     * @param initialTime Die anfängliche Zeit für den Timer.
+     */
 
     private void startWorkoutTimer(long initialTime) {
         currentTime.setTextColor(getResources().getColor(R.color.pastelGreen));
@@ -346,10 +371,14 @@ public class FragmentTimer extends Fragment {
         }
     }
 
-    private void updateProgressbar() {
-        if (isWorkoutRunning) {
 
-            // Berechnen Sie den Fortschritt basierend auf der verbleibenden Zeit
+    /**
+     * Aktualisiert die ProgressBar basierend auf dem aktuellen Fortschritt.
+     */
+    private void updateProgressbar(){
+        if(isWorkoutRunning) {
+
+            // Berechnet den Fortschritt basierend auf der verbleibenden Zeit
             int progress = (int) ((double) remainingWorkoutTime / workoutDurationInMillis * 100);
 
             // Aktualisieren Sie die ProgressBar
@@ -358,9 +387,10 @@ public class FragmentTimer extends Fragment {
             Log.d("CHAD", "update Progressbar aufgerufen" + progress);
         } else if (isRestRunning) {
             // Berechnen Sie den Fortschritt basierend auf der verbleibenden Zeit
+
             int progress = (int) ((double) remainingRestTime / restDurationInMillis * 100);
 
-            // Aktualisieren Sie die ProgressBar
+            // Aktualisiert die ProgressBar
             workoutProgressBar.setColor(getResources().getColor(R.color.softRed)); // Setzen Sie die Farbe der gefüllten Fläche auf Orange
             Log.d("CHAD", "Rest is running");
             workoutProgressBar.setProgress(progress);
@@ -371,6 +401,9 @@ public class FragmentTimer extends Fragment {
 
     }
 
+    /**
+     * Startet den Rest-Timer.
+     */
     private void startRestTimer() {
         currentTime.setTextColor(getResources().getColor(R.color.restTimer));
 
@@ -412,6 +445,9 @@ public class FragmentTimer extends Fragment {
         }
     }
 
+    /**
+     * Pausiert den Workout-Timer oder den Rest-Timer.
+     */
     private void pauseWorkoutTimer() {
         if (isWorkoutRunning) {
             isWorkoutRunning = false;
@@ -424,6 +460,9 @@ public class FragmentTimer extends Fragment {
         }
     }
 
+    /**
+     * Stoppt beide Timer und setzt die Ansicht zurück.
+     */
     private void stopTimers() {
         if (workoutTimer != null) {
             workoutTimer.cancel();
@@ -443,6 +482,12 @@ public class FragmentTimer extends Fragment {
     }
 
 
+    /**
+     * Formatieren der Zeit in das HH:MM-Format.
+     *
+     * @param seconds Die Zeit in Sekunden.
+     * @return Die formatierte Zeit.
+     */
     private String formatTime(long seconds) {
         long minutes = seconds / 60;
         long remainingSeconds = seconds % 60;

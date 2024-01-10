@@ -36,7 +36,6 @@ import com.example.giga_stats.database.entities.WorkoutExercises;
 import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.R;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -67,11 +66,26 @@ public class FragmentStatistics extends Fragment {
      * Setzt die Datenbankinstanz für das Fragment.
      *
      * @param appDatabase Die Instanz der App-Datenbank.
+     * Leerer Standardkonstruktor für das FragmentStatistics.
+     */
+    public FragmentStatistics() {
+        // Erforderlicher leerer Standardkonstruktor
+    }
+
+    /**
+     * Setzt die Referenz zur App-Datenbank für das Fragment.
+     *
+     * @param appDatabase Die App-Datenbankreferenz.
      */
     public void setAppDatabase(AppDatabase appDatabase) {
         this.appDatabase = appDatabase;
     }
 
+    /**
+     * Wird aufgerufen, wenn das Fragment erstellt wird.
+     *
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +99,12 @@ public class FragmentStatistics extends Fragment {
         Log.d("CHAD", "LIFE STATISTICS: onResume(): Das Fragment tritt in den Vordergrund");
     }
 
+    /**
+     * Erstellt das Optionsmenü für das Fragment.
+     *
+     * @param menu     Das Optionsmenü.
+     * @param inflater Der MenuInflater zum Aufblasen des Menüs.
+     */
     @Override
     public void onPause() {
         super.onPause();
@@ -97,6 +117,12 @@ public class FragmentStatistics extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    /**
+     * Wird aufgerufen, wenn ein Menüelement ausgewählt wird.
+     *
+     * @param item Das ausgewählte Menüelement.
+     * @return True, wenn die Auswahl behandelt wurde, sonst false.
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
@@ -110,6 +136,12 @@ public class FragmentStatistics extends Fragment {
         }
     }
 
+
+    /**
+     * Vorbereitung des Optionsmenüs.
+     *
+     * @param menu Das Optionsmenü.
+     */
     public void onPrepareOptionsMenu(@NonNull Menu menu) {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
@@ -118,6 +150,14 @@ public class FragmentStatistics extends Fragment {
         }
     }
 
+    /**
+     * Erstellt und gibt die Benutzeroberfläche des Fragments zurück.
+     *
+     * @param inflater           Der LayoutInflater zum Aufblasen des Layouts.
+     * @param container          Die ViewGroup, in der das Fragment platziert wird.
+     * @param savedInstanceState Die gespeicherten Daten des Fragments.
+     * @return Die erstellte Benutzeroberfläche.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_statistics, container, false);
@@ -138,6 +178,9 @@ public class FragmentStatistics extends Fragment {
         return view;
     }
 
+    /**
+     * Öffnet einen Dialog mit einem Tutorial für die Statistikansicht.
+     */
     private void openTutorialDialog() {
         String textContent = "Hier werden in Zukunft die Statistiken der Benutzer angezeigt.";
 

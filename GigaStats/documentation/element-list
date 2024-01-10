@@ -1,0 +1,10 @@
+com.example.giga_stats
+com.example.giga_stats.activity
+com.example.giga_stats.adapter
+com.example.giga_stats.database.dao
+com.example.giga_stats.database.dto
+com.example.giga_stats.database.entities
+com.example.giga_stats.database.manager
+com.example.giga_stats.fragments
+com.example.giga_stats.listener
+DB.MANAGER

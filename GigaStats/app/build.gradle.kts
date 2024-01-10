@@ -55,6 +55,13 @@ dependencies {
     implementation("com.github.AnyChart:AnyChart-Android:1.1.5")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
+
+    /*
+    implementation(fileTree(mapOf(
+        "dir" to "C:\\Users\\giber\\AppData\\Local\\Android\\Sdk\\platforms\\android-33",
+        "include" to listOf("*.aar", "*.jar")
+    )))
+    */
 }
 
 
