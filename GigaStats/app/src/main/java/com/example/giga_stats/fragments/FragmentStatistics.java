@@ -61,17 +61,6 @@ public class FragmentStatistics extends Fragment {
      */
     public FragmentStatistics() {
     }
-
-    /**
-     * Setzt die Datenbankinstanz für das Fragment.
-     *
-     * @param appDatabase Die Instanz der App-Datenbank.
-     * Leerer Standardkonstruktor für das FragmentStatistics.
-     */
-    public FragmentStatistics() {
-        // Erforderlicher leerer Standardkonstruktor
-    }
-
     /**
      * Setzt die Referenz zur App-Datenbank für das Fragment.
      *
@@ -99,18 +88,19 @@ public class FragmentStatistics extends Fragment {
         Log.d("CHAD", "LIFE STATISTICS: onResume(): Das Fragment tritt in den Vordergrund");
     }
 
-    /**
-     * Erstellt das Optionsmenü für das Fragment.
-     *
-     * @param menu     Das Optionsmenü.
-     * @param inflater Der MenuInflater zum Aufblasen des Menüs.
-     */
+
     @Override
     public void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE EXERCISES: onPause(): Das Fragment wechselt in den Hintergrund");
     }
 
+    /**
+     * Erstellt das Optionsmenü für das Fragment.
+     *
+     * @param menu     Das Optionsmenü.
+     * @param inflater Der MenuInflater zum Aufblasen des Menüs.
+     */
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_option_statistics, menu);
@@ -182,7 +172,7 @@ public class FragmentStatistics extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für die Statistikansicht.
      */
     private void openTutorialDialog() {
-        String textContent = "Hier werden in Zukunft die Statistiken der Benutzer angezeigt.";
+        String textContent = "Hier werden für die einzelnen Übungen die Effizienz angezeigt die Sie in Ihren Workouts erreicht haben.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
