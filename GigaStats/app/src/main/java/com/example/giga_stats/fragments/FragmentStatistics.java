@@ -3,16 +3,6 @@ package com.example.giga_stats.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,6 +16,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterStatistics;
 import com.example.giga_stats.database.dto.SetAverage;
 import com.example.giga_stats.database.dto.WorkoutAveragesPerExercise;
@@ -35,7 +35,6 @@ import com.example.giga_stats.database.entities.Sets;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExercises;
 import com.example.giga_stats.database.manager.AppDatabase;
-import com.example.giga_stats.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -173,7 +172,7 @@ public class FragmentStatistics extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für die Statistikansicht.
      */
     private void openTutorialDialog() {
-        String textContent = "Hier werden für die einzelnen Übungen die Effizienz angezeigt die Sie in Ihren Workouts erreicht haben.";
+        String textContent = "\nIn diesem Bereich wird für jede Übung angezeigt, wie effektiv Sie Ihre Trainingseinheiten absolviert haben.\n\nUm die Statistik zu aktualisieren, müssen Sie nach oben wischen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 

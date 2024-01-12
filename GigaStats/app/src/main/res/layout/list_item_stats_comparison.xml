@@ -18,16 +18,16 @@
             android:id="@+id/statsExerciseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/element_divider_bottom_variant"
             android:paddingHorizontal="10dip"
             android:paddingVertical="2dip"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             android:text="@string/app_name"
             android:textColor="@color/textColorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
-            android:background="@drawable/element_divider_bottom_variant"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/statsPrevHeader"
@@ -110,8 +110,8 @@
             android:id="@+id/statsEfficiencyPercent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dip"
             android:paddingHorizontal="6dip"
+            android:paddingVertical="8dip"
             android:text="Efficiency %"
             android:textColor="@color/pastelGreen"
             android:textSize="14sp"

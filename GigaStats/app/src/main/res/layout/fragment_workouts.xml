@@ -1,27 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/FRAMELAYOUT_WORKOUT"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingHorizontal="4dip"
     android:paddingTop="2dip"
-    android:orientation="vertical"
     tools:context=".fragments.FragmentWorkouts">
 
     <ExpandableListView
+        android:id="@+id/expandableListViewWorkouts"
+        style="@style/backgroundListElement"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/expandableListViewWorkouts"
-        android:scrollbars="vertical"
-        tools:listitem="@layout/list_group_workout"
-        android:divider="@android:color/transparent"
         android:childDivider="@android:color/transparent"
         android:childIndicator="@color/pastelGreen"
-        style="@style/backgroundListElement"
+        android:divider="@android:color/transparent"
         android:dividerHeight="10sp"
-        android:groupIndicator="@null"/>
+        android:groupIndicator="@null"
+        android:scrollbars="vertical"
+        tools:listitem="@layout/list_group_workout" />
 
 
 </LinearLayout>

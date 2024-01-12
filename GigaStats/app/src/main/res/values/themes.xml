@@ -18,14 +18,12 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="AppBottomSheetDialogTheme"
-        parent = "Theme.Design.Light.BottomSheetDialog" >
+    <style name="AppBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/AppModelStyle</item>
     </style>
 
 
-    <style name="AppModelStyle"
-        parent = "Widget.Design.BottomSheet.Modal" >
+    <style name="AppModelStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/shape_bottom_sheet</item>
         <item name="behavior_peekHeight">300dp</item>
     </style>

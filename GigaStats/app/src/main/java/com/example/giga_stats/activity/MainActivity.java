@@ -9,6 +9,11 @@
 
 package com.example.giga_stats.activity;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
@@ -16,14 +21,9 @@ import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 import androidx.viewpager2.widget.ViewPager2;
 
-import android.content.Context;
-import android.content.res.Configuration;
-import android.os.Bundle;
-import android.util.Log;
-
-import com.example.giga_stats.database.manager.AppDatabase;
-import com.example.giga_stats.adapter.AdapterSwipePager;
 import com.example.giga_stats.R;
+import com.example.giga_stats.adapter.AdapterSwipePager;
+import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.fragments.FragmentExercises;
 import com.example.giga_stats.fragments.FragmentRunningWorkout;
 import com.example.giga_stats.fragments.FragmentStatistics;

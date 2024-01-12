@@ -12,9 +12,9 @@
     <com.anychart.AnyChartView
         android:id="@+id/statistics_anychart_barchart"
         android:layout_width="match_parent"
-        android:background="@drawable/rounded_element_background_variant_2"
         android:layout_height="250dip"
         android:layout_margin="16dip"
+        android:background="@drawable/rounded_element_background_variant_2"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

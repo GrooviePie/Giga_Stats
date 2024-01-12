@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.database.dto.ExerciseTotalStats;
 import com.example.giga_stats.R;
+import com.example.giga_stats.database.dto.ExerciseTotalStats;
 
 import java.util.List;
 import java.util.Locale;

@@ -3,9 +3,9 @@
     android:id="@+id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:textColor="@color/textColorPrimary"
     android:background="@color/cardBackground"
+    android:gravity="start"
+    android:padding="16dp"
     android:text="@string/app_name"
-    android:textColorHint="@color/textColorPrimary"
-    android:gravity="start"/>
+    android:textColor="@color/textColorPrimary"
+    android:textColorHint="@color/textColorPrimary" />

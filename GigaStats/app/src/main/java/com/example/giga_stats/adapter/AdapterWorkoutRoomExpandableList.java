@@ -7,9 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.giga_stats.R;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExercises;
-import com.example.giga_stats.R;
 
 import java.util.List;
 

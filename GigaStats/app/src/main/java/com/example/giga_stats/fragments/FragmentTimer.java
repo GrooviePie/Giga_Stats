@@ -3,12 +3,6 @@ package com.example.giga_stats.fragments;
 import android.graphics.drawable.AnimatedVectorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.Gravity;
@@ -24,6 +18,11 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.giga_stats.R;
 
@@ -59,7 +58,6 @@ public class FragmentTimer extends Fragment {
      */
     public FragmentTimer() {
     }
-
 
 
     //=====================================================LEBENSZYKLUS==========================================================================
@@ -194,7 +192,6 @@ public class FragmentTimer extends Fragment {
     }
 
 
-
     //=====================================================OPTIONSMENÜ==========================================================================
 
     /**
@@ -259,14 +256,13 @@ public class FragmentTimer extends Fragment {
     }
 
 
-
     //=====================================================DIALOGE==========================================================================
 
     /**
      * Öffnet einen Dialog mit einem Tutorial für den Timer.
      */
     private void openTutorialDialog() {
-        String textContent = "Über die beiden Regler \"Übungszeit\" und \"Pausenzeit\" stellen sie den gewünschten Trainingszyklus ein. \nAnschließend können sie den Play-Button betätigen um den Timer zu starten.";
+        String textContent = "\nMit den beiden Schiebereglern \"Trainingszeit\" und \"Pausenzeit\" stellen Sie den gewünschten Trainingszyklus ein. \n" + "\nAnschließend kann der Timer mit dem Play-Button gestartet werden.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -279,7 +275,7 @@ public class FragmentTimer extends Fragment {
 
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
-        textView.setPadding(16,16,16,16);
+        textView.setPadding(16, 16, 16, 16);
 
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
@@ -302,8 +298,6 @@ public class FragmentTimer extends Fragment {
         positiveButton.setTextSize(16);
         positiveButton.setTextColor(green);
     }
-
-
 
 
     //=====================================================TIMERFUNKTIONEN==========================================================================
@@ -369,8 +363,8 @@ public class FragmentTimer extends Fragment {
     /**
      * Aktualisiert die ProgressBar basierend auf dem aktuellen Fortschritt.
      */
-    private void updateProgressbar(){
-        if(isWorkoutRunning) {
+    private void updateProgressbar() {
+        if (isWorkoutRunning) {
             int progress = (int) ((double) remainingWorkoutTime / workoutDurationInMillis * 100);
 
             workoutProgressBar.setColor(getResources().getColor(R.color.pastelGreen)); // Setzen Sie die Farbe der gefüllten Fläche auf Grün

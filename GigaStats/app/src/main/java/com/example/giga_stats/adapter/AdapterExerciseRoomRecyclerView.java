@@ -12,8 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.giga_stats.database.entities.Exercise;
 import com.example.giga_stats.R;
+import com.example.giga_stats.database.entities.Exercise;
 
 import java.util.List;
 

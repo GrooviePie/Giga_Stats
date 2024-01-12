@@ -17,20 +17,20 @@
         android:id="@+id/runningTile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/cardBackground"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:background="@color/cardBackground">
+        android:padding="20dp">
 
         <ImageView
             android:id="@+id/runningImageInsert"
+            style="@style/workoutIcon"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:background="@android:color/transparent"
             android:contentDescription="TODO"
-            style="@style/workoutIcon"
-            tools:ignore="ContentDescription,HardcodedText"/>
+            tools:ignore="ContentDescription,HardcodedText" />
 
         <TextView
             android:id="@+id/runningNameInsert"
@@ -39,15 +39,15 @@
             android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:text="@string/app_name"
+            android:textColor="@color/runningWorkoutName"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/runningWorkoutName"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/runningWorkoutId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="invisible"/>
+            android:visibility="invisible" />
 
     </LinearLayout>
 

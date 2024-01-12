@@ -17,6 +17,10 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.R;
+import com.example.giga_stats.activity.MainActivity;
+import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
+import com.example.giga_stats.adapter.TotalStatsAdapter;
 import com.example.giga_stats.database.dto.ExerciseTotalStats;
 import com.example.giga_stats.database.dto.SetAverage;
 import com.example.giga_stats.database.dto.SetDetails;
@@ -25,11 +29,7 @@ import com.example.giga_stats.database.entities.Sets;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExercises;
 import com.example.giga_stats.database.manager.AppDatabase;
-import com.example.giga_stats.activity.MainActivity;
 import com.example.giga_stats.listener.OnDataChangedListener;
-import com.example.giga_stats.R;
-import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
-import com.example.giga_stats.adapter.TotalStatsAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.text.SimpleDateFormat;

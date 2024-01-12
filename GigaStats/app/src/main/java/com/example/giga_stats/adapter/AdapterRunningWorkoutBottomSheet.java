@@ -12,12 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.giga_stats.R;
 import com.example.giga_stats.database.dto.SetAverage;
 import com.example.giga_stats.database.dto.SetDetails;
 import com.example.giga_stats.database.entities.Exercise;
 import com.example.giga_stats.database.entities.WorkoutExercises;
 import com.example.giga_stats.listener.OnDataChangedListener;
-import com.example.giga_stats.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

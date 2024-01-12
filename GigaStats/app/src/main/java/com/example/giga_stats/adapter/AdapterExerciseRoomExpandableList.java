@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.giga_stats.database.entities.Exercise;
 import com.example.giga_stats.R;
+import com.example.giga_stats.database.entities.Exercise;
 
 import java.util.List;
 

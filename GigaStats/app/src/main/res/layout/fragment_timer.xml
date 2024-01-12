@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
     android:background="@color/eggshellWhite"
-    android:orientation="vertical"
-    tools:context=".fragments.FragmentTimer"
     android:backgroundTint="@color/itemDivider"
-    android:layout_gravity="center">
+    android:orientation="vertical"
+    tools:context=".fragments.FragmentTimer">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/backgroundScreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        style="@style/backgroundScreen"
         android:layout_marginTop="32dip"
         android:layout_marginBottom="52dip">
 
@@ -92,7 +92,7 @@
         android:text="Übungszeit: 01:00"
         android:textColor="@color/textColorPrimary"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <SeekBar
         android:id="@+id/workoutSeekBar"
@@ -112,7 +112,7 @@
         android:text="Pausenzeit: 00:20"
         android:textColor="@color/textColorPrimary"
         android:textSize="24sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold" />
 
     <SeekBar
         android:id="@+id/restSeekBar"

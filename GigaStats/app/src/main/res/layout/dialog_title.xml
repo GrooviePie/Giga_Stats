@@ -3,11 +3,11 @@
     android:id="@+id/dialogTitle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/dialogTitle"
     android:gravity="center_horizontal"
     android:paddingTop="16dp"
     android:paddingBottom="12dp"
-    android:background="@color/dialogTitle"
     android:text="Übung hinzufügen"
+    android:textColor="@color/white"
     android:textSize="20sp"
-    android:textStyle="bold"
-    android:textColor="@color/white"/>
+    android:textStyle="bold" />

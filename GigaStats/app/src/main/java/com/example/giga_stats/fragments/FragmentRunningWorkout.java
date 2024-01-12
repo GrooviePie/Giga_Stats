@@ -24,10 +24,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
-import com.example.giga_stats.database.entities.Workout;
-import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkout;
+import com.example.giga_stats.database.entities.Workout;
+import com.example.giga_stats.database.manager.AppDatabase;
 
 import java.util.List;
 
@@ -219,7 +219,7 @@ public class FragmentRunningWorkout extends Fragment {
      */
     private void openTutorialDialog() {
       
-        String textContent = "Um ein Workout zu starten tippen Sie einfach auf das entsprechende Workout und anschließend auf \"starten\". \nJetzt können sie das Fenster nach oben ziehen um es groß zu machen und anschließend ihre Trainingsdaten eintragen. \nSie können den Übungen über den Button \"Set +\" weitere Sets hinzufügen. \nWenn sie fertig sind mit dem Workout drücken sie \"Beenden\".";
+        String textContent = "\nUm ein Workout zu starten, tippen Sie einfach auf das entsprechende Workout und anschließend auf \"Starten\". \n\nNun können Sie das Fenster vergrößern und Ihre Trainingsdaten eingeben. \n\nSie können dem Workout weitere Sätze hinzufügen, indem Sie auf den Button \"Set +\" tippen. \n\nWenn sie mit dem Workout fertig sind, tippen sie auf \"Beenden\".";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());

@@ -472,7 +472,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
      * Öffnet einen Dialog für das Tutorial des Workouts.
      */
     private void openTutorialDialog() {
-        String textContent = "Um ein Workout anzulegen drücken sie den \"+\" Button. \nSie können dann dem Workout einen Namen geben und von Ihnen angelegte Übungen hinzufügen.";
+        String textContent = "\nUm ein Workout zu erstellen, drücken Sie den \"+\"-Button.\n \n" + "Sie können dann dem Workout einen Namen geben und selbst erstellte Übungen hinzufügen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());

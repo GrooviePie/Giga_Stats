@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- When the item is pressed -->
-    <item android:color="@color/pastelGreen" android:state_pressed="true"/>
+    <item android:color="@color/pastelGreen" android:state_pressed="true" />
     <!-- When the item is selected/focused -->
-    <item android:color="@color/menuItemBottomSelected" android:state_selected="true"/>
+    <item android:color="@color/menuItemBottomSelected" android:state_selected="true" />
     <!-- Default color -->
-    <item android:color="@color/menuItemBottomUnselected"/>
+    <item android:color="@color/menuItemBottomUnselected" />
 </selector>

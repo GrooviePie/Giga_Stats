@@ -30,10 +30,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
-import com.example.giga_stats.database.entities.Exercise;
-import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterExerciseRoomExpandableList;
+import com.example.giga_stats.database.entities.Exercise;
+import com.example.giga_stats.database.manager.AppDatabase;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -515,7 +515,7 @@ public class FragmentExercises extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für das Übungsfragment.
      */
     private void openTutorialDialog() {
-        String textContent = "Um eine Übung anzulegen drücken Sie den \"+\" Button. \nAnschließend weisen Sie der Übung eine Kategorie zu und geben Ihr einen Namen. \nDann können sie die gewünschte Wiederholungsanzahl und das Gewicht eingeben. \nFalls sie möchten können sie eine Kurzbeschreibung hinzufügen.";
+        String textContent = "\nUm eine Übung zu erstellen, drücken Sie auf den \"+\" Button. \n\nDanach ordnen Sie die Übung einer Kategorie zu und geben ihr einen Namen. " + "\n\nAnschließend können Sie Wiederholungszahl und Gewicht eingeben.  \n\nWenn Sie möchten, können Sie eine kurze Beschreibung hinzufügen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 

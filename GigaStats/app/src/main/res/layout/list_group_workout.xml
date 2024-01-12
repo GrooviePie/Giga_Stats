@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,19 +11,19 @@
     app:cardCornerRadius="6dip">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/listItemWorkout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/listItemWorkout">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/runningImageInsert"
+            style="@style/workoutIcon"
             android:layout_width="58dip"
             android:layout_height="58dip"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/element_divider_right"
             android:contentDescription="TODO"
             android:paddingRight="12dip"
-            style="@style/workoutIcon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.046"
@@ -46,13 +45,13 @@
 
             <TextView
                 android:id="@+id/nameWorkout"
+                style="@style/textPrimaryColor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                style="@style/textPrimaryColor"
-                android:textSize="26sp"
                 android:text="test"
-                android:textStyle="bold"/>
+                android:textSize="26sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/idWorkout"

@@ -5,7 +5,6 @@
     tools:context=".activity.MainActivity">
 
 
-
     <item
         android:id="@+id/option_menu_tutorial_timer"
         android:icon="@drawable/baseline_question_mark_24_green"
