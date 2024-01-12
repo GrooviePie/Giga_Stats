@@ -33,6 +33,13 @@ public interface SetsDAO {
     @Query("SELECT * FROM Sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
     List<Sets> getSetsForExerciseAndWorkout(long workoutId, long exerciseId);
 
+    /**
+     * Gibt eine LiveData-Liste von Sätzen für eine bestimmte Übung und ein bestimmtes Workout aus der Datenbank zurück.
+     *
+     * @param workoutId
+     * @param exerciseId
+     * @return
+     */
     @Query("SELECT * FROM Sets WHERE workout_id = :workoutId AND exercise_id = :exerciseId")
     LiveData<List<Sets>> getSetsForExerciseAndWorkoutLD(long workoutId, long exerciseId);
 

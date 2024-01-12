@@ -91,9 +91,8 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         context = getContext();
 
 
-        //Workout wird gestartet
         startWorkout.setOnClickListener(view1 -> {
-            setCancelable(false); //Lässt das BottomSheet nicht mehr schließen
+            setCancelable(false);
 
             isTimerRunning = true;
             startTimer();
@@ -104,9 +103,8 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
             endWorkout.setVisibility(View.VISIBLE);
         });
 
-        //Dieser Button erscheint erst wenn auf Start gedrückt wurde
         endWorkout.setOnClickListener(view12 -> {
-            showConfirmationDialog();  //Dialog zum Beenden des Workouts
+            showConfirmationDialog();
         });
 
 
@@ -135,15 +133,13 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         delDialogTextView.setText("Möchten Sie das Workout wirklich beenden?");
 
         builder.setPositiveButton("Ja", (dialog, which) -> {
-            // Hier können Sie den Dialog für die Gesamtstatistik aufrufen
             persistSets();
             stopTimer();
             showTotalStatsDialog();
             setCancelable(true);
         });
         builder.setNegativeButton("Nein", (dialog, which) -> {
-            // Hier können Sie die Aktion ausführen, wenn "Nein" ausgewählt wurde
-            dialog.dismiss(); // Schließt den Dialog
+            dialog.dismiss();
         });
 
         AlertDialog dialog = builder.create();
@@ -153,7 +149,6 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         }
         dialog.show();
 
-        // Zugriff auf die Buttons und Anpassen des Stils
         int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
         int red = ContextCompat.getColor(requireContext(), R.color.softRed);
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -181,7 +176,6 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         builder.setCustomTitle(titleView);
         builder.setView(dialogView);
 
-        // Hinzufügen der Timer-Zeit zur Nachricht
         String message = "Verstrichene Zeit: " + timerTextView.getText();
 
         TextView timerStatsTextView = dialogView.findViewById(R.id.timerStatsTextView);
@@ -204,16 +198,14 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         }
 
         RecyclerView recyclerView = dialogView.findViewById(R.id.statsRecyclerView);
-        TotalStatsAdapter adapter = new TotalStatsAdapter(statsList);
+        TotalStatsAdapter adapter = new TotalStatsAdapter(context, statsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
 
-        // Fügt einen "OK"-Button zum Dialog hinzu
         builder.setPositiveButton("OK", (dialog, which) -> {
             dismiss();
         });
 
-        // Dialog erstellen und anzeigen
         AlertDialog dialog = builder.create();
         Window window = dialog.getWindow();
         if (window != null) {
@@ -221,7 +213,6 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
         }
         dialog.show();
 
-        // Zugriff auf die Buttons und Anpassen des Stils
         int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
         positiveButton.setTextSize(16);
@@ -236,7 +227,6 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
      * Stoppt den Timer für das Workout.
      */
     private void stopTimer() {
-        // Beende den Timer
         timerHandler.removeCallbacks(timerRunnable);
     }
 
@@ -244,13 +234,11 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
      * Startet den Timer für das Workout.
      */
     private void startTimer() {
-        // Starte den Timer, der alle 1 Sekunde aktualisiert wird
         timerHandler.postDelayed(timerRunnable, 1000);
     }
     private Runnable timerRunnable = new Runnable() {
         @Override
         public void run() {
-            // Aktualisiert den Timer und startet ihn erneut
             seconds++;
             timerTextView.setText(formatTimer(seconds));
             startTimer();
@@ -390,12 +378,12 @@ public class FragmentRunningWorkoutBottomSheet extends BottomSheetDialogFragment
      */
     private double calculateEfficiency(SetAverage oldSetAvg, SetAverage currSetAvg) {
         double weightEfficiency = 0.0;
-        if (oldSetAvg.getAverageWeight() != 0) { // to avoid division by zero
+        if (oldSetAvg.getAverageWeight() != 0) {
             weightEfficiency = ((currSetAvg.getAverageWeight() - oldSetAvg.getAverageWeight()) / oldSetAvg.getAverageWeight()) * 100;
         }
 
         double repsEfficiency = 0.0;
-        if (oldSetAvg.getAverageReps() != 0) { // to avoid division by zero
+        if (oldSetAvg.getAverageReps() != 0) {
             repsEfficiency = ((currSetAvg.getAverageReps() - oldSetAvg.getAverageReps()) / oldSetAvg.getAverageReps()) * 100;
         }
 

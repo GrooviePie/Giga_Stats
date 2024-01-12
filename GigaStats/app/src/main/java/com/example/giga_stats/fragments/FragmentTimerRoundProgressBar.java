@@ -15,9 +15,9 @@ import com.example.giga_stats.R;
 public class FragmentTimerRoundProgressBar extends View {
     private int max = 100;
     private int progress = 0;
-    private int color = getResources().getColor(R.color.timerBackground); // Blau
-    private int backgroundColor = getResources().getColor(R.color.timerBackground); // Hintergrundfarbe
-    private int padding = 20; // Abstand von den Rändern
+    private int color = getResources().getColor(R.color.timerBackground);
+    private int backgroundColor = getResources().getColor(R.color.timerBackground);
+    private int padding = 20;
 
     /**
      * Standardkonstruktor für die runde Fortschrittsleiste.
@@ -64,24 +64,22 @@ public class FragmentTimerRoundProgressBar extends View {
         float centerX = width / 2;
         float centerY = height / 2;
 
-        // Durchmesser der Hintergrund-Oval
         int backgroundDiameter = diameter - 2 * padding;
 
         Paint backgroundPaint = new Paint();
         backgroundPaint.setColor(backgroundColor);
         backgroundPaint.setAntiAlias(true);
         backgroundPaint.setStyle(Paint.Style.STROKE);
-        backgroundPaint.setStrokeWidth(padding * 2); // Dicke des Hintergrunds
+        backgroundPaint.setStrokeWidth(padding * 2);
 
         Paint foregroundPaint = new Paint();
         foregroundPaint.setColor(color);
         foregroundPaint.setAntiAlias(true);
         foregroundPaint.setStyle(Paint.Style.STROKE);
-        foregroundPaint.setStrokeWidth(padding * 2); // Dicke des Fortschrittsbalkens
+        foregroundPaint.setStrokeWidth(padding * 2);
 
         RectF backgroundRect = new RectF(centerX - backgroundDiameter / 2, centerY - backgroundDiameter / 2, centerX + backgroundDiameter / 2, centerY + backgroundDiameter / 2);
 
-        // Zeichne den Hintergrundkreis
         canvas.drawOval(backgroundRect, backgroundPaint);
 
         float angle = 360 * progress / max;

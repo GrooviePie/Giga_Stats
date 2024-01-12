@@ -1,10 +1,10 @@
 package com.example.giga_stats.fragments;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -28,7 +28,6 @@ import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.manager.AppDatabase;
 import com.example.giga_stats.R;
 import com.example.giga_stats.adapter.AdapterRunningWorkout;
-import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
 
 import java.util.List;
 
@@ -41,14 +40,11 @@ public class FragmentRunningWorkout extends Fragment {
     private AppDatabase appDatabase;
     private Context context;
     private GridView gridView;
-    private GridView gridViewBottomSheet;
-    private AdapterRunningWorkoutBottomSheet adapterBottomSheet;
 
     /**
      * Standardkonstruktor für das FragmentRunningWorkout.
      */
     public FragmentRunningWorkout() {
-        // Erforderlicher leerer öffentlicher Konstruktor
     }
 
     /**
@@ -73,7 +69,7 @@ public class FragmentRunningWorkout extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d("CHAD", "onCreate() in RunningWorkoutsFragment.java aufgerufen");
-        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -92,8 +88,6 @@ public class FragmentRunningWorkout extends Fragment {
         context_menu_item = getResources().getStringArray(R.array.ContextMenuSets);
         context = getContext();
         gridView = rootView.findViewById(R.id.runningWorkoutGridView);
-
-         // Erstellen Sie eine leere Liste für die Übungsnamen
 
         try {
             updateRunningWorkoutList();
@@ -225,7 +219,7 @@ public class FragmentRunningWorkout extends Fragment {
      */
     private void openTutorialDialog() {
       
-        String textContent = "Um ein Workout zu starten tippen Sie einfach auf das entsprechende Workout und anschließend auf \"starten\". Jetzt können sie das Fenster nach oben ziehen um es groß zu machen und anschließend ihre Trainingsdaten eintragen. Sie können den Übungen über den Button \"Set +\" weitere Sets hinzufügen. Wenn sie fertig sind mit dem Workout drücken sie \"Beenden\".";
+        String textContent = "Um ein Workout zu starten tippen Sie einfach auf das entsprechende Workout und anschließend auf \"starten\". \nJetzt können sie das Fenster nach oben ziehen um es groß zu machen und anschließend ihre Trainingsdaten eintragen. \nSie können den Übungen über den Button \"Set +\" weitere Sets hinzufügen. \nWenn sie fertig sind mit dem Workout drücken sie \"Beenden\".";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -234,22 +228,18 @@ public class FragmentRunningWorkout extends Fragment {
         titleTextView.setText("Tutorial Workout starten");
         builder.setCustomTitle(titleView);
 
-        // Erstellet eine TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
+        textView.setPadding(16,16,16,16);
 
-        // Füget eine TextView zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
+        layout.setGravity(Gravity.CENTER);
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(textView);
         builder.setView(layout);
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Schließen des Dialogs
-                dialog.dismiss();
-            }
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            dialog.dismiss();
         });
 
         AlertDialog dialog = builder.create();

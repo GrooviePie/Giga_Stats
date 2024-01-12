@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +41,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Ein Fragment für die Anzeige und Verwaltung von Übungen.
- *
  * Dieses Fragment ermöglicht Benutzern das Hinzufügen, Bearbeiten und Löschen von Übungen.
  * Es zeigt eine Liste von Übungen in einer erweiterbaren ListView an und bietet Optionen für Kontextmenüs und ein Optionsmenü.
  *
@@ -60,7 +60,6 @@ public class FragmentExercises extends Fragment {
      * Initialisiert die notwendigen Komponenten.
      */
     public FragmentExercises() {
-        /// Erforderlicher leerer öffentlicher Konstruktor
     }
 
     /**
@@ -90,9 +89,9 @@ public class FragmentExercises extends Fragment {
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuExercises);
 
-        expandableListView = new ExpandableListView(getContext()); // // Initialisierung, bevor Sie der Adapter gesetzt wird
+        expandableListView = new ExpandableListView(getContext());
 
-        setHasOptionsMenu(true); // Optionsmenü erstellen
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -116,7 +115,6 @@ public class FragmentExercises extends Fragment {
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
 
-        // Registrierung der ListView für LongClick-Ereignisse
         registerForContextMenu(expandableListView);
 
         return rootView;
@@ -129,7 +127,6 @@ public class FragmentExercises extends Fragment {
     public void onResume() {
         super.onResume();
         Log.d("CHAD", "LIFE EXERCISES: onResume(): Das Fragment tritt in den Vordergrund");
-        // ... Aktionen bei Wiederaufnahme des Fragments
     }
 
     /**
@@ -139,7 +136,6 @@ public class FragmentExercises extends Fragment {
     public void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE EXERCISES: onPause(): Das Fragment wechselt in den Hintergrund");
-        // ... Aktionen beim Wechsel des Fragments in den Hintergrund
     }
 
     //=====================================================OPTIONSMENÜ==========================================================================
@@ -190,8 +186,7 @@ public class FragmentExercises extends Fragment {
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
-            // Konfigurieren Sie die Toolbar nach Bedarf
-            toolbar.setTitle("Übungen"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitle("Übungen");
         }
     }
 
@@ -256,14 +251,12 @@ public class FragmentExercises extends Fragment {
         }
 
         if (itemId == R.id.MENU_CONTEXT_EDIT_EXERCISES) {
-            // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments ExerciseFragment
             Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt in ExercisesFragment XOXO");
 
             openEditExerciseDialog(exercise_id);
 
             return true;
         } else if (itemId == R.id.MENU_CONTEXT_DELETE_EXERCISES) {
-            // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments ExerciseFragment
             Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt in ExercisesFragment OXOX");
 
             openDeleteExerciseDialog(exercise_id);
@@ -286,26 +279,21 @@ public class FragmentExercises extends Fragment {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-        //  Titel aufblähen und setzen
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Übung hinzufügen");
         builder.setCustomTitle(titleView);
 
-        // Inflate des benutzerdefinierten Layouts
-        // LayoutInflater inflater2 = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
         builder.setView(dialogView);
 
-        // Zugriff auf die Views
         final EditText inputExerciseName = dialogView.findViewById(R.id.inputExerciseName);
         final EditText inputExerciseRep = dialogView.findViewById(R.id.inputExerciseRep);
         final EditText inputExerciseWeight = dialogView.findViewById(R.id.inputExerciseWeight);
         final EditText inputExerciseDesc = dialogView.findViewById(R.id.inputExerciseDesc);
         final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
-        // Konfiguration des Spinners
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, R.layout.spinner_preview_item);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_item);
         categorySpinner.setAdapter(categoryAdapter);
@@ -349,7 +337,6 @@ public class FragmentExercises extends Fragment {
         }
         dialog.show();
 
-        // Zugriff auf die Buttons und Anpassen des Stils
         int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
         int red = ContextCompat.getColor(requireContext(), R.color.softRed);
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -370,31 +357,25 @@ public class FragmentExercises extends Fragment {
     private void openEditExerciseDialog(int exercise_id) {
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
-        // Custom Titel aufblähen und setzen
         LayoutInflater inflater = LayoutInflater.from(requireContext());
         View titleView = inflater.inflate(R.layout.dialog_title, null);
         TextView titleTextView = titleView.findViewById(R.id.dialogTitle);
         titleTextView.setText("Übung bearbeiten");
         builder.setCustomTitle(titleView);
 
-        // Inflate des benutzerdefinierten Layouts
-        // LayoutInflater inflater2 = requireActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_layout_create_exercise, null);
         builder.setView(dialogView);
 
-        // Zugriff auf die Views
         final EditText inputExerciseName = dialogView.findViewById(R.id.inputExerciseName);
         final EditText inputExerciseRep = dialogView.findViewById(R.id.inputExerciseRep);
         final EditText inputExerciseWeight = dialogView.findViewById(R.id.inputExerciseWeight);
         final EditText inputExerciseDesc = dialogView.findViewById(R.id.inputExerciseDesc);
         final Spinner categorySpinner = dialogView.findViewById(R.id.categorySpinner);
 
-        // Konfiguration des Spinners
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(requireContext(), R.array.exercise_categories, R.layout.spinner_preview_item);
         categoryAdapter.setDropDownViewResource(R.layout.spinner_item);
         categorySpinner.setAdapter(categoryAdapter);
 
-        // Abfrage der Übung aus der Datenbank in einem Hintergrund-Thread
         new AsyncTask<Integer, Void, Exercise>() {
             @Override
             protected Exercise doInBackground(Integer... params) {
@@ -405,7 +386,6 @@ public class FragmentExercises extends Fragment {
             @Override
             protected void onPostExecute(Exercise existingExercise) {
                 if (existingExercise != null) {
-                    // Setze die abgerufenen Werte in die Eingabefelder
                     inputExerciseName.setText(existingExercise.getName());
                     categorySpinner.setSelection(categoryAdapter.getPosition(existingExercise.getCategory()));
 
@@ -422,26 +402,6 @@ public class FragmentExercises extends Fragment {
             }
         }.execute(exercise_id);
 
-//        LiveData<Exercise> exerciseLiveData = appDatabase.exerciseDao().getExerciseById(exercise_id);
-//
-//        // LiveData beobachten
-//        exerciseLiveData.observe(this, existingExercise -> {
-//            if (existingExercise != null) {
-//                inputExerciseName.setText(existingExercise.getName());
-//                categorySpinner.setSelection(categoryAdapter.getPosition(existingExercise.getCategory()));
-//
-//                if (existingExercise.getRep() != 0) {
-//                    inputExerciseRep.setText(String.valueOf(existingExercise.getRep()));
-//                }
-//
-//                if (existingExercise.getWeight() != 0) {
-//                    inputExerciseWeight.setText(String.valueOf(existingExercise.getWeight()));
-//                }
-//
-//                inputExerciseDesc.setText(existingExercise.getDesc());
-//            }
-//        });
-
 
         builder.setPositiveButton("Speichern", (dialog, which) -> {
             String newName = inputExerciseName.getText().toString();
@@ -457,7 +417,6 @@ public class FragmentExercises extends Fragment {
                 Exercise updatedExercise = new Exercise(newName, newCategory, newRep, newWeight, newDesc);
                 updatedExercise.setExercise_id(exercise_id);
 
-                // Datenbankaktualisierung kann auch in einem AsyncTask erfolgen
                 new AsyncTask<Exercise, Void, Void>() {
                     @Override
                     protected Void doInBackground(Exercise... exercises) {
@@ -485,7 +444,6 @@ public class FragmentExercises extends Fragment {
         }
         dialog.show();
 
-        // Zugriff auf die Buttons und Anpassen des Stils
         int green = ContextCompat.getColor(requireContext(), R.color.pastelGreen);
         int red = ContextCompat.getColor(requireContext(), R.color.softRed);
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -529,7 +487,7 @@ public class FragmentExercises extends Fragment {
                 }
             });
 
-            future.thenRun(() -> updateExerciseList());
+            future.thenRun(this::updateExerciseList);
         });
 
         builder.setNegativeButton("Nein", (dialog, which) -> dialog.dismiss());
@@ -557,10 +515,7 @@ public class FragmentExercises extends Fragment {
      * Öffnet einen Dialog mit einem Tutorial für das Übungsfragment.
      */
     private void openTutorialDialog() {
-        // Der Textinhalt, den du anzeigen möchtest
-
-        //TODO: Tutorial schreiben für Fragment "Übungen"
-        String textContent = "Um eine Übung anzulegen drücken Sie den \"+\" Button. Anschließend weisen Sie der Übung eine Kategorie zu und geben Ihr einen Namen. Dann können sie die gewünschte Wiedeholungsanzahl und das Gewicht eingeben. Falls sie möchten können sie eine Kurzbeschreibung hinzufügen.";
+        String textContent = "Um eine Übung anzulegen drücken Sie den \"+\" Button. \nAnschließend weisen Sie der Übung eine Kategorie zu und geben Ihr einen Namen. \nDann können sie die gewünschte Wiederholungsanzahl und das Gewicht eingeben. \nFalls sie möchten können sie eine Kurzbeschreibung hinzufügen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
 
@@ -570,13 +525,13 @@ public class FragmentExercises extends Fragment {
         titleTextView.setText("Tutorial Übungen");
         builder.setCustomTitle(titleView);
 
-        // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
+        textView.setPadding(16,16,16,16);
 
-        // Fügen Sie das TextView zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
         layout.addView(textView);
         builder.setView(layout);
 

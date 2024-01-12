@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -29,10 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import com.example.giga_stats.adapter.AdapterRunningWorkoutBottomSheet;
-import com.example.giga_stats.database.dto.SetAverage;
 import com.example.giga_stats.database.entities.Exercise;
-import com.example.giga_stats.database.entities.Sets;
 import com.example.giga_stats.database.entities.Workout;
 import com.example.giga_stats.database.entities.WorkoutExerciseCrossRef;
 import com.example.giga_stats.database.entities.WorkoutExercises;
@@ -42,7 +39,6 @@ import com.example.giga_stats.adapter.AdapterExerciseRoomRecyclerView;
 import com.example.giga_stats.adapter.AdapterWorkoutRoomExpandableList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicReference;
@@ -66,7 +62,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
      * Standardkonstruktor für das Fragment.
      */
     public FragmentWorkouts() {
-        // Erforderlicher leerer Standardkonstruktor
     }
 
     /**
@@ -98,10 +93,9 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
 
         context_menu_item = getResources().getStringArray(R.array.ContextMenuWorkouts);
 
-        // Initialisieren Sie die, bevor Sie den Adapter setzen
         expandableListView = new ExpandableListView(getContext());
 
-        setHasOptionsMenu(true); // Damit wird onCreateOptionsMenu() im Fragment aufgerufen
+        setHasOptionsMenu(true);
     }
 
     /**
@@ -125,7 +119,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             Log.e("CHAD", "Fehler beim Lesen der Daten: " + e.getMessage());
         }
 
-        // Registrieren Sie den ListView für LongClick-Ereignisse
         registerForContextMenu(expandableListView);
 
         return rootView;
@@ -138,7 +131,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     public void onResume() {
         super.onResume();
         Log.d("CHAD", "LIFE WORKOUTS: onResume(): Das Fragment tritt in den Vordergrund");
-        // Hier können Sie Aktualisierungen durchführen und Benutzerinteraktionen ermöglichen.
     }
 
     /**
@@ -148,7 +140,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
     public void onPause() {
         super.onPause();
         Log.d("CHAD", "LIFE WORKOUTS: onPause(): Das Fragment wechselt in den Hintergrund");
-        // Hier können Sie Aufgaben ausführen, wenn das Fragment in den Hintergrund wechselt.
     }
 
 
@@ -183,7 +174,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             return true;
         } else if (itemId == R.id.option_menu_tutorial_workouts) {
             Log.d("CHAD", "TUTORIAL Optionsmenü in WorkoutsFragment gedrückt");
-            openTutorialDialog();//Tutorialdialog wird geöffnet
+            openTutorialDialog();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -199,8 +190,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         super.onPrepareOptionsMenu(menu);
         Toolbar toolbar = requireActivity().findViewById(R.id.toolbar);
         if (toolbar != null) {
-            // Konfigurieren Sie die Toolbar nach Bedarf
-            toolbar.setTitle("Workouts"); // Setzen Sie den Titel für die Toolbar
+            toolbar.setTitle("Workouts");
 
         }
     }
@@ -266,14 +256,12 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         }
 
         if (itemId == R.id.MENU_CONTEXT_EDIT_WORKOUTS) {
-            // Aktion für "Bearbeiten" im Kontextmenü innerhalb des Fragments WorkoutsFragment
             Log.d("CHAD", "onContextItemSelected -> Übung bearbeiten gedrückt in WorkoutsFragment BLUB");
 
             openEditWorkoutsDialog(workout_id);
 
             return true;
         } else if (itemId == R.id.MENU_CONTEXT_DELETE_WORKOUTS) {
-            // Aktion für "Löschen" im Kontextmenü innerhalb des Fragments WorkoutsFragment
             Log.d("CHAD", "onContextItemSelected -> Übung löschen gedrückt in WorkoutsFragment BLUB");
 
             openDeleteWorkoutsDialog(workout_id);
@@ -484,8 +472,7 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
      * Öffnet einen Dialog für das Tutorial des Workouts.
      */
     private void openTutorialDialog() {
-        // Der Textinhalt, den du anzeigen möchtest
-        String textContent = "Um ein Workout anzulegen drücken sie den \"+\" Button. Sie können dann dem Workout einen Namen geben und von Ihnen angelegte Übungen hinzufügen.";
+        String textContent = "Um ein Workout anzulegen drücken sie den \"+\" Button. \nSie können dann dem Workout einen Namen geben und von Ihnen angelegte Übungen hinzufügen.";
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         LayoutInflater inflater = LayoutInflater.from(requireContext());
@@ -494,18 +481,17 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
         titleTextView.setText("Tutorial Workout");
         builder.setCustomTitle(titleView);
 
-        // Erstellen Sie ein TextView, um den Textinhalt anzuzeigen
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
+        textView.setPadding(16,16,16,16);
 
-        // Fügen Sie das TextView zum Dialog hinzu
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
         layout.addView(textView);
         builder.setView(layout);
 
         builder.setPositiveButton("OK", (dialog, which) -> {
-            // Schließen Sie den Dialog
             dialog.dismiss();
         });
 
@@ -567,18 +553,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
      * @param workout_id Die ID des Workouts, zu dem die Übungen hinzugefügt werden sollen.
      */
     private void addSelectedExercises(int workout_id) {
-//        LiveData<WorkoutExercises> workoutExercisesLiveData = appDatabase.workoutDao().getExercisesForWorkoutLD(workout_id);
-//        workoutExercisesLiveData.observe(getViewLifecycleOwner(), workoutExercises -> {
-//            if (workoutExercises != null) {
-//                for (Exercise exercise : workoutExercises.getExercises()) {
-//                    this.alrSelectedExercises.add(exercise);
-//                }
-//            } else {
-//                Log.d("CHAD", "" +
-//                        "FragmentWorkouts - addSelectedExercises(" + workout_id + ") -> selectedAddExercises: " + alrSelectedExercises.toString());
-//            }
-//        });
-
         CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
             WorkoutExercises workoutExercises = appDatabase.workoutDao().getExercisesForWorkout(workout_id);
             for (Exercise e : workoutExercises.getExercises()) {
@@ -616,6 +590,6 @@ public class FragmentWorkouts extends Fragment implements AdapterExerciseRoomRec
             selectedExercises.remove(exercise);
         }
 
-        Log.d("CHAD", "Exercise: " + exercise.getName().toString() + "zu selectedExercises hinzugefügt");
+        Log.d("CHAD", "Exercise: " + exercise.getName() + "zu selectedExercises hinzugefügt");
     }
 }

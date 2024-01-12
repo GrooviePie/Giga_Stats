@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -184,9 +185,11 @@ public class FragmentStatistics extends Fragment {
 
         final TextView textView = new TextView(requireContext());
         textView.setText(textContent);
+        textView.setPadding(16,16,16,16);
 
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setGravity(Gravity.CENTER);
         layout.addView(textView);
         builder.setView(layout);
 
@@ -311,12 +314,12 @@ public class FragmentStatistics extends Fragment {
      */
     private double calculateEfficiency(Exercise exercise, SetAverage currSetAvg) {
         double weightEfficiency = 0.0;
-        if (exercise.getWeight() != 0) { // to avoid division by zero
+        if (exercise.getWeight() != 0) {
             weightEfficiency = (currSetAvg.getAverageWeight() / exercise.getWeight()) * 100;
         }
 
         double repsEfficiency = 0.0;
-        if (exercise.getRep() != 0) { // to avoid division by zero
+        if (exercise.getRep() != 0) {
             repsEfficiency = (currSetAvg.getAverageReps() / exercise.getRep()) * 100;
         }
 

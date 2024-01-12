@@ -1,11 +1,13 @@
 package com.example.giga_stats.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.giga_stats.database.dto.ExerciseTotalStats;
@@ -24,13 +26,15 @@ import java.util.Locale;
 public class TotalStatsAdapter extends RecyclerView.Adapter<TotalStatsAdapter.StatsViewHolder> {
 
     private List<ExerciseTotalStats> exerciseStatsList;
+    private final Context context;
 
     /**
      * Konstruktor für den TotalStatsAdapter.
      *
      * @param exerciseStatsList Eine Liste von ExerciseTotalStats, die die Gesamtstatistiken für einzelne Übungen enthält.
      */
-    public TotalStatsAdapter(List<ExerciseTotalStats> exerciseStatsList) {
+    public TotalStatsAdapter(Context context, List<ExerciseTotalStats> exerciseStatsList) {
+        this.context = context;
         this.exerciseStatsList = exerciseStatsList;
     }
 
@@ -66,6 +70,12 @@ public class TotalStatsAdapter extends RecyclerView.Adapter<TotalStatsAdapter.St
                 stats.getCurrentAverage().getAverageWeight(),
                 stats.getCurrentAverage().getAverageReps()));
         holder.efficiency.setText(String.format(Locale.getDefault(), "%.2f%%", stats.getEfficiency()));
+
+        if(stats.getEfficiency() >= 0){
+            holder.efficiency.setTextColor(ContextCompat.getColor(context, R.color.pastelGreen));
+        }else {
+            holder.efficiency.setTextColor(ContextCompat.getColor(context, R.color.softRed));
+        }
     }
 
     /**

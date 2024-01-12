@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
     private FragmentWorkouts fragmentWorkouts;
     private AppDatabase appDatabase;
     static Context context;
-    private int position = 2;
 
     /**
      * Standardkonstruktor für die Klasse `MainActivity`.
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        // Einrichten des Nachtmodus basierend auf der Systemkonfiguration
         int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         switch (nightModeFlags) {
             case Configuration.UI_MODE_NIGHT_YES:
@@ -94,26 +92,21 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case Configuration.UI_MODE_NIGHT_UNDEFINED:
-                // Der Dark Mode Status ist undefiniert
                 break;
         }
 
         context = getBaseContext();
-        // Initialisieren der Room-Datenbank
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "GS.db").fallbackToDestructiveMigration().build();
 
-        // Initialisieren der Toolbar und als ActionBar festlegen
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        // Initialisieren der UI-Komponenten
         viewPager2 = findViewById(R.id.viewPager2);
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         TabLayout tabLayout = findViewById(R.id.tabLayout);
 
 
-        // Initialisieren der Fragmente
         fragmentStatistics = new FragmentStatistics();
         fragmentStatistics.setAppDatabase(appDatabase);
         fragmentTimer = new FragmentTimer();
@@ -124,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentWorkouts = new FragmentWorkouts();
         fragmentWorkouts.setAppDatabase(appDatabase);
 
-        // Erstelle die Liste von Fragmenten
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(fragmentStatistics);
         fragments.add(fragmentTimer);
@@ -132,18 +124,15 @@ public class MainActivity extends AppCompatActivity {
         fragments.add(fragmentExercises);
         fragments.add(fragmentWorkouts);
 
-        // Einrichten des ViewPagers und Anhängen des Adapters
         AdapterSwipePager pagerAdapter = new AdapterSwipePager(this, fragments);
         viewPager2.setAdapter(pagerAdapter);
         viewPager2.setCurrentItem(2);// Startfragment wird gesetzt
 
-        // Einrichten des OnPageChangeCallback zum Erkennen von Wischvorgängen
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
 
-                // Wechseln zu dem entsprechenden Fragment basierend auf der ausgewählten Position
                 switch (position) {
                     case 0:
                         viewPager2.setCurrentItem(0, true);
@@ -174,18 +163,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // TabLayout an ViewPager anhängen
         new TabLayoutMediator(tabLayout, viewPager2, (tab, position) -> tab.setText("Tab " + (position + 1))).attach();
 
 
-        // Das "Start"-Symbol als ausgewählt markieren
         bottomNavigationView.setSelectedItemId(R.id.START_BUTTONMENU_BUTTON);
 
-        // Bottom Navigation View konfigurieren
         bottomNavigationView.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
-            // Behandlung der Auswahl von Bottom Navigation Items
             if (itemId == R.id.STATS_BUTTONMENU_BUTTON) {
                 if (isCurrentFragment(fragmentStatistics)) {
                     viewPager2.setCurrentItem(0, true);
